@@ -1,10 +1,17 @@
 package com.example.springLearning.domain;
 
 import com.example.springLearning.dao.SectionDao;
+import com.example.springLearning.pojo.LearningSection;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.springLearning.pojo.LearningSection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @ClassName SectionService
@@ -21,6 +28,11 @@ public class SectionService {
     @Autowired
     private SectionDao sectionDao;
 
+    /**
+     * 添加学段
+     * @param name  学段名
+     * @return  OK / error
+     */
     public String insertSection(String name) {
         LearningSection ls = new LearningSection();
         ls.setName(name);
@@ -30,6 +42,26 @@ public class SectionService {
         }else{
             return "error";
         }
+    }
+
+    /**
+     * 根据页数和每页最大记录数获取学段数据
+     * @param page
+     * @param limit
+     * @return
+     */
+    public HashMap selectSection(Integer page, Integer limit) {
+        PageHelper.startPage(page,limit);
+        List<LearningSection> sections = sectionDao.selectSections();
+        PageInfo pageInfo = new PageInfo(sections);
+        HashMap hashMap = new HashMap<>();
+        hashMap.put("status",0);
+        hashMap.put("message","");
+        hashMap.put("total", pageInfo.getTotal());
+        System.out.println(hashMap.get("total"));
+        hashMap.put("data", sections);
+        Collections.singletonList(sections).forEach(System.out :: println);
+        return hashMap;
     }
     /**
      * Author zgs

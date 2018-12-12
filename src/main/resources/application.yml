@@ -15,4 +15,8 @@ spring:
     username: root
     password: ad310e80d6f3ef1848f49e71.
 
-
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

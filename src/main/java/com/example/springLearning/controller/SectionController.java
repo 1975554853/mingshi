@@ -1,6 +1,7 @@
 package com.example.springLearning.controller;
 
 import com.example.springLearning.domain.SectionService;
+import com.example.springLearning.pojo.LearningSection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author fly
@@ -25,6 +27,11 @@ public class SectionController {
         this.sectionService = sectionService;
     }
 
+    /**
+     * 添加学段
+     * @param name  学段名
+     * @return
+     */
     @PostMapping("/add")
     @ResponseBody
     public HashMap insertSection(String name){
@@ -54,4 +61,17 @@ public class SectionController {
         return null;
     }
 
+    /**
+     * 根据页数和每页最大记录数获取学段数据
+     * @param page
+     * @param limit
+     * @return
+     */
+    @GetMapping("/select")
+    @ResponseBody
+    public HashMap selectSection(Integer page, Integer limit){
+        System.out.println("page : "+page+",  limit : "+limit);
+        HashMap result = sectionService.selectSection(page, limit);
+        return result;
+    }
 }
