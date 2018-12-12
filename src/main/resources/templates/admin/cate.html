@@ -53,6 +53,7 @@
         <a class="layui-btn layui-btn layui-btn-warm layui-btn-xs" lay-event="hide">隐藏</a>
         {{#  }                   }}
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="save">修改</a>
     </script>
 
 
@@ -92,7 +93,7 @@
                     {checkbox: true, fixed: true}
                     // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
                     , {field: 'id', title: 'ID', width: 250, align: 'center'}
-                    , {field: 'name', title: '学段名称', width: 250, align: 'center'}
+                    , {field: 'name', title: '学段名称', width: 250, align: 'center' , edit: 'text'}
                     , {width: 320, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
                 ]
             ]
@@ -120,6 +121,10 @@
                 }, "json");
             }else if(obj.event === 'hide'){
                 $.post("/section/show", {key: data.id}, function (res) {
+                    updateMessage(res);
+                }, "json");
+            }else if(obj.event === 'save'){
+                $.get("/section/update", {id: data.id,name:data.name}, function (res) {
                     updateMessage(res);
                 }, "json");
             }

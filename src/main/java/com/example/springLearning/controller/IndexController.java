@@ -16,7 +16,7 @@ public class IndexController {
         return "admin/login";
     }
 
-    @GetMapping(value = {"/index","/"})
+    @GetMapping(value = {"/index"})
     public String index(){
         return "admin/index";
     }
@@ -34,6 +34,21 @@ public class IndexController {
     @GetMapping("/subject")
     public String subject(){
         return "admin/subject";
+    }
+
+    @GetMapping("/office")
+    public String office(){
+        return "admin/office";
+    }
+
+    @GetMapping("/office_add")
+    public String office_add(){
+        return "admin/office_add";
+    }
+
+    @GetMapping("/welcome")
+    public String welcome(){
+        return "admin/welcome";
     }
 
 }
