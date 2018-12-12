@@ -44,12 +44,9 @@
     <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
 
     <script type="text/html" id="barDemo">
-        {{#  if(d.state == 0){ }}
-        <a class="layui-btn layui-btn-xs" lay-event="edit">正常</a>
-        {{#  }else{              }}
-        <a class="layui-btn layui-btn layui-btn-warm layui-btn-xs" lay-event="hide">隐藏</a>
-        {{#  }                   }}
+
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
+
     </script>
 
 
@@ -80,8 +77,10 @@
                     {checkbox: true, fixed: true}
                     // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
                     , {field: 'id', title: 'ID', width: 250, align: 'center'}
-                    , {field: 'name', title: '学段名称', width: 250, align: 'center'}
-                    , {width: 320, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
+                    , {field: 'name', title: '工作室名称', width: 250, align: 'center'}
+                    , {field: 'city', title: '区域', width: 250, align: 'center'}
+                    , {field: 'follows', title: '关注人数', width: 250, align: 'center'}
+                    , {width: 100, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
                 ]
             ]
             , id: 'testReload'
@@ -103,7 +102,7 @@
                     updateMessage(res)
                 }, "json");
             }else if (obj.event === 'drop') {
-                $.post("/section/drop", {id: data.id}, function (res) {
+                $.post("/office/delete", {key: data.id}, function (res) {
                     updateMessage(res);
                 }, "json");
             }else if(obj.event === 'hide'){

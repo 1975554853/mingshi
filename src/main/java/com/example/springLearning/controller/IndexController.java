@@ -16,6 +16,11 @@ public class IndexController {
         return "admin/login";
     }
 
+    @GetMapping("/")
+    public String toIndex(){
+        return "page/index";
+    }
+
     @GetMapping(value = {"/index"})
     public String index(){
         return "admin/index";

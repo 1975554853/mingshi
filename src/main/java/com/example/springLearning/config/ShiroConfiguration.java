@@ -24,8 +24,10 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String,String> defaultFilterMap = new LinkedHashMap<>();
+
         defaultFilterMap.put("/**","anon");
         defaultFilterMap.put("/logout","logout");
+
 //        放行静态资源
 //        defaultFilterMap.put("/admin/login.html","anon");
 //        defaultFilterMap.put("/admin/css/**","anon");
