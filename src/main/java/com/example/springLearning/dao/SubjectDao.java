@@ -1,9 +1,12 @@
 package com.example.springLearning.dao;
 
 import com.example.springLearning.pojo.LearningSubject;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,12 +17,23 @@ import java.util.List;
 @Repository
 public interface SubjectDao extends CrudRepository<LearningSubject,Integer> {
     /**
-     * 插入一条学段数据
+     * 插入一条学科数据
      * @param learningSubject  科目对象
      * @return
      */
     @Override
     LearningSubject save(LearningSubject learningSubject);
+
+    /**
+     * 修改学科状态, 0为正常, 1为隐藏
+     * @param id
+     * @return
+     */
+    @Query(value = "update LearningSubject set state=?2 where id= ?1")
+    @Modifying
+    @Transactional
+    Integer updateStatus(int id, int status);
+
 
     @Query(value = "from LearningSubject order by state")
     List<LearningSubject> selectSubject();

@@ -19,6 +19,11 @@ public class SubjectService {
     @Autowired
     private SubjectDao subjectDao;
 
+    /**
+     * 添加学科
+     * @param name
+     * @return
+     */
     public HashMap insertSubject(String name) {
         LearningSubject learningSubject = new LearningSubject();
         learningSubject.setName(name);
@@ -29,6 +34,37 @@ public class SubjectService {
             hashMap.put("type","OK");
         }else{
             hashMap.put("type","error");
+        }
+        return hashMap;
+    }
+
+    /**
+     * 隐藏/删除学科
+     * @param id
+     * @return
+     * @author wgb
+     */
+    public HashMap updateSubjectToDisplay(int id) {
+        HashMap hashMap = new HashMap<>();
+        if(subjectDao.updateStatus(id,1) > 0){
+            hashMap.put("type", "OK");
+        }else{
+            hashMap.put("type", "error");
+        }
+        return hashMap;
+    }
+    /**
+     * 修改学科状态为展示
+     * @param id
+     * @return
+     * @author wgb
+     */
+    public HashMap updateSubjectToShow(int id) {
+        HashMap hashMap = new HashMap<>();
+        if(subjectDao.updateStatus(id,0) > 0){
+            hashMap.put("type", "OK");
+        }else{
+            hashMap.put("type", "error");
         }
         return hashMap;
     }

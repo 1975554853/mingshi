@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * 科目实体类
+ * 学科实体类
  * @author wgb
  */
 @Entity

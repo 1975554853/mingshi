@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 
 /**
- * 科目控制器
+ * 学科控制器
  * @author wgb
  */
 @Controller
@@ -25,7 +25,7 @@ public class SubjectController {
     }
 
     /**
-     * 添加科目
+     * 添加学科
      * @param name
      * @return hashMap
      * @author wgb
@@ -35,6 +35,32 @@ public class SubjectController {
     public HashMap insertSubject(String name){
         System.out.println("subjectName : "+name);
         HashMap result = subjectService.insertSubject(name);
+        return result;
+    }
+    /**
+     * 删除/隐藏学科
+     * @author wgb
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delete")
+    @ResponseBody
+    public HashMap displaySubject(int id){
+        System.out.println("id : "+id);
+        HashMap result = subjectService.updateSubjectToDisplay(id);
+        return result;
+    }
+    /**
+     * 修改学科状态为展示
+     * @author wgb
+     * @param id
+     * @return
+     */
+    @RequestMapping("/show")
+    @ResponseBody
+    public HashMap showSubject(int id){
+        System.out.println("id : "+id);
+        HashMap result = subjectService.updateSubjectToShow(id);
         return result;
     }
 
