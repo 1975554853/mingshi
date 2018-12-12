@@ -26,7 +26,7 @@ public interface SectionDao extends CrudRepository<LearningSection,Integer> {
      * 获取所有学段
      * @return
      */
-    @Query(value = "select * from learning_section order by state", nativeQuery = true)
+    @Query(value = "select * from learning_section", nativeQuery = true)
     List<LearningSection> selectSections();
 
     @Query(value = "update LearningSection set state = 1 where id= ?1")
@@ -43,6 +43,12 @@ public interface SectionDao extends CrudRepository<LearningSection,Integer> {
     @Modifying
     @Transactional
     Integer deleteSectionById(int id);
+
+
+    @Query("update LearningSection set name= ?2 where id = ?1")
+    @Modifying
+    @Transactional
+    Integer upadateSection(int id,String name);
 
 
 

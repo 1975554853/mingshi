@@ -81,6 +81,21 @@ public class SectionService {
         }
         return false;
     }
+    //修改字段名
+    public boolean updateSection(int id,String name) {
+
+     try{
+         int i=sectionDao.upadateSection(id,name);
+         System.out.println(i);
+         if (i>0){
+             return true;
+         }
+     }catch (Exception e){
+         e.printStackTrace();
+         return false;
+     }
+    return false;
+    }
 
     /**
      * @param key

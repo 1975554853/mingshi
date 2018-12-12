@@ -24,6 +24,7 @@ public class SectionController {
 
     @Autowired
     public SectionController(SectionService sectionService) {
+        System.out.println("初始化sectionService");
         this.sectionService = sectionService;
     }
 
@@ -109,5 +110,18 @@ public class SectionController {
         System.out.println("page : "+page+",  limit : "+limit);
         HashMap result = sectionService.selectSection(page, limit);
         return result;
+    }
+    @GetMapping("/update")
+    @ResponseBody
+    public HashMap updateSection(Integer id, String name){
+        System.out.println("执行更新");
+        HashMap<String,String> map=new HashMap<>();
+        boolean b=sectionService.updateSection(id,name);
+        if(b){
+            map.put("type","OK");
+        }else {
+            map.put("type","ERROR");
+        }
+        return map;
     }
 }
