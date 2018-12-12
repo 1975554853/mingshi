@@ -35,10 +35,12 @@
 </div>
 <div class="x-body">
     <div class="layui-row">
+
         <form class="layui-form layui-col-md12 x-so layui-form-pane">
             <input class="layui-input" placeholder="学段名" name="cate_name" id="cate_name">
-            <button class="layui-btn" lay-filter="sreach" onclick="add()"><i class="layui-icon"></i>增加</button>
+            <button class="layui-btn" lay-filter="submit" lay-submit=""><i class="layui-icon"></i>增加</button>
         </form>
+
     </div>
 
 
@@ -53,6 +55,10 @@
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         let layer = layui.layer;
+        let form = layui.form;
+        form.submit('submit()',function (data) {
+            alert(data);
+        });
 
     });
 
