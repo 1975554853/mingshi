@@ -61,6 +61,17 @@ public class SectionController {
     }
 
     /**
+     * 获取所有学段信息
+     * @return
+     * @author wgb
+     */
+    @GetMapping("/sel")
+    @ResponseBody
+    public HashMap selectAllSection(){
+        HashMap result = sectionService.selectAllSection();
+        return result;
+    }
+    /**
      * @param key
      * @return
      * 展示学段
@@ -107,6 +118,14 @@ public class SectionController {
         HashMap result = sectionService.selectSection(page, limit);
         return result;
     }
+
+    /**
+     * 更新学段信息
+     * @param id
+     * @param name
+     * @author fsj
+     * @return
+     */
     @GetMapping("/update")
     @ResponseBody
     public HashMap updateSection(Integer id, String name){

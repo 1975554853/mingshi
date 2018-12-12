@@ -132,4 +132,11 @@ public class SectionService {
         }
         return false;
     }
+
+    public HashMap selectAllSection() {
+        HashMap hashMap = new HashMap();
+        List<LearningSection> sections = sectionDao.selectSections();
+        hashMap.put("data",sections);
+        return hashMap;
+    }
 }

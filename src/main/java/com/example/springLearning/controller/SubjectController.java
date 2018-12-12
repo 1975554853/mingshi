@@ -38,7 +38,7 @@ public class SubjectController {
         return result;
     }
     /**
-     * 删除/隐藏学科
+     * 修改学科状态为隐藏
      * @author wgb
      * @param id
      * @return
