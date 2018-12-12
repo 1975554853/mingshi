@@ -31,4 +31,9 @@ public class IndexController {
         return "admin/cate";
     }
 
+    @GetMapping("/subject")
+    public String subject(){
+        return "admin/subject";
+    }
+
 }
