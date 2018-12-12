@@ -3,15 +3,14 @@ package com.example.springLearning.controller;
 import com.example.springLearning.domain.OfficeService;
 import com.example.springLearning.pojo.Office;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/office")
@@ -32,8 +31,8 @@ public class OfficeController {
      */
     @RequestMapping("/add")
     @ResponseBody
-    public HashMap insertOffice(String url,String name,Integer section,Integer subject,String state,String city,String area){
-        HashMap hashMap = new HashMap();
+    public HashMap<String, String> insertOffice(String url, String name, Integer section, Integer subject, String state, String city, String area){
+        HashMap<String, String> hashMap = new HashMap<>();
         Office office = new Office();
         office.setUrl(url);
         office.setName(name);
@@ -60,16 +59,26 @@ public class OfficeController {
 
     @GetMapping("/select")
     @ResponseBody
-    public HashMap selectOffice(Integer page,Integer limit){
-        HashMap hashMap = new HashMap();
+    public HashMap<String, Object> selectOffice(Integer page, Integer limit){
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
         hashMap = officeService.selectOffice(page, limit);
         return hashMap;
     }
 
+    @GetMapping("/sel")
+    @ResponseBody
+    public Map<String, List<Office>> selectOffice(){
+        List<Office> offices = officeService.selectOffice();
+        Map<String, List<Office>> map = new HashMap<>();
+        map.put("data",offices);
+        return map;
+    }
+
+
     @RequestMapping("/delete")
     @ResponseBody
-    public HashMap deleteOffice(Integer key){
-        HashMap hashMap = new HashMap();
+    public HashMap<String, String> deleteOffice(Integer key){
+        HashMap<String, String> hashMap = new HashMap<>();
             boolean b = officeService.deleteOffice(key);
             if (b){
                 hashMap.put("type","OK");

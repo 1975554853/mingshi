@@ -1,0 +1,940 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/swiper.min.css}">
+
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/change.js}"></script>
+</head>
+<body>
+<!--head-->
+<div class="top">
+    <div class="tops">
+        <div class="topl"><a href="http://www.hbte.com.cn/" style="color:#fff;" target="_blank">河北教师教育网</a></div>
+        <div class="topr">
+            <ul>
+                <li><a href="http://help.hbte.com.cn:5056/" target="_blank">帮助中心</a></li>
+                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Login/login.html">教师登录</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--<script>
+$(".glzx_xl h2").hover(function(){
+      $(".glzx_menu").slideToggle();
+});
+
+</script>
+--><!--head-->
+<div class="head">
+    <form id="searchForm" action="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp.html" method="post">
+        <div class="heads">
+            <div class="logo"><a href="http://mingshi.hbte.com.cn:5060/">
+                <img src="http://netschool.oss-cn-beijing.aliyuncs.com/2018-12-12/logo.jpg"></a></div>
+            <div class="nav">
+                <ul>
+                    <li><a href="http://mingshi.hbte.com.cn:5060/">首页</a></li>
+                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp.html">资讯</a></li>
+                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/index.html">工作室</a></li>
+                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">成果展示</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <!--<img src="/Public/Home/img/search.jpg">-->
+                <select id="searchList" style="border:none;border-right:1px solid #999;outline:none;height:30px">
+                    <option value="0">资讯</option>
+                    <option value="1">公告</option>
+                    <option value="2">政策</option>
+                </select>
+                <input type="text" placeholder="请输入关键词" name="ss" style="margin-left:5px;">
+                <a href="javascript:;"><input type="submit" value="确定" style="color:#fff;text-align:right;"></a>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+
+<title>首页-河北名师工作室</title>
+
+<!--ad-->
+
+<!--part_two-->
+<div class="part_two">
+    <div class="part_main">
+        <div class="index_main">
+            <!-- <div class="part_tit">
+               <img src="/Public/Home/img/icon3.jpg">
+               <h2>资讯中心</h2>
+               <a href="/index.php/Home/Listsp/listsp.html">更多>></a>
+            </div> -->
+            <div class="part_zx">
+                <div class="banner">
+                    <div class="swiper-container swiper-container-horizontal swiper-container-wp8-horizontal">
+                        <div class="swiper-wrapper"
+                             style="transform: translate3d(-336px, 0px, 0px); transition-duration: 0ms;">
+                            <div class="swiper-slide swiper-slide-prev" style="width: 336px;">
+                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1457.html"
+                                   title="寒冬晨起践严霜，精准帮扶送课忙    ——侯冬梅名师工作室精准帮扶活动" target="_blank">
+                                    <img src="/images/5c0e7926625ab.jpg">
+                                    <p class="swiper_text">寒冬晨起践严霜，精准帮扶送课忙 —...</p>
+                                </a>
+                            </div>
+                            <div class="swiper-slide swiper-slide-active" style="width: 336px;">
+                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1454.html"
+                                   title="名师携手同筑梦，精准帮扶促成长--河北省名师侯冬梅工作室驻操营精准帮扶" target="_blank">
+
+                                    <img src="/images/5c0e6722d1724.jpg">
+
+                                    <p class="swiper_text">名师携手同筑梦，精准帮扶促成长--河北省...</p>
+                                </a>
+                            </div>
+                            <div class="swiper-slide swiper-slide-next" style="width: 336px;">
+                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1453.html"
+                                   title="行走在路上之冀南新区送教下乡 ——河北省小学英语张爱霞名师工作室" target="_blank">
+                                    <img src="/images/5c0e376a8972f.jpg">
+                                    <p class="swiper_text">行走在路上之冀南新区送教下乡 ——河北省...</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-clickable"><span
+                                class="swiper-pagination-bullet" tabindex="0" role="button"
+                                aria-label="Go to slide 1"></span><span
+                                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0"
+                                role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet"
+                                                                                      tabindex="0" role="button"
+                                                                                      aria-label="Go to slide 3"></span>
+                        </div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+                <div class="zx_list">
+                    <div class="zx_bt">
+                        <ul>
+                            <li class="active">公告</li>
+                            <li>资讯</li>
+                            <li>政策</li>
+                        </ul>
+
+                    </div>
+                    <div class="zx_nr">
+                        <div class="zx_nrs">
+                            <ul>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show1/id/89.html"
+                                       title="名师工作室主持人研修项目开班通知"
+                                       target="_blank"><i>名师工作室主持人研修项目开班通知</i><span>2018-11-22</span></a></li>
+
+                            </ul>
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show1/id/88.html"
+                                   title="关于收集《2017年名师工作室成员合格证书》照片的通知"
+                                   target="_blank"><i>关于收集《2017年名师工作室成员合格证书》照片的通知</i><span>2018-09-25</span></a></li>
+
+
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show1/id/79.html"
+                                   title="关于统计工作室主持人及学员信息的通知"
+                                   target="_blank"><i>关于统计工作室主持人及学员信息的通知</i><span>2018-09-11</span></a></li>
+
+
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show1/id/74.html"
+                                   title="关于启用名师工作室网络平台的通知"
+                                   target="_blank"><i>关于启用名师工作室网络平台的通知</i><span>2018-09-10</span></a></li>
+
+
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show1/id/68.html"
+                                   title="关于规范省级中小学师资培训经费使用的通知" target="_blank"><i>关于规范省级中小学师资培训经费使用的通知</i><span>2018-08-27</span></a>
+                            </li>
+
+
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show1/id/67.html"
+                                   title="着力培养我省教师队伍的“七十二贤”  --在全省名师工作室启动会议上的讲话" target="_blank"><i>着力培养我省教师队伍的“七十二贤”
+                                --在全省名师工作室启</i><span>2018-08-27</span></a></li>
+
+
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show1/id/66.html"
+                                   title="河北省教育厅关于印发《河北省中小学名师工作室建设实施方案（试行）》的通知" target="_blank"><i>河北省教育厅关于印发《河北省中小学名师工作室建设实施方案（试</i><span>2018-08-21</span></a>
+                            </li>
+
+
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html" class="zx_bta"
+                               target="_blank">【更多】</a></div>
+                        <div class="zx_nrs">
+                            <ul>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1457.html"
+                                       title="寒冬晨起践严霜，精准帮扶送课忙    ——侯冬梅名师工作室精准帮扶活动" target="_blank"><i>寒冬晨起践严霜，精准帮扶送课忙
+                                    ——侯冬梅名师工作室精</i><span>2018-12-10</span></a></li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1454.html"
+                                       title="名师携手同筑梦，精准帮扶促成长--河北省名师侯冬梅工作室驻操营精准帮扶" target="_blank"><i>名师携手同筑梦，精准帮扶促成长--河北省名师侯冬梅工作室驻操</i><span>2018-12-10</span></a>
+                                </li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1453.html"
+                                       title="行走在路上之冀南新区送教下乡 ——河北省小学英语张爱霞名师工作室" target="_blank"><i>行走在路上之冀南新区送教下乡
+                                    ——河北省小学英语张爱霞名师工</i><span>2018-12-10</span></a></li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1438.html"
+                                       title="相约凤凰城，研修再提升" target="_blank"><i>相约凤凰城，研修再提升</i><span>2018-12-08</span></a>
+                                </li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1437.html"
+                                       title="瑞雪兆丰年 英语教研万象新     ——竞秀区王凌凌、常春兰特级教师工作室与乐凯中学英语教研组主题教研活动   " target="_blank"><i>瑞雪兆丰年
+                                    英语教研万象新 ——竞秀区王凌凌、常春兰</i><span>2018-12-08</span></a></li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1434.html"
+                                       title="研磨使成长，送教促共学-----邱县送教" target="_blank"><i>研磨使成长，送教促共学-----邱县送教</i><span>2018-12-07</span></a>
+                                </li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1423.html"
+                                       title="喜报：陈江红老师荣获省技能大赛特等奖" target="_blank"><i>喜报：陈江红老师荣获省技能大赛特等奖</i><span>2018-12-07</span></a>
+                                </li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1410.html"
+                                       title="魏元洪工作室举办“河北省名师魏元洪工作室学校工作站”启动仪式" target="_blank"><i>魏元洪工作室举办“河北省名师魏元洪工作室学校工作站”启动仪式</i><span>2018-12-06</span></a>
+                                </li>
+                            </ul>
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                        </div>
+                        <div class="zx_nrs">
+                            <ul>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show2/id/65.html"
+                                       title="关于下达2018年省级教师队伍建设经费（第一批）的通知" target="_blank"><i>关于下达2018年省级教师队伍建设经费（第一批）的通知</i><span>2018-08-17</span></a>
+                                </li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show2/id/64.html"
+                                       title="2018年教师队伍建设经费分配表"
+                                       target="_blank"><i>2018年教师队伍建设经费分配表</i><span>2018-08-17</span></a></li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show2/id/63.html"
+                                       title="关于规范省级中小学师资培训经费使用的通知" target="_blank"><i>关于规范省级中小学师资培训经费使用的通知</i><span>2018-08-17</span></a>
+                                </li>
+                                <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show2/id/62.html"
+                                       title="河北省教育厅关于印发《河北省中小学名师工作室建设实施方案（试行）》的通知" target="_blank"><i>河北省教育厅关于印发《河北省中小学名师工作室建设实施方案（试</i><span>2018-08-17</span></a>
+                                </li>
+                            </ul>
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp2.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="part_ms">
+            <div class="part_tit2">
+                <img src="/images/icon5.jpg">
+                <h2>工作室活跃度排行</h2>
+                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/lists.html" target="_blank">更多&gt;&gt;</a>
+            </div>
+            <div class="ms_main">
+                <ul>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html" target="_blank">
+                        <li>
+                            <i id="num1">1</i>
+                            <h2>高俊霞工作室</h2>
+                            <div class="gz"><span>26</span>人关注</div>
+                        </li>
+                    </a>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/95.html" target="_blank">
+                        <li>
+                            <i id="num2">2</i>
+                            <h2>王福会工作室</h2>
+                            <div class="gz"><span>22</span>人关注</div>
+                        </li>
+                    </a>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/89.html" target="_blank">
+                        <li>
+                            <i id="num3">3</i>
+                            <h2>田贺书工作室</h2>
+                            <div class="gz"><span>20</span>人关注</div>
+                        </li>
+                    </a>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/31.html" target="_blank">
+                        <li>
+                            <i id="num4">4</i>
+                            <h2>崔艳波工作室</h2>
+                            <div class="gz"><span>17</span>人关注</div>
+                        </li>
+                    </a>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/6.html" target="_blank">
+                        <li>
+                            <i id="num4">5</i>
+                            <h2>李冬工作室</h2>
+                            <div class="gz"><span>14</span>人关注</div>
+                        </li>
+                    </a>
+
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/12.html" target="_blank">
+                        <li>
+                            <i id="num4">6</i>
+                            <h2>李丽英名师工作室</h2>
+                            <div class="gz"><span>14</span>人关注</div>
+                        </li>
+                    </a>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/swiper.min.js.下载"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        autoplay: {
+            delay: 6000,
+        },
+    });
+</script>
+<!--part_one-->
+<div class="part_one">
+    <div class="part_main">
+        <div class="index_main">
+            <div class="part_tit">
+                <img src="/images/icon1.jpg">
+                <h2>省级名师工作室</h2>
+                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/index.html">更多&gt;&gt;</a>
+            </div>
+            <div class="sjxz">
+                <div class="sjxz_bot">
+
+
+                    <div class="sjzx_bot_nr">
+                        <ul>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/50.html"
+                                   target="_blank"><img src="/images/5bad8be80ed6e.png"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>李淑民工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/97.html"
+                                   target="_blank"><img src="/images/5bd40f5b6b1fd.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>张丽钧工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/7.html"
+                                   target="_blank"><img src="/images/5bd721312d2ab.png"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>孙成林工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/12.html"
+                                   target="_blank"><img src="/images/5b9b074392ed9.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>李丽英名师工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/18.html"
+                                   target="_blank"><img src="/images/5baf1cc3c1eaa.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>侯冬梅工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/30.html"
+                                   target="_blank"><img src="/images/5bebdf6153b6c.png"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>Lucky Sunshine</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html"
+                                   target="_blank"><img src="/images/5ba4ab68cb6f7.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>高俊霞工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/71.html"
+                                   target="_blank"><img src="/images/5ba882781740c.png"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>张咏梅工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/95.html"
+                                   target="_blank"><img src="/images/5bb6c3adba618.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>王福会工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/54.html"
+                                   target="_blank"><img src="/images/5be3e334db123.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>呼君工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/92.html"
+                                   target="_blank"><img src="/images/5ba6fa000acd4.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>李国刚工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/33.html"
+                                   target="_blank"><img src="/images/5ba4aa149fa7a.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>孟全海工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/32.html"
+                                   target="_blank"><img src="/images/5b9c81ae2d213.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>李玉芹工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/77.html"
+                                   target="_blank"><img src="/images/5baf158b58891.jpg"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>朱爱平工作室</p></a></li>
+                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/58.html"
+                                   target="_blank"><img src="/images/5b9879c670919.png"
+                                                        style="width:100px;height:100px;border-radius:100%">
+                                <p>李华丽工作室</p></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="part_ms">
+            <div class="part_tit2">
+                <img src="/images/icon2.jpg">
+                <h2>工作室动态</h2>
+                <a></a>
+            </div>
+            <div class="gzs">
+                <ul>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3030.html"
+                           title="浅谈高中物理试验" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">浅谈高中物理试验</div>
+                                    <div class="gzs_wzb">孟全海工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3029.html"
+                           title="物理课堂中的语言艺术" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">物理课堂中的语言艺术</div>
+                                    <div class="gzs_wzb">孟全海工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3028.html"
+                           title="如何激发学生学习物理的兴趣" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">如何激发学生学习物理的兴趣</div>
+                                    <div class="gzs_wzb">孟全海工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3027.html"
+                           title="儿童视角下的幼儿教师 ——张春炬名师工作室成员活动手记" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">儿童视角下的幼儿教师 ——张春炬名师工作室成员活动手记</div>
+                                    <div class="gzs_wzb">张春炬工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3026.html"
+                           title="“双星”传播到雄安，真诚指导促发展 ——雄县物理名师工作室学员活动心得集锦" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">“双星”传播到雄安，真诚指导促发展 ——雄县物理名师工作室学员活动心得集锦</div>
+                                    <div class="gzs_wzb">张咏梅工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3025.html"
+                           title="哪一个才是孔子" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">哪一个才是孔子</div>
+                                    <div class="gzs_wzb">张丽钧工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3024.html"
+                           title="《教育的细节》为你解决教育的问题" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">《教育的细节》为你解决教育的问题</div>
+                                    <div class="gzs_wzb">张丽钧工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3023.html"
+                           title="用逻辑思维绘制作文设计图" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">用逻辑思维绘制作文设计图</div>
+                                    <div class="gzs_wzb">张丽钧工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3022.html"
+                           title="用逻辑之眼看“语”“文”，看思维内视景观" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">用逻辑之眼看“语”“文”，看思维内视景观</div>
+                                    <div class="gzs_wzb">张丽钧工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3021.html"
+                           title="《有趣的汉字》教学设计及课堂评析" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt">《有趣的汉字》教学设计及课堂评析</div>
+                                    <div class="gzs_wzb">李学红工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".sjxz_topa li").click(function () {
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+    $(".sjxz_topb li").click(function () {
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+    $(".sjxz_topc li").click(function () {
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+</script>
+
+<!--part_three-->
+<div class="part_three">
+    <div class="part_main">
+        <div class="part_tit3">
+            <img src="/images/icon4.jpg">
+            <h2>成果展示</h2>
+            <ul id="tese">
+                <!-- <li class="active">工作室活动简报</li>
+                <li>工作室研究动态</li>
+                <li>工作室送培动态</li> -->
+            </ul>
+            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">更多&gt;&gt;</a>
+        </div>
+        <div class="ts_main">
+            <div class="ts_mains">
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3195.html"
+                       title="寒冷冬季 温暖同行——记省名师隋莉工作室威县一中送教活动" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c10c5c551f1f.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>寒冷冬季 温暖同行——记省名师隋莉工作室威县一中送教活动</h2>
+                            <div class="cen_wz">
+                                <h3>隋莉名师工作室</h3>
+                                <h4>高中思想政治</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3165.html"
+                       title="深度解析阅读教学 助推核心素养提升" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c107013a8180.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>深度解析阅读教学 助推核心素养提升</h2>
+                            <div class="cen_wz">
+                                <h3>王凌凌名师工作室</h3>
+                                <h4>初中英语</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3152.html"
+                       title="【成员专业发展档案】周玲" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0f956ad72b5.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>【成员专业发展档案】周玲</h2>
+                            <div class="cen_wz">
+                                <h3>李丽英名师工作室</h3>
+                                <h4>小学美术</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3138.html"
+                       title="带孩子们读书——开展“书香直播间”读书活动心得" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0f68b7a57c0.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>带孩子们读书——开展“书香直播间”读书活动心得</h2>
+                            <div class="cen_wz">
+                                <h3>李学红名师工作室</h3>
+                                <h4>小学语文</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3133.html"
+                       title="阵地前移·重心下移·深度参与·学术引领 ——河北省李学红名师工作室深入沧州参加教学观摩研讨活动" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0f5cd44762a.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>阵地前移·重心下移·深度参与·学术引领 ——河北省李学红名师工作室深入沧州参加教学观摩研讨活动</h2>
+                            <div class="cen_wz">
+                                <h3>李学红名师工作室</h3>
+                                <h4>小学语文</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3132.html"
+                       title="信金焕名师工作室每日《论语》诵读之一" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0f43f7a1661.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>信金焕名师工作室每日《论语》诵读之一</h2>
+                            <div class="cen_wz">
+                                <h3>信金焕名师工作室</h3>
+                                <h4>高中语文</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3123.html"
+                       title="圆柱体积文本解读" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0e8446d418d.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>圆柱体积文本解读</h2>
+                            <div class="cen_wz">
+                                <h3>崔艳波名师工作室</h3>
+                                <h4>小学数学</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3121.html"
+                       title="始于“颜值”，陷于“内容”，忠于“修养”（说课面试随想）" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0e80718d44f.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>始于“颜值”，陷于“内容”，忠于“修养”（说课面试随想）</h2>
+                            <div class="cen_wz">
+                                <h3>崔艳波名师工作室</h3>
+                                <h4>小学数学</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3120.html"
+                       title="成员徐辉“送教下乡”活动走近正村中学" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0e806a1c17f.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>成员徐辉“送教下乡”活动走近正村中学</h2>
+                            <div class="cen_wz">
+                                <h3>任艳玲名师工作室</h3>
+                                <h4>初中英语</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3118.html"
+                       title="透过中考题，看英语核心素养落地" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0e7cbfba0a4.png" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>透过中考题，看英语核心素养落地</h2>
+                            <div class="cen_wz">
+                                <h3>任艳玲名师工作室</h3>
+                                <h4>初中英语</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3109.html"
+                       title="崔老师说课一：《左右》说课稿" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0e5e8dc2009.jpg" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>崔老师说课一：《左右》说课稿</h2>
+                            <div class="cen_wz">
+                                <h3>崔艳波名师工作室</h3>
+                                <h4>小学数学</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3107.html"
+                       title="【教学奖励】王红梅所报送课例《认识几分之一》被评为市级优课" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img src="/images/5c0e14004e707.JPG" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2>【教学奖励】王红梅所报送课例《认识几分之一》被评为市级优课</h2>
+                            <div class="cen_wz">
+                                <h3>于艳名师工作室</h3>
+                                <h4>小学数学</h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </div>
+            <!-- <div class="ts_mains">
+
+                <li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b62338bc92.jpg" style="width:235px;height:175px;" /></div>
+                            <div class="ts_cen_wz">
+                                <h2>标题</h2>
+                                <div class="cen_wz">
+                                    <h3>李老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b5ea748721.jpg" style="width:235px;height:175px;" /></div>
+                            <div class="ts_cen_wz">
+                                <h2>活动标题</h2>
+                                <div class="cen_wz">
+                                    <h3>李老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b5e8626b0c.jpg" style="width:235px;height:175px;" /></div>
+                            <div class="ts_cen_wz">
+                                <h2>公告标题公告标题公告</h2>
+                                <div class="cen_wz">
+                                    <h3>李老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b59169e7e0.jpg" style="width:235px;height:175px;" /></div>
+                            <div class="ts_cen_wz">
+                                <h2>文章标题文章标题文章标题文章标题文章标题</h2>
+                                <div class="cen_wz">
+                                    <h3>朱老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b590963570.jpg" style="width:235px;height:175px;" /></div>
+                            <div class="ts_cen_wz">
+                                <h2>我校党委常委会召开扩大会议专题学习贯彻习近平总书记重要讲话精神</h2>
+                                <div class="cen_wz">
+                                    <h3>朱老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b547c24476.jpg" style="width:235px;height:175px;" /></div>
+                            <div class="ts_cen_wz">
+                                <h2>公告标题公告</h2>
+                                <div class="cen_wz">
+                                    <h3>胡老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b544f7fc5e.jpg" style="width:235px;height:175px;" /></div>
+                            <div class="ts_cen_wz">
+                                <h2>公告标题公告标题公告标题公告标题</h2>
+                                <div class="cen_wz">
+                                    <h3>胡老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b53c901b39.jpg" style="width:235px;height:175px;" /></div>
+                            <div class="ts_cen_wz">
+                                <h2>公告标题公告标题公告标题</h2>
+                                <div class="cen_wz">
+                                    <h3>胡老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+            </div>
+            <div class="ts_mains">
+                <li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-07-08/5b4175199ed81.png" style="width:235px;height:175px;"></div>
+                            <div class="ts_cen_wz">
+                                <h2>0707测试</h2>
+                                <div class="cen_wz">
+                                    <h3>钱管理名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b62338bc92.jpg" style="width:235px;height:175px;"></div>
+                            <div class="ts_cen_wz">
+                                <h2>标题</h2>
+                                <div class="cen_wz">
+                                    <h3>李老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b5ea748721.jpg" style="width:235px;height:175px;"></div>
+                            <div class="ts_cen_wz">
+                                <h2>活动标题</h2>
+                                <div class="cen_wz">
+                                    <h3>李老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b5e8626b0c.jpg" style="width:235px;height:175px;"></div>
+                            <div class="ts_cen_wz">
+                                <h2>公告标题公告标题公告</h2>
+                                <div class="cen_wz">
+                                    <h3>李老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b59169e7e0.jpg" style="width:235px;height:175px;"></div>
+                            <div class="ts_cen_wz">
+                                <h2>文章标题文章标题文章标题文章标题文章标题</h2>
+                                <div class="cen_wz">
+                                    <h3>朱老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b590963570.jpg" style="width:235px;height:175px;"></div>
+                            <div class="ts_cen_wz">
+                                <h2>我校党委常委会召开扩大会议专题学习贯彻习近平总书记重要讲话精神</h2>
+                                <div class="cen_wz">
+                                    <h3>朱老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b547c24476.jpg" style="width:235px;height:175px;"></div>
+                            <div class="ts_cen_wz">
+                                <h2>公告标题公告</h2>
+                                <div class="cen_wz">
+                                    <h3>胡老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li><li>
+                        <a href="#" class="ts_center">
+                            <div class="ts_cen_tp"><img src="/Uploads/2018-06-21/5b2b544f7fc5e.jpg" style="width:235px;height:175px;"></div>
+                            <div class="ts_cen_wz">
+                                <h2>公告标题公告标题公告标题公告标题</h2>
+                                <div class="cen_wz">
+                                    <h3>胡老师名师工作室</h3>
+                                    <h4>中职机电</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </li>         </div> -->
+        </div>
+    </div>
+</div>
+
+
+<!--foot-->
+<div class="foot">
+    <div class="foot_bq">版权所有©河北省中小学教师继续教育中心</div>
+    <div class="foot_list">
+        <p>地址：河北省石家庄市红旗大街469号</p>
+        <p>邮编：050091</p>
+        <p>冀ICP备09022130号-6 &nbsp;<script
+                type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1274865269'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274865269%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+            <span id="cnzz_stat_icon_1274865269"><a href="http://www.cnzz.com/stat/website.php?web_id=1274865269"
+                                                    target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0"
+                                                                                      src="/images/pic.gif"></a></span>
+            <script src="/images/z_stat.php" type="text/javascript"></script>
+            <script src="/images/core.php" charset="utf-8" type="text/javascript"></script>
+        </p>
+
+    </div>
+    <p style="text-align:center;">
+        <script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='http://dcs.conac.cn/js/05/000/0000/60887956/CA050000000608879560002.js' type='text/javascript'%3E%3C/script%3E"));</script>
+        <span id="_ideConac"><a href="http://bszs.conac.cn/sitename?method=show&amp;id=54957018031E45A2E053012819ACD61B"
+                                target="_blank"><img id="imgConac" vspace="0" hspace="0" border="0"
+                                                     src="/images/red.png" data-bd-imgshare-binded="1"></a></span>
+        <script src="/images/CA050000000608879560002.js.下载" type="text/javascript"></script>
+        <span id="_ideConac"></span>
+    </p>
+</div>
+
+
+<script language="javascript">
+    $("#searchList").on("change", function () {
+        var searchNum = $(this).val();
+        var searchForm = $("#searchForm");
+        if (searchNum == 0) {
+            searchForm.attr("action", "/index.php/Home/Listsp/listsp.html");
+        } else if (searchNum == 1) {
+            searchForm.attr("action", "/index.php/Home/Listsp/listsp1.html");
+        } else if (searchNum == 2) {
+            searchForm.attr("action", "/index.php/Home/Listsp/listsp2.html");
+        }
+    });
+</script>
+</body>
+</html>

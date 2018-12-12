@@ -4,6 +4,8 @@ import com.example.springLearning.pojo.Role;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,4 +20,8 @@ public interface RoleDao extends CrudRepository<Role,Integer> {
 
     @Override
     Role save(Role role);
+
+    @Query(value = "select * from role ",nativeQuery = true)
+    List<Role> selectRole();
+
 }

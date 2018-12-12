@@ -15,8 +15,9 @@ import java.util.List;
 @Data
 public class Role {
     @Id
-    @GeneratedValue
     private Integer id;
     @Column //名称
     private String name;
+    @Column
+    private String value;
 }

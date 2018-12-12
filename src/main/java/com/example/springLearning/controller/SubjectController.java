@@ -94,8 +94,7 @@ public class SubjectController {
     @GetMapping("/sel")
     @ResponseBody
     public HashMap selSubject(){
-        HashMap hashMap = subjectService.selSubject();
-        return hashMap;
+        return subjectService.selSubject();
     }
 
 }

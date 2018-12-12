@@ -8,6 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface UserDao extends CrudRepository<User,Integer> {
 
@@ -30,4 +32,8 @@ public interface UserDao extends CrudRepository<User,Integer> {
     @Modifying
     @Transactional
     Integer insertUserRole(Integer userId, Integer roleId);
+
+    @Query(value = "select * from user" ,nativeQuery = true)
+    List<User> selectUser();
+
 }

@@ -22,7 +22,7 @@ public class User {
     private String username;  //姓名
     @Column(name = "card", unique = true, nullable = false, length = 20)
     private String card;    //身份证号
-    @Column(name = "password", nullable = false, length = 20)
+    @Column(name = "password", nullable = false)
     private String password;    //密码
     @Column(name = "office_id", nullable = false)
     private Integer officeId;   //所属工作室ID
@@ -38,7 +38,8 @@ public class User {
     private String city;
     @Column
     private String state;
-
+    @Column
+    private Integer section;
     private Integer roleId;     //暂存角色ID
 
 }

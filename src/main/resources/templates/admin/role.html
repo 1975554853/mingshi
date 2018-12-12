@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+
+        <form class="layui-form layui-col-md12 x-so layui-form-pane">
+            <input class="layui-input" placeholder="学段名" name="cate_name" id="cate_name">
+            <button class="layui-btn" lay-filter="submit" lay-submit=""><i class="layui-icon"></i>增加</button>
+        </form>
+
+    </div>
+
+
+    <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+
+    <script type="text/html" id="barDemo">
+        {{#  if(d.state == 0){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">正常</a>
+        {{#  }else{              }}
+        <a class="layui-btn layui-btn layui-btn-warm layui-btn-xs" lay-event="hide">隐藏</a>
+        {{#  }                   }}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="save">修改</a>
+    </script>
+
+
+</div>
+
+<script>
+
+
+    // 添加学段
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        let layer = layui.layer;
+        let form = layui.form;
+        form.on('submit(submit)', function (data) {
+            let cate_name = data.field.cate_name;
+            if (cate_name == null || cate_name.length < 1) {
+                return false;
+            }
+            $.post('/section/add', {name: data.field.cate_name}, function (res) {
+                if (res.type === 'OK') {
+                    layer.msg('添加成功!!!');
+                }
+            }, 'json');
+            return false;
+        });
+    });
+
+    layui.use('table', function () {
+        let table = layui.table;
+
+        //方法级渲染
+        table.render({
+            elem: '#LAY_table_user'
+            , url: '/role/select'
+            , cols: [
+                [
+                    {checkbox: true, fixed: true}
+                    // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
+                    , {field: 'id', title: 'ID', width: 250, align: 'center'}
+                    , {field: 'name', title: '角色名称', width: 250, align: 'center' , edit: 'text'}
+                    , {field: 'value', title: '角色内容', width: 250, align: 'center' , edit: 'text'}
+                ]
+            ]
+            , id: 'testReload'
+            , page: true
+            , height: 500
+            , method: 'get'
+            , response: {
+                statusName: 'status',
+                statusCode: 0,
+                countName: 'total'
+            }
+        });
+
+        table.on('tool(user)', function (obj) {
+            let data = obj.data;
+            // 修改课程方向
+            if (obj.event === 'edit') {
+                $.post("/section/delete", {id:data.id}, function (res) {
+                    updateMessage(res)
+                }, "json");
+            }else if (obj.event === 'drop') {
+                $.post("/section/drop", {id: data.id}, function (res) {
+                    updateMessage(res);
+                }, "json");
+            }else if(obj.event === 'hide'){
+                $.post("/section/show", {key: data.id}, function (res) {
+                    updateMessage(res);
+                }, "json");
+            }else if(obj.event === 'save'){
+                $.get("/section/update", {id: data.id,name:data.name}, function (res) {
+                    updateMessage(res);
+                }, "json");
+            }
+        });
+
+        let $ = layui.$, active = {
+            reload: function () {
+                loadTable();
+            }
+        };
+
+        function updateMessage(code) {
+            if (code.type === 'OK') {
+                layer.msg("修改成功");
+            } else {
+                layer.msg("修改失败,系统繁忙");
+            }
+            loadTable();
+        }
+
+        // 重载数据
+        function loadTable() {
+            table.reload('testReload', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        }
+
+        $('.demoTable .layui-btn').on('click', function () {
+            let type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+    });
+
+
+</script>
+
+</body>
+
+</html>

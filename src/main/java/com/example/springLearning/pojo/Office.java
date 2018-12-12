@@ -37,6 +37,8 @@ public class Office {
     private Integer achievements;
     @Column // 成员人数
     private Integer members;
+    @Column
+    private Integer type;
 
 
 }

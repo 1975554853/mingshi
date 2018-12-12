@@ -54,7 +54,6 @@ public class OfficeService {
         HashMap hashMap = new HashMap();
         try{
             Integer line = officeDao.deleteOffice(id);
-            System.out.println(line);
             if (line > 0){
                 return true;
             }
@@ -62,6 +61,10 @@ public class OfficeService {
             return false;
         }
         return false;
+    }
+
+    public List<Office> selectOffice() {
+        return officeDao.selectOfficeNoState();
     }
 
     /*//修改工作室信息
