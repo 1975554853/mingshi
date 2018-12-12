@@ -21,13 +21,14 @@ public interface OfficeDao extends CrudRepository<Office,Integer> {
     Office save(Office office);
 
     /*//修改工作室信息
+    @Modifying
+    @Transactional
     @Query(value = "update Office set " +
             "url = case when :#{#office.url} is null then name else :#{#office.name} end ," +
             "sectionId = case when :#{#office.sectionId} is null then subject else :#{#office.subject} end ," +
             "state = case when :#{#office.state} is null then city else :#{#office.city} end " +
-            ",area = case when :#{#office.area} is null where id = :#{#office.id}")
-    @Modifying
-    @Transactional
+            ",area = case when :#{#office.area} is null then follows else :#{#office.follows} end " +
+            "where id = :#{#office.id}")
     Integer updateOffice(@Param("office") Office office);*/
 
     //查询office

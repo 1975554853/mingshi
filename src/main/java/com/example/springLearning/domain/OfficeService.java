@@ -49,6 +49,21 @@ public class OfficeService {
         return hashMap;
     }
 
+    //删除office
+    public boolean deleteOffice(Integer id){
+        HashMap hashMap = new HashMap();
+        try{
+            Integer line = officeDao.deleteOffice(id);
+            System.out.println(line);
+            if (line > 0){
+                return true;
+            }
+        }catch (Exception e){
+            return false;
+        }
+        return false;
+    }
+
     /*//修改工作室信息
     public boolean updateOffice(Office office){
         try {
