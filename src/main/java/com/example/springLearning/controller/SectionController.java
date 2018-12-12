@@ -3,10 +3,7 @@ package com.example.springLearning.controller;
 import com.example.springLearning.domain.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -17,10 +14,16 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/section")
 public class SectionController {
-    @Autowired
-    private SectionService sectionService;
 
-    @GetMapping("/add")
+    // 安全的注入方式
+    private final SectionService sectionService;
+
+    @Autowired
+    public SectionController(SectionService sectionService) {
+        this.sectionService = sectionService;
+    }
+
+    @PostMapping("/add")
     @ResponseBody
     public HashMap insertSection(String name){
         System.out.println(name);
@@ -29,5 +32,6 @@ public class SectionController {
         rm.put("type",result);
         return rm;
     }
+
 
 }
