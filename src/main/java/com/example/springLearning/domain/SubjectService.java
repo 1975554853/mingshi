@@ -92,4 +92,17 @@ public class SubjectService {
             return hashMap;
         }
     }
+
+    public boolean deleteSubjectid(Integer id) {
+
+       try{
+       int i= subjectDao.deleteSubjectid(id);
+       if (i>0){
+           return true;
+       }
+       }catch (Exception e){
+           return false;
+       }
+       return false;
+    }
 }

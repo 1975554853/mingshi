@@ -78,4 +78,17 @@ public class SubjectController {
         return hashMap;
     }
 
+    @PostMapping("/delete")
+    @ResponseBody
+    public HashMap Subject(Integer id){
+        boolean b = subjectService.deleteSubjectid(id);
+        HashMap<String,String> map =new HashMap<>();
+        if (b){
+            map.put("type","OK");
+        }else {
+            map.put("type","error");
+        }
+        return map;
+    }
+
 }
