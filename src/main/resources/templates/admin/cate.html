@@ -50,8 +50,9 @@
         {{#  if(d.state == 0){ }}
         <a class="layui-btn layui-btn-xs" lay-event="edit">正常</a>
         {{#  }else{              }}
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit">隐藏</a>
+        <a class="layui-btn layui-btn layui-btn-warm layui-btn-xs" lay-event="edit">隐藏</a>
         {{#  }                   }}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
     </script>
 
 
@@ -67,7 +68,7 @@
         let form = layui.form;
         form.on('submit(submit)', function (data) {
             let cate_name = data.field.cate_name;
-            if(cate_name==null || cate_name.length <1){
+            if (cate_name == null || cate_name.length < 1) {
                 return false;
             }
             $.post('/section/add', {name: data.field.cate_name}, function (res) {
@@ -101,7 +102,7 @@
             , method: 'get'
             , response: {
                 statusName: 'status',
-                statusCode: 0 ,
+                statusCode: 0,
                 countName: 'total'
             }
         });
@@ -126,10 +127,11 @@
                 x_admin_show('更换视频', './updateVideo.html', 960, 600);
             }
             // 上下架修改
-            else if (obj.event === 'edit') {
+            else if (obj.event === 'drop') {
                 let data = obj.data;
-                $.post("/chapters/status", {key: data.id, value: data.courseChaptersStatus}, function (res) {
-                    updateMessage(res.code);
+                $.post("/section/drop", {id: data.id}, function (res) {
+                    layer.msg("操作成功");
+                    loadTable();
                 }, "json");
             }
         });
@@ -151,22 +153,9 @@
 
         // 重载数据
         function loadTable() {
-            let price = $('#v_price').val();
-            // let context = $('#context').val();
-            // let min_price = $('#min_price').val();
-            // let max_price = $('#max_price').val();
-            // let updateTime = $('#updateDate').val();
-            //执行重载
             table.reload('testReload', {
                 page: {
                     curr: 1 //重新从第 1 页开始
-                }
-                , where: {
-                    v_value: price,
-                    // context: context,
-                    // min_price: min_price,
-                    // max_price: max_price,
-                    // updateTime: updateTime
                 }
             });
         }
