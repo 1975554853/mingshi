@@ -1,8 +1,11 @@
 package com.example.springLearning.dao;
 
 import com.example.springLearning.pojo.LearningSubject;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 科目Dao
@@ -17,4 +20,7 @@ public interface SubjectDao extends CrudRepository<LearningSubject,Integer> {
      */
     @Override
     LearningSubject save(LearningSubject learningSubject);
+
+    @Query(value = "from LearningSubject order by state")
+    List<LearningSubject> selectSubject();
 }

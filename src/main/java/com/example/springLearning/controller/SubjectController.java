@@ -3,6 +3,7 @@ package com.example.springLearning.controller;
 import com.example.springLearning.domain.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,6 +36,20 @@ public class SubjectController {
         System.out.println("subjectName : "+name);
         HashMap result = subjectService.insertSubject(name);
         return result;
+    }
+
+    /**
+     * @author zgs
+     * @param page
+     * @param limit
+     * @return
+     * 分页查询所有学科
+     */
+    @GetMapping("/select")
+    @ResponseBody
+    public HashMap selectSubject(Integer page , Integer limit){
+        HashMap hashMap = subjectService.selectSubject(page,limit);
+        return hashMap;
     }
 
 }
