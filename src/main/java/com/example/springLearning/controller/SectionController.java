@@ -43,7 +43,7 @@ public class SectionController {
     }
 
     /**
-     * Authur zgs
+     * @author zgs
      * @param id
      * @return
      * 修改学段状态
