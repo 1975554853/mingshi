@@ -48,9 +48,9 @@ public class SectionController {
      * @return
      * 修改学段状态
      */
-    @RequestMapping("/update")
+    @RequestMapping("/delete")
     @ResponseBody
-    public HashMap updateSection(int id){
+    public HashMap displaySection(int id){
         System.out.println(id);
         boolean f = sectionService.updateSection(id);
         if (f) {
