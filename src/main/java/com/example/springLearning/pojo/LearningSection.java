@@ -19,5 +19,8 @@ public class LearningSection {
 
     @Column(name = "name")
     private String name;
+    // 0 正常  1 隐藏
+    @Column(name = "state")
+    private Integer state;
 
 }
