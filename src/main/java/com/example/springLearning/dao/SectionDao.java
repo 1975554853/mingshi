@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SectionDao extends CrudRepository<LearningSection,Integer> {
 
+    @Override
+    LearningSection save(LearningSection section);
 }
