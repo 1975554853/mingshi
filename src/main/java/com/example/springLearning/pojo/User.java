@@ -14,6 +14,7 @@ import java.util.List;
 @Table
 @Data
 public class User {
+
     @Id
     @GeneratedValue
     private int id;     //id
@@ -28,8 +29,14 @@ public class User {
     @Column(name = "head_photo_url")
     private String headPhotoUrl;    //头像Url
     @Column(name = "resume_url")
-    private String resumeUrl;       //简历URL
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    private List<Role> roles = new ArrayList<>();       //拥有的所有角色
-    private String role;        //角色名
+    private String resumeUrl; //简历URL
+    @Column
+    private String school;
+    @Column
+    private String area;
+    @Column
+    private String city;
+    @Column
+    private String state;
+
 }

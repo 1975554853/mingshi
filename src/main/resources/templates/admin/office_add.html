@@ -30,8 +30,8 @@
                 <span class="x-red">*</span>工作室名称
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="L_email" name="projectStageName"
-                       lay-verify="schoolprojectcontextpname"
+                <input type="text" id="L_name" name="name"
+                       lay-verify="name"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -41,7 +41,7 @@
             <label class="layui-form-label">所属学段</label>
             <div class="layui-input-inline">
                 <label for="quiz3"></label>
-                <select id="quiz3" lay-filter="quiz3" name="teacher">
+                <select id="quiz3" lay-filter="quiz3" name="section">
                     <option value="0">请选择所属学段</option>
                 </select>
             </div>
@@ -52,7 +52,7 @@
             <label class="layui-form-label">所属科目</label>
             <div class="layui-input-inline">
                 <label for="quiz4"></label>
-                <select id="quiz4" lay-filter="quiz4" name="teacher">
+                <select id="quiz4" lay-filter="quiz4" name="subject">
                     <option value="0">请选择所属科目</option>
                 </select>
             </div>
@@ -60,21 +60,27 @@
 
 
         <div class="layui-form-item" id="x-city">
-            <label class="layui-form-label">城市联动</label>
+            <label class="layui-form-label">所属区域</label>
             <div class="layui-input-inline">
-                <select name="province" lay-filter="province">
-                    <option value="">请选择省</option>
-                </select>
+                <label>
+                    <select name="province" lay-filter="province">
+                        <option value="">请选择省</option>
+                    </select>
+                </label>
             </div>
             <div class="layui-input-inline">
-                <select name="city" lay-filter="city">
-                    <option value="">请选择市</option>
-                </select>
+                <label>
+                    <select name="city" lay-filter="city">
+                        <option value="">请选择市</option>
+                    </select>
+                </label>
             </div>
             <div class="layui-input-inline">
-                <select name="area" lay-filter="area">
-                    <option value="">请选择县/区</option>
-                </select>
+                <label>
+                    <select name="area" lay-filter="area">
+                        <option value="">请选择县/区</option>
+                    </select>
+                </label>
             </div>
         </div>
 
@@ -84,18 +90,14 @@
                     <span class="x-red">*</span>工作室封面
                 </label>
 
-                <!--<input type="text" id="schoolprojectcontextimgurl" hidden="hidden" readonly="readonly"-->
-                       <!--name="projectStageUrl">-->
+                <label for="url"></label><input type="text" id="url" hidden="hidden" readonly="readonly"
+                                                name="url">
 
                 <button type="button" class="layui-btn" id="test1">上传</button>
 
                 <div class="layui-upload-list">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img class="layui-upload-img" id="demo1" width="200px" src="">
-                    <p id="demoText"></p>
-                </div>
-                <div class="layui-form-mid layui-word-aux">
-                    <span class="x-red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span>图片格式必须为PNG|JPG,大小不超过15MB,如果需要更多图片类型,请联系我
+                    <img class="layui-upload-img" id="demo1" width="200px" src="" alt="123">
                 </div>
 
             </div>
@@ -103,7 +105,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
             <button class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+                增加工作室
             </button>
         </div>
     </form>
@@ -121,73 +123,11 @@
 <script>
 
     layui.use('upload', function () {
-        let $ = layui.jquery
-            , upload = layui.upload;
-
-
-        //多文件列表示例
-        const demoListView = $('#demoList')
-            , uploadListIns = upload.render({
-            elem: '#testList'
-            , url: '/enclosure/upload'
-            , accept: 'file'
-            , multiple: true
-            , auto: false
-            , bindAction: '#testListAction'
-            , choose: function (obj) {
-                const files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
-                //读取本地文件
-                obj.preview(function (index, file, result) {
-                    const tr = $(['<tr id="upload-' + index + '">'
-                        , '<td name="enclosureName">' + file.name + '</td>'
-                        , '<td >' + (file.size / 1014).toFixed(1) + 'kb</td>'
-                        , '<td >等待上传</td>'
-                        , '<td name="enclosurePath">'
-                        , '<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-                        , '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
-                        , '</td>'
-                        , '</tr>'].join(''));
-
-                    //单个重传
-                    tr.find('.demo-reload').on('click', function () {
-                        obj.upload(index, file);
-                    });
-
-                    //删除
-                    tr.find('.demo-delete').on('click', function () {
-                        delete files[index]; //删除对应的文件
-                        tr.remove();
-                        uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
-                    });
-
-                    demoListView.append(tr);
-                });
-            }
-            , done: function (res, index, upload) {
-                if (res.code === 200) { //上传成功
-                    const tr = demoListView.find('tr#upload-' + index)
-                        , tds = tr.children();
-                    tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
-                    tds.eq(3).html(res.data); //清空操作
-                    return delete this.files[index]; //删除文件队列已经上传成功的文件
-                }
-                this.error(index, upload);
-            }
-            , error: function (index, upload) {
-                const tr = demoListView.find('tr#upload-' + index)
-                    , tds = tr.children();
-                tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
-                tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
-            }
-        });
-
+        let $ = layui.jquery, upload = layui.upload;
         //普通图片上传
         let uploadInst = upload.render({
             elem: '#test1'
-            , url: '/context/upload/'
-            , accept: 'file' //普通文件
-            , exts: 'png|jpg'
-            , size: 15360
+            , url: '/file/upload'
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
@@ -195,23 +135,12 @@
                 });
             }
             , done: function (res) {
-                //如果上传失败
-                if (res.code > 0) {
-                    return layer.msg('上传失败');
+                if (res.type !== 'OK') {
+                    layer.msg('上传失败');
                 } else {
-                    $("#schoolprojectcontextimgurl").val(res.data);
+                    layer.msg('上传成功');
+                    $('#url').val(res.url);
                 }
-
-
-                //上传成功
-            }
-            , error: function () {
-                //演示失败状态，并实现重传
-                let demoText = $('#demoText');
-                demoText.html('<span style="color: #FF5722;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function () {
-                    uploadInst.upload();
-                });
             }
         });
     });
@@ -220,80 +149,31 @@
         $ = layui.jquery;
         let form = layui.form
             , layer = layui.layer;
-
-        //自定义验证规则
-        form.verify({
-            schoolprojectcontextpname: function (value) {
-                if (value.length < 1) {
-                    return '课程名字不能为空!!!';
-                }
-            }
-        });
-
-        // 获取授课老师信息
-        $.post("/teacher/queryAll", new Date().toLocaleDateString(), function (res) {
-            if (res.code === 200) {
-                $("#quiz1").html("");
+        
+        $.get("/section/sel",{}, function (res) {
+                $("#quiz3").html("");
                 let list = res.data;
                 for (let i in list) {
                     $("#quiz3").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
                 }
                 form.render();
-            }
         }, "json");
 
-        $.post("/project/queryAll", new Date().toLocaleDateString(), function (res) {
-            if (res.code === 200) {
-                $("#quiz1").html("");
-                let list = res.data;
-                for (let i in list) {
-                    $("#quiz1").append("<option value='" + list[i].schoolProjectcolId + "'>" + list[i].schoolProjectcolDirection + "</option>");
-                }
-                form.render();
+        $.get("/subject/sel",{}, function (res) {
+            $("#quiz4").html("");
+            let list = res.data;
+            for (let i in list) {
+                $("#quiz4").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
             }
+            form.render();
         }, "json");
-
-        form.on('select(quiz1)', function (data) {
-            $.post("/context/queryId", {key: data.value}, function (res) {
-                if (res.code === 200) {
-                    $("#quiz2").html("");
-                    let list = res.data;
-                    for (let i in list) {
-                        let str = "<option value=" + list[i].id + ">" + list[i].schoolprojectcontextpname + "</option>";
-                        $("#quiz2").append(str);
-                    }
-                }
-                form.render();
-            }, "json");
-        });
-
+        
 
         //监听提交
         form.on('submit(add)', function (data) {
-
-            let project = data.field;
-
-            let enclosureName = [];
-            let enclosurePath = [];
-
-            $("td[name='enclosureName']").each(function (j, item) {
-                enclosureName.push(item.innerHTML);
-            });
-
-            $("td[name='enclosurePath']").each(function (j, item) {
-                enclosurePath.push(item.innerHTML);
-            });
-
-            $.post("/stage/save", {
-                "projectStageName": project.projectStageName,
-                "projectStagePrice": project.projectStagePrice,
-                "projectStageUrl": project.projectStageUrl,
-                "schoolProjectcolDescribe": project.schoolProjectcolDescribe,
-                "projectStageBelong": project.projectStageBelong, "name": enclosureName, "path": enclosurePath,
-                "teacher": project.teacher,
-                "desc": project.desc
-            }, function (res) {
-                if (res.code === 200) {
+            console.log(data.field);
+            $.post("/office/add", data.field , function (res) {
+                if (res.type === 'OK') {
                     //发异步，把数据提交给php
                     layer.msg("增加成功", {icon: 6}, function () {
                         // 获得frame索引

@@ -3,20 +3,20 @@ package com.example.springLearning.pojo;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * 角色表实体类
- * @author wgb
- */
-@Entity
+
 @Table
+@Entity
 @Data
-public class Role {
+public class Permission {
+
     @Id
     @GeneratedValue
     private Integer id;
-    @Column //名称
+
+    @Column
+    private String value;
+    @Column
     private String name;
+
 }

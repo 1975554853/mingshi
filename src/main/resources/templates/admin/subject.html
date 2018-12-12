@@ -106,7 +106,7 @@
                     updateMessage(res)
                 }, "json");
             }else if (obj.event === 'drop') {
-                $.post("/section/drop", {id: data.id}, function (res) {
+                $.post("/subject/drop", {id: data.id}, function (res) {
                     updateMessage(res);
                 }, "json");
             }else if(obj.event === 'hide'){
