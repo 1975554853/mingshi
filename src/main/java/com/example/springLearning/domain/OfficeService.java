@@ -2,9 +2,12 @@ package com.example.springLearning.domain;
 
 import com.example.springLearning.dao.OfficeDao;
 import com.example.springLearning.pojo.Office;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -27,16 +30,23 @@ public class OfficeService {
     }
 
     //查询所有office
-    public List<Office> selectOffice(){
+    public HashMap selectOffice(Integer page,Integer limit){
+        PageHelper.startPage(page,limit);
+        HashMap hashMap =new HashMap();
         try {
             List<Office> offices = officeDao.selectOffice();
+            PageInfo pageInfo = new PageInfo();
             if (offices != null) {
-                return offices;
+                hashMap.put("status",0);
+                hashMap.put("message","");
+                hashMap.put("total",pageInfo.getTotal());
+                hashMap.put("data",pageInfo.getList());
+                return hashMap;
             }
         }catch (Exception e){
-            return null;
+            return hashMap;
         }
-        return null;
+        return hashMap;
     }
 
     /*//修改工作室信息

@@ -60,10 +60,9 @@ public class OfficeController {
 
     @GetMapping("/select")
     @ResponseBody
-    public HashMap selectOffice(){
+    public HashMap selectOffice(Integer page,Integer limit){
         HashMap hashMap = new HashMap();
-        List o = officeService.selectOffice();
-        hashMap.put("data",o);
+        hashMap = officeService.selectOffice(page, limit);
         return hashMap;
     }
 
