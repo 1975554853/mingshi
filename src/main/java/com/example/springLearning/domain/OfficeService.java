@@ -35,7 +35,7 @@ public class OfficeService {
         HashMap hashMap =new HashMap();
         try {
             List<Office> offices = officeDao.selectOffice();
-            PageInfo pageInfo = new PageInfo();
+            PageInfo pageInfo = new PageInfo(offices);
             if (offices != null) {
                 hashMap.put("status",0);
                 hashMap.put("message","");
@@ -47,6 +47,19 @@ public class OfficeService {
             return hashMap;
         }
         return hashMap;
+    }
+
+    //删除office
+    public boolean deleteOffice(Integer id){
+        try {
+            Integer line = officeDao.deleteOffice(id);
+            if (line > 0){
+                return true;
+            }
+        }catch (Exception e){
+            return false;
+        }
+        return false;
     }
 
     /*//修改工作室信息

@@ -1,4 +1,4 @@
-/*package com.example.springLearning.pojo;
+package com.example.springLearning.pojo;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.BucketReferer;
@@ -37,4 +37,4 @@ public class FileUploadController {
 
     }
 
-}*/
+}
