@@ -50,6 +50,7 @@ public class SectionService {
      * @param limit
      * @return
      */
+
     public HashMap selectSection(Integer page, Integer limit) {
         PageHelper.startPage(page,limit);
         List<LearningSection> sections = sectionDao.selectSections();
@@ -63,6 +64,7 @@ public class SectionService {
         Collections.singletonList(sections).forEach(System.out :: println);
         return hashMap;
     }
+
     /**
      * Author zgs
      * @param id

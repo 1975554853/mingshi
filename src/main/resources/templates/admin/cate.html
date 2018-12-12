@@ -85,23 +85,24 @@
         //方法级渲染
         table.render({
             elem: '#LAY_table_user'
-            , url: '/section/add'
+            , url: '/section/select'
             , cols: [
                 [
                     {checkbox: true, fixed: true}
                     // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
                     , {field: 'id', title: 'ID', width: 250, align: 'center'}
                     , {field: 'name', title: '学段名称', width: 250, align: 'center'}
-                    , {field: 'value', title: '余额', width: 150, align: 'center'}
                     , {width: 320, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
                 ]
             ]
             , id: 'testReload'
             , page: true
             , height: 500
-            , method: 'post'
+            , method: 'get'
             , response: {
-                statusCode: 200 //成功的状态码，默认：0
+                statusName: 'status',
+                statusCode: 0 ,
+                countName: 'total'
             }
         });
 
