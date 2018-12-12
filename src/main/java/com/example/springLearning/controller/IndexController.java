@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
  * 跳转控制器
  **/
 
-
 @Controller
 public class IndexController {
 
