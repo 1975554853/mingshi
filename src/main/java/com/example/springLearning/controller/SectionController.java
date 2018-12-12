@@ -3,6 +3,8 @@ package com.example.springLearning.controller;
 import com.example.springLearning.domain.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -33,5 +35,23 @@ public class SectionController {
         return rm;
     }
 
+    /**
+     * Authur zgs
+     * @param id
+     * @return
+     * 修改学段状态
+     */
+    @RequestMapping("/update")
+    @ResponseBody
+    public HashMap updateSection(int id){
+        System.out.println(id);
+        boolean f = sectionService.updateSection(id);
+        if (f) {
+            HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put("type","OK");
+            return hashMap;
+        }
+        return null;
+    }
 
 }

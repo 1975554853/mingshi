@@ -1,9 +1,10 @@
 package com.example.springLearning.domain;
 
 import com.example.springLearning.dao.SectionDao;
-import com.example.springLearning.pojo.LearningSection;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springLearning.pojo.LearningSection;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @ClassName SectionService
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
  **/
 
 @Service
+
 public class SectionService {
+
     @Autowired
     private SectionDao sectionDao;
 
@@ -27,5 +30,21 @@ public class SectionService {
         }else{
             return "error";
         }
+    }
+    /**
+     * Author zgs
+     * @param id
+     * @return
+     */
+    public boolean updateSection(int id){
+        try{
+            Integer line = sectionDao.upadateSection(id);
+            if (line ==1){
+                return true;
+            }
+        }catch (Exception e){
+            return false;
+        }
+        return false;
     }
 }
