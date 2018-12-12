@@ -66,18 +66,18 @@ public class OfficeController {
         return hashMap;
     }
 
-    @RequestMapping("/delete")
-    @ResponseBody
-    public HashMap deleteOffice(Integer key){
-        HashMap hashMap = new HashMap();
-            boolean b = officeService.deleteOffice(key);
-            if (b){
-                hashMap.put("type","OK");
-            }else {
-                hashMap.put("type", "error");
-            }
-            return hashMap;
-    }
+//    @RequestMapping("/delete")
+//    @ResponseBody
+//    public HashMap deleteOffice(Integer key){
+//        HashMap hashMap = new HashMap();
+//            boolean b = officeService.deleteOffice(key);
+//            if (b){
+//                hashMap.put("type","OK");
+//            }else {
+//                hashMap.put("type", "error");
+//            }
+//            return hashMap;
+//    }
 
    /* //修改工作室信息
     @RequestMapping("/update")
