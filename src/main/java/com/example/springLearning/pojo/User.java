@@ -39,4 +39,6 @@ public class User {
     @Column
     private String state;
 
+    private Integer roleId;     //暂存角色ID
+
 }

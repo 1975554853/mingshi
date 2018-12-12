@@ -25,7 +25,7 @@ public class RoleController {
      * @return
      * @author wgb
      */
-    @RequestMapping("add")
+    @RequestMapping("/add")
     public HashMap insertRole(@RequestBody Role role){
         System.out.println(role);
         HashMap result = roleService.insertRole(role);
