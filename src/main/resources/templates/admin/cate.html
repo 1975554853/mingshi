@@ -110,28 +110,14 @@
         table.on('tool(user)', function (obj) {
             let data = obj.data;
             // 修改课程方向
-            if (obj.event === 'save') {
-                $.post("/chapters/update", data, function (res) {
+            if (obj.event === 'edit') {
+                $.post("/section/delete", {id:data.id}, function (res) {
                     updateMessage(res.code)
                 }, "json");
-                // 修改课程状态
-            } else if (obj.event === 'video') {
-                x_admin_show('视频播放页面', './video.html?video=' + data.courseChaptersVideo, 960, 600);
-            } else if (obj.event === 'delete') {
-                $.post("/member/delete/" + data.id, {key: 65610}, function (result) {
-                    updateMessage(result.code)
-                }, "json");
-
-            } else if (obj.event === 'updateVideo') {
-                sessionStorage.setItem("video_id", data.id);
-                x_admin_show('更换视频', './updateVideo.html', 960, 600);
-            }
-            // 上下架修改
-            else if (obj.event === 'drop') {
+            }else if (obj.event === 'drop') {
                 let data = obj.data;
                 $.post("/section/drop", {id: data.id}, function (res) {
-                    layer.msg("操作成功");
-                    loadTable();
+                    loadTable(res);
                 }, "json");
             }
         });
@@ -143,7 +129,7 @@
         };
 
         function updateMessage(code) {
-            if (code === 200) {
+            if (code.type === 'OK') {
                 layer.msg("修改成功");
             } else {
                 layer.msg("修改失败,系统繁忙");
