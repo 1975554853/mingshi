@@ -92,11 +92,11 @@ public class SubjectService {
             return hashMap;
         }
     }
-
-    public boolean deleteSubjectid(Integer id) {
+     //删除学科
+    public boolean dropSubjectid(Integer id) {
 
        try{
-       int i= subjectDao.deleteSubjectid(id);
+       int i= subjectDao.dropSubjectid(id);
        if (i>0){
            return true;
        }

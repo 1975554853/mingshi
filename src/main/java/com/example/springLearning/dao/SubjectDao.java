@@ -26,7 +26,7 @@ public interface SubjectDao extends CrudRepository<LearningSubject,Integer> {
     @Query("delete from LearningSubject where id = ?1")
     @Modifying
     @Transactional
-    int deleteSubjectid(Integer id);
+    int dropSubjectid(Integer id);
 
     /**
      * 修改学科状态, 0为正常, 1为隐藏

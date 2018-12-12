@@ -78,10 +78,10 @@ public class SubjectController {
         return hashMap;
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/drop")
     @ResponseBody
     public HashMap Subject(Integer id){
-        boolean b = subjectService.deleteSubjectid(id);
+        boolean b = subjectService.dropSubjectid(id);
         HashMap<String,String> map =new HashMap<>();
         if (b){
             map.put("type","OK");
