@@ -41,4 +41,8 @@ public interface SubjectDao extends CrudRepository<LearningSubject,Integer> {
 
     @Query(value = "from LearningSubject order by state")
     List<LearningSubject> selectSubject();
+
+    //查询展示的subject
+    @Query(value = "from LearningSubject where state = ?1")
+    List<LearningSubject> selSubject(Integer state);
 }

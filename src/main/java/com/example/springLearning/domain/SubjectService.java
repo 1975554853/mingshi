@@ -92,6 +92,20 @@ public class SubjectService {
             return hashMap;
         }
     }
+
+    //查询展示的学科
+    public HashMap selSubject(){
+        HashMap hashMap = new HashMap();
+        try {
+            List<LearningSubject> subjects = subjectDao.selSubject(0);
+            if (subjects != null) {
+                hashMap.put("data", subjects);
+            }
+            return hashMap;
+        }catch (Exception e){
+            return hashMap;
+        }
+    }
      //删除学科
     public boolean dropSubjectid(Integer id) {
 

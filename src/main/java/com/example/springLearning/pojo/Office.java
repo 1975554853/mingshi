@@ -16,6 +16,8 @@ public class Office {
     @GeneratedValue
     private Integer id;
     @Column
+    private String url;
+    @Column
     private String name;
     @Column(nullable = false)// 学段外键
     private Integer sectionId;
