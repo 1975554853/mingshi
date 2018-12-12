@@ -23,4 +23,17 @@ public class OfficeService {
         }
         return true;
     }
+
+    /*//修改工作室信息
+    public boolean updateOffice(Office office){
+        try {
+            Integer line = officeDao.updateOffice(office);
+            if (line > 0) {
+                return true;
+            }
+        }catch (Exception e){
+            return false;
+        }
+        return false;
+    }*/
 }
