@@ -36,7 +36,6 @@ public class SectionController {
     @PostMapping("/add")
     @ResponseBody
     public HashMap insertSection(String name){
-        System.out.println(name);
         String result = sectionService.insertSection(name);
         HashMap<String, String> rm = new HashMap<>();
         rm.put("type",result);
@@ -70,6 +69,10 @@ public class SectionController {
     @ResponseBody
     public HashMap showSection(int key){
         boolean f = sectionService.showSection(key);
+        return getHashMap(f);
+    }
+
+    private HashMap getHashMap(boolean f) {
         HashMap<String, String> hashMap = new HashMap<>();
         if (f){
             hashMap.put("type","OK");
@@ -89,13 +92,7 @@ public class SectionController {
     @ResponseBody
     public HashMap dropSection(int id){
         boolean f = sectionService.deleteSectionById(id);
-        HashMap<String, String> hashMap = new HashMap<>();
-        if (f){
-            hashMap.put("type","OK");
-        }else {
-            hashMap.put("type","ERROR");
-        }
-        return hashMap;
+        return getHashMap(f);
     }
 
     /**
@@ -107,7 +104,6 @@ public class SectionController {
     @GetMapping("/select")
     @ResponseBody
     public HashMap selectSection(Integer page, Integer limit){
-        System.out.println("page : "+page+",  limit : "+limit);
         HashMap result = sectionService.selectSection(page, limit);
         return result;
     }
