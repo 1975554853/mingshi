@@ -20,6 +20,7 @@ public interface SectionDao extends CrudRepository<LearningSection,Integer> {
      * @return
      */
     @Override
+    @Transactional
     LearningSection save(LearningSection section);
 
     /**

@@ -21,6 +21,7 @@ public interface SubjectDao extends CrudRepository<LearningSubject,Integer> {
      * @return
      */
     @Override
+    @Transactional
     LearningSubject save(LearningSubject learningSubject);
 
     @Query("delete from LearningSubject where id = ?1")
