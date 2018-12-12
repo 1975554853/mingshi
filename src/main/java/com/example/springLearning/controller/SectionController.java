@@ -51,7 +51,6 @@ public class SectionController {
     @RequestMapping("/delete")
     @ResponseBody
     public HashMap displaySection(int id){
-        System.out.println(id);
         boolean f = sectionService.updateSection(id);
         if (f) {
             HashMap<String, String> hashMap = new HashMap<>();
@@ -59,6 +58,25 @@ public class SectionController {
             return hashMap;
         }
         return null;
+    }
+
+    /**
+     * @Author zgs
+     * @param id
+     * @return
+     * 通过id删除学段
+     */
+    @RequestMapping("/drop")
+    @ResponseBody
+    public HashMap dropSection(int id){
+        boolean f = sectionService.deleteSectionById(id);
+        HashMap<String, String> hashMap = new HashMap<>();
+        if (f){
+            hashMap.put("type","OK");
+        }else {
+            hashMap.put("type","ERROR");
+        }
+        return hashMap;
     }
 
     /**

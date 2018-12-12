@@ -81,4 +81,16 @@ public class SectionService {
         }
         return false;
     }
+
+    public boolean deleteSectionById(int id){
+        try {
+            Integer line = sectionDao.deleteSectionById(id);
+            if (line == 1){
+                return true;
+            }
+        }catch (Exception e){
+            return false;
+        }
+        return false;
+    }
 }

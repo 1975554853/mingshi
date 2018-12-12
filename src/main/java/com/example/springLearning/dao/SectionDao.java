@@ -34,5 +34,10 @@ public interface SectionDao extends CrudRepository<LearningSection,Integer> {
     @Transactional
     Integer upadateSection(int id);
 
+    @Query("delete from LearningSection where id = ?1")
+    @Modifying
+    @Transactional
+    Integer deleteSectionById(int id);
+
 
 }
