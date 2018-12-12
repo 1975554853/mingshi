@@ -6,17 +6,16 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
- * @ClassName RoleDao
- * @Description TODO
- * @Author 樊立扬
- * @Date 2018/12/12 17:00
- * @Version 1.0
+ * @author fly
  **/
 public interface RoleDao extends CrudRepository<Role,Integer> {
 
-//    @Query(value = "select  * from " ,nativeQuery = true)
-//    List<String> queryRoleNameByUserId(@Param("userId") Integer id);
+    @Query(value = "select role.name from role where id in (select role_user.role_id from role_user " +
+            "where user_id = :userId ) "
+            ,nativeQuery = true )
+    Set<String> queryRoleNameByUserId(@Param("userId") Integer id);
 
 }

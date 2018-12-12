@@ -1,6 +1,7 @@
 package com.example.springLearning.config;
 
 
+import com.example.springLearning.dao.RoleDao;
 import com.example.springLearning.dao.UserDao;
 import com.example.springLearning.pojo.User;
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,11 +15,15 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Set;
+
 
 public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
     private UserDao userDao ;
+    @Autowired
+    private RoleDao roleDao ;
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
@@ -34,15 +39,14 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         User user = (User) principalCollection.getPrimaryPrincipal();
-//        Set<String> roles = roleService.queryRoleByUser(user);
-//        authorizationInfo.setRoles(roles);
+        // 用户拥有的角色
+        Set<String> roles = roleDao.queryRoleNameByUserId(user.getId());
+        authorizationInfo.setRoles(roles);
 //        Set<String> permissions = permissionService.queryPermissionByUser(user);
 //        authorizationInfo.setStringPermissions(permissions);
-//        return authorizationInfo;
-        return null;
+        return authorizationInfo;
     }
 
 
