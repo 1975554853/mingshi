@@ -67,12 +67,12 @@ public class SectionService {
 
     /**
      * Author zgs
-     * @param id
+     * @param key
      * @return
      */
-    public boolean updateSection(int id){
+    public boolean updateSection(int key){
         try{
-            Integer line = sectionDao.upadateSection(id);
+            Integer line = sectionDao.upadateSection(key);
             if (line ==1){
                 return true;
             }
@@ -82,9 +82,33 @@ public class SectionService {
         return false;
     }
 
-    public boolean deleteSectionById(int id){
+    /**
+     * @param key
+     * @return
+     * @author zgs
+     * 展示学段
+     */
+    public boolean showSection(int key){
+        try{
+            Integer line = sectionDao.showSection(key);
+            if (line ==1){
+                return true;
+            }
+        }catch (Exception e){
+            return false;
+        }
+        return false;
+    }
+
+
+    /**
+     * @param key
+     * @return
+     * 通过key(id)删除学段
+     */
+    public boolean deleteSectionById(int key){
         try {
-            Integer line = sectionDao.deleteSectionById(id);
+            Integer line = sectionDao.deleteSectionById(key);
             if (line == 1){
                 return true;
             }

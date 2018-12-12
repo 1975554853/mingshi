@@ -61,6 +61,24 @@ public class SectionController {
     }
 
     /**
+     * @param key
+     * @return
+     * 展示学段
+     */
+    @RequestMapping("/show")
+    @ResponseBody
+    public HashMap showSection(int key){
+        boolean f = sectionService.showSection(key);
+        HashMap<String, String> hashMap = new HashMap<>();
+        if (f){
+            hashMap.put("type","OK");
+        }else {
+            hashMap.put("type","ERROR");
+        }
+        return hashMap;
+    }
+
+    /**
      * @Author zgs
      * @param id
      * @return
