@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8">
 	<title>后台登录-X-admin2.0</title>
@@ -9,11 +9,11 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="./css/font.css">
-	<link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="stylesheet" href="/css/font.css">
+	<link rel="stylesheet" href="/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="./lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/xadmin.js"></script>
 
 </head>
 <body>
@@ -52,7 +52,7 @@
     <div class="left-nav">
       <div id="side-nav">
         <ul id="nav">
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b8;</i>
                     <cite>工作室管理</cite>
@@ -98,7 +98,7 @@
                 </ul>
             </li>
 
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b8;</i>
                     <cite>学员管理</cite>
@@ -190,7 +190,7 @@
                 </ul>
             </li>
 
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
                     <cite>订单管理</cite>
@@ -205,7 +205,7 @@
                     </li >
                 </ul>
             </li>
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
                     <cite>系统数据配置</cite>
@@ -232,7 +232,7 @@
                     </li >
                 </ul>
             </li>
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
                     <cite>城市联动</cite>
@@ -247,7 +247,7 @@
                     </li >
                 </ul>
             </li>
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe726;</i>
                     <cite>管理员管理</cite>
@@ -280,7 +280,7 @@
                     </li >
                 </ul>
             </li>
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6ce;</i>
                     <cite>系统统计</cite>
@@ -337,7 +337,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b4;</i>
                     <cite>图标字体</cite>
@@ -365,7 +365,7 @@
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='./welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='/welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
           </div>
         </div>

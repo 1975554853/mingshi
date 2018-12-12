@@ -81,6 +81,16 @@
             </div>
         </div>
 
+        <div class="layui-form-item">
+
+            <label class="layui-form-label">选择角色</label>
+            <div class="layui-input-inline">
+                <label for="quiz6"></label>
+                <select id="quiz6" lay-filter="quiz6" name="role">
+                    <option value="0">请选择工作室</option>
+                </select>
+            </div>
+        </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">所属科目</label>
@@ -208,6 +218,15 @@
             let list = res.data;
             for (let i in list) {
                 $("#quiz5").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
+            }
+            form.render();
+        }, "json");
+
+        $.get("/role/sel",{}, function (res) {
+            $("#quiz6").html("");
+            let list = res.data;
+            for (let i in list) {
+                $("#quiz6").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
             }
             form.render();
         }, "json");

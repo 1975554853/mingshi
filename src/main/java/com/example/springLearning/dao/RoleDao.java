@@ -13,7 +13,7 @@ import java.util.Set;
  **/
 public interface RoleDao extends CrudRepository<Role,Integer> {
 
-    @Query(value = "select role.name from role where id in (select role_user.role_id from role_user " +
+    @Query(value = "select role.value from role where id in (select user_role.role_id from user_role " +
             "where user_id = :userId ) "
             ,nativeQuery = true )
     Set<String> queryRoleNameByUserId(@Param("userId") Integer id);

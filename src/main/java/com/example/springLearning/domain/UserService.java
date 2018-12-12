@@ -5,7 +5,9 @@ import com.example.springLearning.pojo.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,9 +51,15 @@ public class UserService {
         return hashMap;
     }
 
-    public boolean saveUser(User user) {
+    @Transactional
+    @Modifying
+    public boolean saveUser(User user , Integer role) {
         try {
-            userDao.save(user);
+            User u = userDao.save(user);
+            System.out.println(u.getId());
+            System.out.println(role);
+            // 给用户设置角色
+            userDao.updateUserSetRole(u.getId(),role);
             return true;
         }catch (Exception e){
             e.printStackTrace();

@@ -50,4 +50,11 @@ public class RoleService {
         map.put("status",0);
         return map;
     }
+
+    public Object selectSel() {
+        List<Role> roles = roleDao.selectRole();
+        Map map = new HashMap();
+        map.put("data",roles);
+        return map;
+    }
 }

@@ -39,4 +39,11 @@ public class RoleController {
     public Map selectRole(Integer page ,Integer limit){
         return roleService.selectRole(page,limit);
     }
+
+    @RequestMapping("/sel")
+    @ResponseBody
+    public Object selRole(){
+        return roleService.selectSel();
+    }
+
 }

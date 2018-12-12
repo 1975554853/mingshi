@@ -2,9 +2,13 @@ package com.example.springLearning.controller;
 
 import com.example.springLearning.domain.UserService;
 import com.example.springLearning.pojo.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -19,6 +23,19 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @RequestMapping("/login")
+    public String login(String username, String password, Model model){
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+        try {
+            subject.login(token);
+        }catch (Exception e){
+            model.addAttribute("error","用户名或密码错误");
+            return "admin/login";
+        }
+        return "admin/index";
+    }
 
     @PostMapping("/delete")
     @ResponseBody
@@ -58,7 +75,9 @@ public class UserController {
     @ResponseBody
     public Map<String, String> insertStudent(String name , String card , String school ,
                                              Integer section , Integer office , String state ,
-                                             String city, String area , @RequestParam(value = "url",required = false) String url){
+                                             String city,
+                                             Integer role ,
+                                             String area , @RequestParam(value = "url",required = false) String url){
 
         HashMap<String, String> map = new HashMap<>();
         User user = new User();
@@ -77,7 +96,7 @@ public class UserController {
         String md5Pass = new SimpleHash("md5", pass , name , 5).toHex();
         user.setPassword(md5Pass);
 
-        boolean flag = userService.saveUser(user);
+        boolean flag = userService.saveUser(user,role);
         if(flag){
             map.put("type","OK");
         }else{
