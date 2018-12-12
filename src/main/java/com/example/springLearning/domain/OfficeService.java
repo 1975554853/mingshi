@@ -5,6 +5,8 @@ import com.example.springLearning.pojo.Office;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OfficeService {
     @Autowired
@@ -22,6 +24,19 @@ public class OfficeService {
             return false;
         }
         return true;
+    }
+
+    //查询所有office
+    public List<Office> selectOffice(){
+        try {
+            List<Office> offices = officeDao.selectOffice();
+            if (offices != null) {
+                return offices;
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return null;
     }
 
     /*//修改工作室信息

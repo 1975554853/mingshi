@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  *
  */
@@ -27,4 +29,8 @@ public interface OfficeDao extends CrudRepository<Office,Integer> {
     @Modifying
     @Transactional
     Integer updateOffice(@Param("office") Office office);*/
+
+    //查询office
+    @Query(value = "from Office order by follows")
+    List<Office> selectOffice();
 }

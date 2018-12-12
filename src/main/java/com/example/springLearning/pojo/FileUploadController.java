@@ -1,4 +1,4 @@
-package com.example.springLearning.pojo;
+/*package com.example.springLearning.pojo;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.BucketReferer;
@@ -13,9 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-/**
+*//**
  * @author fly
- */
+ *//*
 
 @Controller
 @RequestMapping("/file")
@@ -41,4 +41,4 @@ public class FileUploadController {
 
     }
 
-}
+}*/

@@ -5,11 +5,13 @@ import com.example.springLearning.pojo.Office;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/office")
@@ -20,7 +22,7 @@ public class OfficeController {
 
     /**
      * @param name
-     * @param sectionId
+     * @param section
      * @param subject
      * @param state
      * @param city 123
@@ -30,12 +32,12 @@ public class OfficeController {
      */
     @RequestMapping("/add")
     @ResponseBody
-    public HashMap insertOffice(String url,String name,Integer sectionId,Integer subject,String state,String city,String area){
+    public HashMap insertOffice(String url,String name,Integer section,Integer subject,String state,String city,String area){
         HashMap hashMap = new HashMap();
         Office office = new Office();
         office.setUrl(url);
         office.setName(name);
-        office.setSectionId(sectionId);
+        office.setSectionId(section);
         office.setSubject(subject);
         office.setState(state);
         office.setCity(city);
@@ -53,6 +55,15 @@ public class OfficeController {
         }catch (Exception e){
             return hashMap;
         }
+        return hashMap;
+    }
+
+    @GetMapping("/select")
+    @ResponseBody
+    public HashMap selectOffice(){
+        HashMap hashMap = new HashMap();
+        List o = officeService.selectOffice();
+        hashMap.put("data",o);
         return hashMap;
     }
 
