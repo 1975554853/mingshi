@@ -312,7 +312,7 @@ $(".glzx_xl h2").hover(function(){
                         <ul>
                             <li th:each="user : ${application.users}">
                                 <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/50.html" target="_blank">
-                                    <img src="@{user.headPhotoUrl}" style="width:100px;height:100px;border-radius:100%">
+                                    <img th:src="@{{name}(name=${user.headPhotoUrl})}" style="width:100px;height:100px;border-radius:100%">
                                     <p><span th:text="${user.username}"></span>工作室</p>
                                 </a>
                             </li>
