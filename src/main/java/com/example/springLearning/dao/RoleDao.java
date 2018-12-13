@@ -28,6 +28,14 @@ public interface RoleDao extends CrudRepository<Role,Integer> {
     @Override
     Role save(Role role);
 
+    /**
+     * 添加角色数据
+     */
+    @Query(value = "insert into role(id, name,value) values(?1,?2,?3)", nativeQuery = true)
+    @Modifying
+    @Transactional
+    Integer insertRole(Integer id, String name, String value);
+
     @Query(value = "from Role")
     List<Role> selectAllRoles();
 
