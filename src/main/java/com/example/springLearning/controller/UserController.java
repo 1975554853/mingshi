@@ -57,34 +57,36 @@ public class UserController {
         return map;
     }
 
-//    /**
-//     * 添加教师
-//     * @param user
-//     * @return
-//     */
-//    @PostMapping("/addTeacher")
-//    @ResponseBody
-//    public HashMap insertTeacher(@RequestBody User user){
-//        System.out.println(user);
-//        Role role = roleService.selectRoleByName("教师").get("role");
-//        System.out.println(role);
-//        HashMap result = userService.insertUser(user, role.getId());
-//        return result;
-//    }
-//
-//    /**
-//     * 分页获取获取教师数据
-//     * @param page
-//     * @param limit
-//     * author wgb
-//     */
-//    @RequestMapping("/selTeaByPage")
-//    @ResponseBody
-//    public HashMap selectTeacherByPage(Integer page, Integer limit){
-//        System.out.println(page+"  "+limit);
-//        HashMap hashMap = userService.selectTeacherByPage(page,limit);
-//        return hashMap;
-//    }
+    /**
+     * 添加教师
+     * @param user
+     * @return
+     */
+    @PostMapping("/addTeacher")
+    @ResponseBody
+    public HashMap insertTeacher(@RequestBody User user){
+        System.out.println(user);
+        Role role = roleService.selectRoleByName("教师").get("role");
+        System.out.println(role);
+        user.setRoleId(role.getId());
+        HashMap result = userService.insertUser(user);
+        return result;
+    }
+
+    /**
+     * 分页获取获取教师数据
+     * @param page
+     * @param limit
+     * author wgb
+     */
+    @RequestMapping("/selTeaByPage")
+    @ResponseBody
+    public HashMap selectTeacherByPage(Integer page, Integer limit){
+        System.out.println(page+"  "+limit);
+        HashMap hashMap = userService.selectTeacherByPage(page,limit);
+        hashMap.put("office", "张三工作室");
+        return hashMap;
+    }
 
 
     @GetMapping("/select")
