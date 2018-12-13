@@ -2,7 +2,12 @@ package com.example.springLearning.domain;
 
 import com.example.springLearning.config.Page;
 import com.example.springLearning.dao.UserDao;
+import com.example.springLearning.dao.UserRoleDao;
+import com.example.springLearning.pojo.Role;
 import com.example.springLearning.pojo.User;
+import com.example.springLearning.pojo.UserRole;
+import com.example.springLearning.util.MD5OP;
+import com.example.springLearning.util.Parameter;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
@@ -27,35 +32,43 @@ public class UserService {
     private UserDao userDao;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private UserRoleDao userRoleDao;
 
     /**
      * 添加用户
      * @param user
      * @return
      */
-//    public HashMap<String, String> insertUser(User user){
-//        HashMap<String, String > hashMap = new HashMap<>();
-//        String type = "";
-//        String message = "";
-//        User exist = userDao.queryUserByCard(user.getCard());
-//        if(exist != null){
-//            type = "error";
-//            message = "该用户已存在";
-//        }else{
-//            User result = userDao.save(user);
-//            if(result.getId() > 0){
-//                type = "OK";
-//                message = "添加成功";
-//                userDao.insertUserRole(user.getId(), user.getRoleId());     //添加中间表数据
-//            }else{
-//                type = "error";
-//                message = "系统错误, 请稍后重试";
-//            }
-//        }
-//        hashMap.put("type", type);
-//        hashMap.put("message", message);
-//        return hashMap;
-//    }
+    public HashMap<String, String> insertUser(User user){
+        HashMap<String, String > hashMap = new HashMap<>();
+        String type = "";
+        String message = "";
+        User exist = userDao.queryUserByCard(user.getCard());
+        if(exist != null){
+            type = "error";
+            message = "该用户已存在";
+        }else{
+            String password = user.getCard().substring(user.getCard().length()-6);
+            password = MD5OP.md5(password, Parameter.key);
+            user.setPassword(password);
+            User result = userDao.save(user);
+            if(result.getId() > 0){
+                type = "OK";
+                message = "添加成功";
+                UserRole userRole = new UserRole();
+                userRole.setRoleId(user.getRoleId());
+                userRole.setUserId(user.getId());
+                userRoleDao.save(userRole);     //添加中间表数据
+            }else{
+                type = "error";
+                message = "系统错误, 请稍后重试";
+            }
+        }
+        hashMap.put("type", type);
+        hashMap.put("message", message);
+        return hashMap;
+    }
 
     @Transactional
     @Modifying
@@ -96,6 +109,21 @@ public class UserService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * 分页查询教师
+     */
+    public HashMap selectTeacherByPage(Integer page, Integer limit) {
+        HashMap hashMap = new HashMap();
+        PageHelper.startPage(page,limit);
+        List<User> teachers = userDao.selectUserByRole("教师");
+        PageInfo<User> pageInfo = new PageInfo<>(teachers);
+        hashMap.put("status",0);
+        hashMap.put("message","");
+        hashMap.put("total",pageInfo.getTotal());
+        hashMap.put("data",pageInfo.getList());
+        return hashMap;
     }
 
     /**
