@@ -1,10 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" th:href="@{/css/swiper.min.css}">
 
@@ -311,10 +310,13 @@ $(".glzx_xl h2").hover(function(){
 
                     <div class="sjzx_bot_nr">
                         <ul>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/50.html"
-                                   target="_blank"><img src="/images/5bad8be80ed6e.png"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>李淑民工作室</p></a></li>
+                            <li th:each="user : ${application.users}">
+                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/50.html" target="_blank">
+                                    <img src="@{user.headPhotoUrl}" style="width:100px;height:100px;border-radius:100%">
+                                    <p><span th:text="${user.username}"></span>工作室</p>
+                                </a>
+                            </li>
+                            <!--
                             <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/97.html"
                                    target="_blank"><img src="/images/5bd40f5b6b1fd.jpg"
                                                         style="width:100px;height:100px;border-radius:100%">
@@ -370,7 +372,7 @@ $(".glzx_xl h2").hover(function(){
                             <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/58.html"
                                    target="_blank"><img src="/images/5b9879c670919.png"
                                                         style="width:100px;height:100px;border-radius:100%">
-                                <p>李华丽工作室</p></a></li>
+                                <p>李华丽工作室</p></a></li>-->
                         </ul>
                     </div>
                 </div>

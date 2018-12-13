@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
@@ -124,6 +125,37 @@ public class UserService {
         hashMap.put("total",pageInfo.getTotal());
         hashMap.put("data",pageInfo.getList());
         return hashMap;
+    }
+
+    /**
+     * 分页获取教师数据
+     * @param page
+     * @param limit
+     * @return
+     */
+    public HashMap selectTeacherByPage(Integer page, Integer limit) {
+        HashMap hashMap = new HashMap();
+        PageHelper.startPage(page,limit);
+        List<User> teachers = userDao.selectUserByRole("教师");
+        PageInfo<User> pageInfo = new PageInfo<>(teachers);
+        hashMap.put("status",0);
+        hashMap.put("message","");
+        hashMap.put("total",pageInfo.getTotal());
+        hashMap.put("data",pageInfo.getList());
+        return hashMap;
+    }
+
+    //查询所有的教师
+    public List<User> selectUserByRoleId(Integer roleId) {
+        try{
+            List<User> users = userDao.selectUserByRoleId(roleId);
+            if (users != null){
+                return users;
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return null;
     }
 
     public User selectUserById(int id) {
