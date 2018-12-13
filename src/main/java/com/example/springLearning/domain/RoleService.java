@@ -41,7 +41,7 @@ public class RoleService {
      * @author wgb
      */
     public void insertRoleByEntity(Role role){
-        roleDao.save(role);
+        roleDao.insertRole(role.getId(), role.getName(),role.getValue());
     }
 
     /**
