@@ -1,5 +1,6 @@
 package com.example.springLearning.controller;
 
+import com.example.springLearning.config.Page;
 import com.example.springLearning.domain.ClassificationService;
 import com.example.springLearning.pojo.Classification;
 import com.example.springLearning.pojo.User;
@@ -22,6 +23,13 @@ public class ClassificationController {
 
     @Autowired
     private ClassificationService classificationService;
+
+    @RequestMapping("/sel")
+    @ResponseBody
+    public Object selectClass(){
+       User user =  Page.getUser();
+       return classificationService.selectFatherClass(user.getOfficeId());
+    }
 
     // 添加分类
     @RequestMapping("/add")
@@ -62,6 +70,13 @@ public class ClassificationController {
         classification.setFather(id);
         classification.setName(name);
         return classificationService.classificationInsert(classification);
+    }
+
+    @RequestMapping("/queryFather")
+    @ResponseBody
+    public Object queryFather(Integer key){
+        System.out.println(key+"------------------->>>>");
+        return classificationService.queryClassByFatherId(key);
     }
 
 }

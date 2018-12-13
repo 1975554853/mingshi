@@ -88,4 +88,14 @@ public class IndexController {
         return "admin/classification";
      }
 
+     @GetMapping("/article")
+     public String article(){
+        return "admin/article";
+     }
+
+    @GetMapping("/article_add")
+    public String article_add(){
+        return "admin/article_add";
+    }
+
 }

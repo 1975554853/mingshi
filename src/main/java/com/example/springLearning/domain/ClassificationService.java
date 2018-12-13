@@ -65,6 +65,17 @@ public class ClassificationService {
     }
 
     public Object updateClass(Integer id, String name) {
-        return null;
+        return classificationDao.updateClass(id,name);
+    }
+
+    public Object selectFatherClass(Integer officeId) {
+        List<Classification> classifications = classificationDao.selectFatherClass(officeId);
+        return map.put("data",classifications);
+    }
+
+    public Object queryClassByFatherId(Integer key) {
+        List<Classification> classifications = classificationDao.queryClassByFatherId(key);
+        return map.put("data",classifications);
+
     }
 }

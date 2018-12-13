@@ -38,6 +38,9 @@ public class UserController {
             model.addAttribute("error","用户名或密码错误");
             return "admin/login";
         }
+
+        System.out.println(subject.hasRole("group"));
+
         return "admin/index";
     }
 
@@ -54,34 +57,34 @@ public class UserController {
         return map;
     }
 
-    /**
-     * 添加教师
-     * @param user
-     * @return
-     */
-    @PostMapping("/addTeacher")
-    @ResponseBody
-    public HashMap insertTeacher(@RequestBody User user){
-        System.out.println(user);
-        Role role = roleService.selectRoleByName("教师").get("role");
-        System.out.println(role);
-        HashMap result = userService.insertUser(user, role.getId());
-        return result;
-    }
-
-    /**
-     * 分页获取获取教师数据
-     * @param page
-     * @param limit
-     * author wgb
-     */
-    @RequestMapping("/selTeaByPage")
-    @ResponseBody
-    public HashMap selectTeacherByPage(Integer page, Integer limit){
-        System.out.println(page+"  "+limit);
-        HashMap hashMap = userService.selectTeacherByPage(page,limit);
-        return hashMap;
-    }
+//    /**
+//     * 添加教师
+//     * @param user
+//     * @return
+//     */
+//    @PostMapping("/addTeacher")
+//    @ResponseBody
+//    public HashMap insertTeacher(@RequestBody User user){
+//        System.out.println(user);
+//        Role role = roleService.selectRoleByName("教师").get("role");
+//        System.out.println(role);
+//        HashMap result = userService.insertUser(user, role.getId());
+//        return result;
+//    }
+//
+//    /**
+//     * 分页获取获取教师数据
+//     * @param page
+//     * @param limit
+//     * author wgb
+//     */
+//    @RequestMapping("/selTeaByPage")
+//    @ResponseBody
+//    public HashMap selectTeacherByPage(Integer page, Integer limit){
+//        System.out.println(page+"  "+limit);
+//        HashMap hashMap = userService.selectTeacherByPage(page,limit);
+//        return hashMap;
+//    }
 
 
     @GetMapping("/select")
@@ -90,21 +93,26 @@ public class UserController {
         return userService.selectUser(page,limit);
     }
 
-
     @PostMapping("/add")
     @ResponseBody
     public Map<String, String> insertStudent(String name , String card , String school ,
-                                             Integer section , Integer office , String state ,
+                                             Integer section ,
+                                             @RequestParam(value = "office",required = false) Integer office,
+                                             String state ,
                                              String city,
-                                             Integer role ,
+                                             @RequestParam(value = "role",required = false) Integer role ,
                                              String area , @RequestParam(value = "url",required = false) String url){
-
+        User u = (User) SecurityUtils.getSubject().getPrincipal();
         HashMap<String, String> map = new HashMap<>();
         User user = new User();
         user.setUsername(name);
         user.setCity(city);
         user.setSchool(school);
         user.setCard(card);
+
+        if(office == null){
+            office = u.getOfficeId();
+        }
         user.setOfficeId(office);
         user.setSection(section);
         user.setState(state);
@@ -116,6 +124,9 @@ public class UserController {
         String md5Pass = new SimpleHash("md5", pass , name , 5).toHex();
         user.setPassword(md5Pass);
 
+        if(role == null){
+            role = 3;
+        }
         boolean flag = userService.saveUser(user,role);
         if(flag){
             map.put("type","OK");

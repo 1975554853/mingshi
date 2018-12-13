@@ -149,12 +149,14 @@
                 </ul>
             </li>
 
-            <li>
+            <li shiro:hasAnyRoles="group,user">
+
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b8;</i>
                     <cite>我的工作室</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
+
                 <ul class="sub-menu">
 
 
@@ -166,10 +168,9 @@
                     </li>
 
                     <li>
-                        <a _href="member-del.html">
+                        <a _href="/article">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>教师文章</cite>
-
+                            <cite>文章列表</cite>
                         </a>
                     </li>
                     <li>
@@ -189,7 +190,7 @@
                 </ul>
             </li>
 
-            <li>
+            <li shiro:hasrole="group">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b8;</i>
                     <cite>分类管理</cite>

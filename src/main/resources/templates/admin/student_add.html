@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:shiro="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item" shiro:hasrole="admin">
 
             <label class="layui-form-label">所属工作室</label>
             <div class="layui-input-inline">
@@ -81,7 +81,7 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item" shiro:hasrole="admin">
 
             <label class="layui-form-label">选择角色</label>
             <div class="layui-input-inline">
