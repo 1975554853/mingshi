@@ -55,6 +55,18 @@ public class IndexController {
     public String welcome(){
         return "admin/welcome";
     }
+    @GetMapping("/teacher")
+    public String teacher(){
+        return "admin/teacher";
+    }
+    @GetMapping("/teacher_add")
+    public String teacherAdd(){
+        return "admin/teacher_add";
+    }
+    @GetMapping("/roleAdd")
+    public String roleAdd(){
+        return "admin/role_add";
+    }
 
     @GetMapping("/student")
     public String student(){
