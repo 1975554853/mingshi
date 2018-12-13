@@ -20,6 +20,7 @@ import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 用户service
@@ -56,7 +57,7 @@ public class UserService {
                 type = "OK";
                 message = "添加成功";
                 UserRole userRole = new UserRole();
-                userRole.setRoleId(user.getRoleId());
+//                userRole.setRoleId(user.getRoleId());
                 userRole.setUserId(user.getId());
                 userRoleDao.save(userRole);     //添加中间表数据
             }else{
@@ -123,5 +124,20 @@ public class UserService {
         hashMap.put("total",pageInfo.getTotal());
         hashMap.put("data",pageInfo.getList());
         return hashMap;
+    }
+
+    public User selectUserById(int id) {
+
+        return null;
+    }
+
+    public boolean updateUserUrl(String s) {
+        try{
+           userDao.updateUserUrlById( Page.getUser().getId() , s );
+           return  true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

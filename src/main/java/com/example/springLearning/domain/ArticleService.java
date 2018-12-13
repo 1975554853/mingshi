@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.hibernate.query.Query;
+import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,18 +48,18 @@ public class ArticleService {
 
     public Map selectArticle(Integer page, Integer limit) {
         Map<String, Object> map = new HashMap<>();
-        StringBuilder sql = new StringBuilder(" select a.title , u.id  , a.id as author , u.username  ,a.type from article a inner join user u on a.author = u.id where 1=1");
+        StringBuilder sql = new StringBuilder(" select a.title , u.id  , a.id as author , u.username  ,a.type , c.name as className , c.id as classId from article a inner join user u on a.author = u.id inner join classification c on c.id = a.classification where 1=1");
         // 是不是站长
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         if(SecurityUtils.getSubject().hasRole("group")){
-            sql.append(" and office = " + user.getOfficeId());
+            sql.append(" and a.office = " + user.getOfficeId());
         }
         if(SecurityUtils.getSubject().hasRole("user")){
-            sql.append(" and author " + user.getId());
+            sql.append(" and a.author = " + user.getId());
         }
         PageHelper.startPage(page,limit);
         System.out.println(sql.toString());
-        List articles = entityManager.createNativeQuery(sql.toString()).unwrap(Query.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        List articles = entityManager.createNativeQuery(sql.toString()).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         PageInfo pageInfo = new PageInfo<>(articles);
         return Page.page(pageInfo);
 

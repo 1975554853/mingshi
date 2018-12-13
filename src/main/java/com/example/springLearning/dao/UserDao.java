@@ -30,4 +30,9 @@ public interface UserDao extends CrudRepository<User,Integer> {
     @Query(value = "select * from user where id in (select user_id from user_role where role_id in (select id from role where name=?1))", nativeQuery = true)
     @Modifying
     List<User> selectUserByRole(String roleName);
+
+    @Transactional
+    @Query(value = "update user set resume_url = ?2 where id = ?1" ,nativeQuery = true)
+    @Modifying
+    Integer updateUserUrlById(int id, String s);
 }

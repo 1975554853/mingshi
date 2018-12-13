@@ -98,4 +98,9 @@ public class IndexController {
         return "admin/article_add";
     }
 
+    @GetMapping("/resume")
+    public String resume(){
+        return "admin/resume";
+    }
+
 }

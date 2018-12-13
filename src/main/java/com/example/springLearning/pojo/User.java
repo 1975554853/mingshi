@@ -43,6 +43,4 @@ public class User {
     @Column
     private Integer section;
 
-    private Integer roleId;     //暂存角色ID
-
 }

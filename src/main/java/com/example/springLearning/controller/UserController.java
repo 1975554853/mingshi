@@ -1,5 +1,6 @@
 package com.example.springLearning.controller;
 
+import com.example.springLearning.config.Page;
 import com.example.springLearning.domain.RoleService;
 import com.example.springLearning.domain.UserService;
 import com.example.springLearning.pojo.Role;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,63 +29,66 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private HttpSession httpSession;
 
     @RequestMapping("/login")
-    public String login(String username, String password, Model model){
+    public String login(String username, String password, Model model) {
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             subject.login(token);
-        }catch (Exception e){
-            model.addAttribute("error","用户名或密码错误");
+        } catch (Exception e) {
+            model.addAttribute("error", "用户名或密码错误");
             return "admin/login";
         }
-
-        System.out.println(subject.hasRole("group"));
+        httpSession.setAttribute("user", Page.getUser());
+        System.out.println(Page.getUser().toString());
 
         return "admin/index";
     }
 
     @PostMapping("/delete")
     @ResponseBody
-    public Object deleteUser(Integer key){
+    public Object deleteUser(Integer key) {
         Map<String, String> map = new HashMap<String, String>();
         boolean flag = userService.deleteUser(key);
-        if(flag){
-            map.put("type","OK");
-        }else{
-            map.put("type","error");
+        if (flag) {
+            map.put("type", "OK");
+        } else {
+            map.put("type", "error");
         }
         return map;
     }
 
     /**
      * 添加教师
+     *
      * @param user
      * @return
      */
     @PostMapping("/addTeacher")
     @ResponseBody
-    public HashMap insertTeacher(@RequestBody User user){
+    public HashMap insertTeacher(@RequestBody User user) {
         System.out.println(user);
         Role role = roleService.selectRoleByName("教师").get("role");
         System.out.println(role);
-        user.setRoleId(role.getId());
+//        user.setRoleId(role.getId());
         HashMap result = userService.insertUser(user);
         return result;
     }
 
     /**
      * 分页获取获取教师数据
+     *
      * @param page
-     * @param limit
-     * author wgb
+     * @param limit author wgb
      */
     @RequestMapping("/selTeaByPage")
     @ResponseBody
-    public HashMap selectTeacherByPage(Integer page, Integer limit){
-        System.out.println(page+"  "+limit);
-        HashMap hashMap = userService.selectTeacherByPage(page,limit);
+    public HashMap selectTeacherByPage(Integer page, Integer limit) {
+        System.out.println(page + "  " + limit);
+        HashMap hashMap = userService.selectTeacherByPage(page, limit);
         hashMap.put("office", "张三工作室");
         return hashMap;
     }
@@ -91,19 +96,19 @@ public class UserController {
 
     @GetMapping("/select")
     @ResponseBody
-    public Map<String, Object> selectUser(Integer page , Integer limit){
-        return userService.selectUser(page,limit);
+    public Map<String, Object> selectUser(Integer page, Integer limit) {
+        return userService.selectUser(page, limit);
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public Map<String, String> insertStudent(String name , String card , String school ,
-                                             Integer section ,
-                                             @RequestParam(value = "office",required = false) Integer office,
-                                             String state ,
+    public Map<String, String> insertStudent(String name, String card, String school,
+                                             Integer section,
+                                             @RequestParam(value = "office", required = false) Integer office,
+                                             String state,
                                              String city,
-                                             @RequestParam(value = "role",required = false) Integer role ,
-                                             String area , @RequestParam(value = "url",required = false) String url){
+                                             @RequestParam(value = "role", required = false) Integer role,
+                                             String area, @RequestParam(value = "url", required = false) String url) {
         User u = (User) SecurityUtils.getSubject().getPrincipal();
         HashMap<String, String> map = new HashMap<>();
         User user = new User();
@@ -112,7 +117,7 @@ public class UserController {
         user.setSchool(school);
         user.setCard(card);
 
-        if(office == null){
+        if (office == null) {
             office = u.getOfficeId();
         }
         user.setOfficeId(office);
@@ -121,19 +126,22 @@ public class UserController {
         user.setArea(area);
         user.setHeadPhotoUrl(url);
 
-        String pass = card.substring(card.length()-6);
+        String pass = card.substring(card.length() - 6);
         System.out.println(pass);
-        String md5Pass = new SimpleHash("md5", pass , name , 5).toHex();
+        String md5Pass = new SimpleHash("md5", pass, name, 5).toHex();
         user.setPassword(md5Pass);
 
-        if(role == null){
+        if (role == null) {
             role = 3;
         }
-        boolean flag = userService.saveUser(user,role);
-        if(flag){
-            map.put("type","OK");
-        }else{
-            map.put("type","error");
+        if (role == 2) {
+        }
+
+        boolean flag = userService.saveUser(user, role);
+        if (flag) {
+            map.put("type", "OK");
+        } else {
+            map.put("type", "error");
         }
 
         return map;
