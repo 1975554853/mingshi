@@ -16,16 +16,6 @@ public interface UserDao extends CrudRepository<User,Integer> {
 
     User queryUserByCard(String card);
 
-    /**
-     * 添加用户数据
-     * @param user
-     * @return
-     * @author wgb
-     */
-    @Override
-    @Transactional
-    User save(User user);
-
     @Query("from User")
     List<User> selectUser();
 

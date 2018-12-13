@@ -33,5 +33,6 @@ public class Article implements Serializable {
     @Lob
     @Column(columnDefinition = "TEXT")
     private String text;
-
+    @Column
+    private String url;
 }

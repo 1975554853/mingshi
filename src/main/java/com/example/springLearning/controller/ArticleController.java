@@ -7,6 +7,7 @@ import com.example.springLearning.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
@@ -25,13 +26,9 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-//    classId: 123
-//    title: 测试数据
-//    txt: <p><img src="https://netschool.oss-cn-beijing.aliyuncs.com/2018-12-13/QQ图片20181210170030.png" alt="undefined"></p><p>和防腐剂和肺结核</p>
-
     @RequestMapping("/add")
     @ResponseBody
-    public Map add(Integer classId , String title , String txt){
+    public Map add(Integer classId , String title , String txt , @RequestParam(value = "url",required = false) String url){
         User user = Page.getUser();
         Article article = new Article();
         article.setAuthor(user.getId());
@@ -41,6 +38,7 @@ public class ArticleController {
         // 未审核
         article.setType(1);
         article.setTitle(title);
+        article.setUrl(url);
         return articleService.saveArticle(article);
     }
 

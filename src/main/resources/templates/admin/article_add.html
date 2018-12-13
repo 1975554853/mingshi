@@ -56,6 +56,25 @@
 
         </div>
 
+        <div class="layui-form-item">
+            <div class="layui-upload">
+                <label for="L_email" class="layui-form-label">
+                    <span class="x-red">*</span>头像
+                </label>
+
+                <label for="url"></label><input type="text" id="url" hidden="hidden" readonly="readonly"
+                                                name="url">
+
+                <button type="button" class="layui-btn" id="test1">上传</button>
+
+                <div class="layui-upload-list">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img class="layui-upload-img" id="demo1" width="200px">
+                </div>
+
+            </div>
+        </div>
+
 
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">正文</label>
@@ -75,6 +94,29 @@
 </div>
 
 <script>
+
+    layui.use('upload', function () {
+        let $ = layui.jquery, upload = layui.upload;
+        //普通图片上传
+        let uploadInst = upload.render({
+            elem: '#test1'
+            , url: '/file/upload'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                if (res.type !== 'OK') {
+                    layer.msg('头像上传失败');
+                } else {
+                    layer.msg('头像上传成功');
+                    $('#url').val(res.url);
+                }
+            }
+        });
+    });
 
     layui.use(['form', 'layer','layedit'], function () {
         $ = layui.jquery;
@@ -104,7 +146,7 @@
         form.on('submit(add)', function (data) {
             let txt = layedit.getContent(editIndex);
             let field = data.field;
-            $.post("/article/add", {classId:field.classId,title:field.title,txt:txt}, function (res) {
+            $.post("/article/add", {classId:field.classId,title:field.title,txt:txt,url:field.url}, function (res) {
                 if (res.type === 'OK') {
                     //发异步，把数据提交给php
                     layer.msg("文章发表成功,正在进行审核", {icon: 6}, function () {

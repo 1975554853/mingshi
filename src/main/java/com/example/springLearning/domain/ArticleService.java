@@ -7,6 +7,8 @@ import com.example.springLearning.pojo.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
+import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +47,7 @@ public class ArticleService {
 
     public Map selectArticle(Integer page, Integer limit) {
         Map<String, Object> map = new HashMap<>();
-        StringBuilder sql = new StringBuilder(" select * from article where 1=1");
+        StringBuilder sql = new StringBuilder(" select a.title , u.id  , a.id as author , u.username  ,a.type from article a inner join user u on a.author = u.id where 1=1");
         // 是不是站长
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         if(SecurityUtils.getSubject().hasRole("group")){
@@ -56,8 +58,8 @@ public class ArticleService {
         }
         PageHelper.startPage(page,limit);
         System.out.println(sql.toString());
-        List<Article> articles = entityManager.createNativeQuery(sql.toString(),Article.class).getResultList();
-        PageInfo<Article> pageInfo = new PageInfo<>(articles);
+        List articles = entityManager.createNativeQuery(sql.toString()).unwrap(Query.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        PageInfo pageInfo = new PageInfo<>(articles);
         return Page.page(pageInfo);
 
 

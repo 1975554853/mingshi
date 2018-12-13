@@ -47,6 +47,12 @@
 
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
 
+        {{#  if(d.type == 0){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">审核通过</a>
+        {{#  }else{              }}
+        <a class="layui-btn layui-btn layui-btn-warm layui-btn-xs" lay-event="hide">未审核</a>
+        {{#  }      }}
+
     </script>
 
 
@@ -73,14 +79,14 @@
             elem: '#LAY_table_user'
             , url: '/article/select'
             , cols: [
+
                 [
                     {checkbox: true, fixed: true}
                     // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
-                    , {field: 'card', title: '身份证号', width: 250, align: 'center'}
-                    , {field: 'username', title: '姓名', width: 250, align: 'center'}
-                    , {field: 'school', title: '学校', width: 250, align: 'center'}
-                    , {field: 'city', title: '区域', width: 250, align: 'center'}
-                    , {width: 100, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
+                    , {field: 'title', title: '标题', width: 250, align: 'center'}
+                    , {field: 'username', title: '作者', width: 250, align: 'center'}
+                    , {field: 'classification', title: '分类', width: 250, align: 'center'}
+                    , {width: 200, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
                 ]
             ]
             , id: 'testReload'
