@@ -4,11 +4,13 @@ import com.example.springLearning.dao.UserDao;
 import com.example.springLearning.pojo.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,8 @@ import java.util.Map;
 public class UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private EntityManager entityManager;
 
     /**
      * 添加用户
@@ -70,7 +74,14 @@ public class UserService {
     public Map<String, Object> selectUser(Integer page, Integer limit) {
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(page,limit);
-        List<User> users = userDao.selectUser();
+        // 判断是否有最高权限
+        boolean flag = SecurityUtils.getSubject().hasRole("admin");
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        StringBuilder sql = new StringBuilder(" select * from user ");
+        if( !flag ){
+            sql.append("where office_id =" + user.getOfficeId());
+        }
+        List<User> users = entityManager.createNativeQuery(sql.toString(),User.class).getResultList();
         PageInfo<User> pageInfo = new PageInfo<>(users);
         map.put("total",pageInfo.getTotal());
         map.put("data",pageInfo.getList());

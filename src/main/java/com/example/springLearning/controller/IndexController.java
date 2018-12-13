@@ -71,4 +71,9 @@ public class IndexController {
         return "admin/role";
     }
 
+    @GetMapping("/classification")
+     public String classification(){
+        return "admin/classification";
+     }
+
 }

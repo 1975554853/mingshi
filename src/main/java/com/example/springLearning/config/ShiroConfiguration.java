@@ -24,12 +24,11 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String,String> defaultFilterMap = new LinkedHashMap<>();
-
-        defaultFilterMap.put("/**","anon");
         defaultFilterMap.put("/logout","logout");
 
 //        放行静态资源
-//        defaultFilterMap.put("/admin/login.html","anon");
+        defaultFilterMap.put("/login","anon");
+        defaultFilterMap.put("/user/login","anon");
 //        defaultFilterMap.put("/admin/css/**","anon");
 //        defaultFilterMap.put("/admin/player/**","anon");
 //        defaultFilterMap.put("/admin/js/**","anon");
@@ -55,9 +54,10 @@ public class ShiroConfiguration {
 //        defaultFilterMap.put("/imageCode/**","anon");
 //        defaultFilterMap.put("/images/**","anon");
 //
-//        shiroFilterFactoryBean.setLoginUrl("/login");
+        defaultFilterMap.put("/**","authc");
+        shiroFilterFactoryBean.setLoginUrl("/login");
 //        shiroFilterFactoryBean.setSuccessUrl("/video");
-//        shiroFilterFactoryBean.setUnauthorizedUrl("/login");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/login");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(defaultFilterMap);
         return shiroFilterFactoryBean;
