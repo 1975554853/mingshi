@@ -11,6 +11,8 @@ import com.example.springLearning.util.Parameter;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
+import org.hibernate.query.internal.NativeQueryImpl;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -112,20 +114,6 @@ public class UserService {
         }
     }
 
-    /**
-     * 分页查询教师
-     */
-    public HashMap selectTeacherByPage(Integer page, Integer limit) {
-        HashMap hashMap = new HashMap();
-        PageHelper.startPage(page,limit);
-        List<User> teachers = userDao.selectUserByRole("教师");
-        PageInfo<User> pageInfo = new PageInfo<>(teachers);
-        hashMap.put("status",0);
-        hashMap.put("message","");
-        hashMap.put("total",pageInfo.getTotal());
-        hashMap.put("data",pageInfo.getList());
-        return hashMap;
-    }
 
     /**
      * 分页获取教师数据
@@ -145,18 +133,13 @@ public class UserService {
         return hashMap;
     }
 
-    //查询所有的教师
-    public List<User> selectUserByRoleId(Integer roleId) {
-        try{
-            List<User> users = userDao.selectUserByRoleId(roleId);
-            if (users != null){
-                return users;
-            }
-        }catch (Exception e){
-            return null;
-        }
-        return null;
+    // 查询工作室和工作室管理员
+    public List selectUserByRoleId() {
+        String sql = "select u.office_id as office , u.username , u.head_photo_url as url , o.name as officeName from user_role ur inner join user u  on ur.user_id = u.id inner join office o on u.office_id = o.id where ur.role_id = 2 ";
+        List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        return list;
     }
+
 
     public User selectUserById(int id) {
 

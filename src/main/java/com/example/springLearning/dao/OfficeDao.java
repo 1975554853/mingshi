@@ -41,7 +41,7 @@ public interface OfficeDao extends CrudRepository<Office,Integer> {
     @Transactional
     Integer deleteOffice(Integer id);
 
-    @Query(value = "select * from office where type = 0" , nativeQuery = true)
+    @Query(value = "select * from office" , nativeQuery = true)
     List<Office> selectOfficeNoState();
 
 

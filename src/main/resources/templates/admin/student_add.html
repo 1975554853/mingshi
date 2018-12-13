@@ -87,7 +87,7 @@
             <div class="layui-input-inline">
                 <label for="quiz6"></label>
                 <select id="quiz6" lay-filter="quiz6" name="role">
-                    <option value="0">请选择工作室</option>
+                    <option value="0">请选择角色</option>
                 </select>
             </div>
         </div>
@@ -193,7 +193,7 @@
         $ = layui.jquery;
         let form = layui.form
             , layer = layui.layer;
-
+        form.render();
         $.get("/section/sel",{}, function (res) {
             $("#quiz3").html("");
             let list = res.data;

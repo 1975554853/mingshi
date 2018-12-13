@@ -27,7 +27,7 @@ public class SystemStarter implements CommandLineRunner {
     }
 
     @Autowired
-    private ServletContext application;
+    private HttpSession httpSession ;
 
     @Override
     public void run(String... args) throws Exception {
@@ -52,14 +52,7 @@ public class SystemStarter implements CommandLineRunner {
         roleService.insertRoleByEntity(role1);
         roleService.insertRoleByEntity(role2);
 
-
         System.out.println("角色初始化完成");
 
-        //查询所有工作室的头像和名称
-        List<User> users = userService.selectUserByRoleId(2);
-        if (users != null) {
-            System.out.println("工作室头像初始化完成");
-        }
-        application.setAttribute("users",users);
     }
 }

@@ -84,14 +84,14 @@ public class UserController {
      * @param page
      * @param limit author wgb
      */
-    @RequestMapping("/selTeaByPage")
-    @ResponseBody
-    public HashMap selectTeacherByPage(Integer page, Integer limit) {
-        System.out.println(page + "  " + limit);
-        HashMap hashMap = userService.selectTeacherByPage(page, limit);
-        hashMap.put("office", "张三工作室");
-        return hashMap;
-    }
+//    @RequestMapping("/selTeaByPage")
+////    @ResponseBody
+////    public HashMap selectTeacherByPage(Integer page, Integer limit) {
+////        System.out.println(page + "  " + limit);
+////        HashMap hashMap = userService.selectTeacherByPage(page, limit);
+////        hashMap.put("office", "张三工作室");
+////        return hashMap;
+////    }
 
 
     @GetMapping("/select")

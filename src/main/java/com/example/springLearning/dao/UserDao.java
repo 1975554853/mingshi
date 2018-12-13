@@ -45,7 +45,7 @@ public interface UserDao extends CrudRepository<User,Integer> {
     List<User> selectUserByRole(String roleName);
 
     //根据用户角色id获取用户
-    @Query(value = "from User where roleId = ?1")
+    @Query(value = "  " , nativeQuery = true)
     List<User> selectUserByRoleId(Integer roleId);
 
     @Transactional

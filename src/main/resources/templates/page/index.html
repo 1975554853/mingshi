@@ -310,69 +310,14 @@ $(".glzx_xl h2").hover(function(){
 
                     <div class="sjzx_bot_nr">
                         <ul>
-                            <li th:each="user : ${application.users}">
+
+                            <li th:each=" office : ${session.offices}">
                                 <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/50.html" target="_blank">
-                                    <img th:src="@{{name}(name=${user.headPhotoUrl})}" style="width:100px;height:100px;border-radius:100%">
-                                    <p><span th:text="${user.username}"></span>工作室</p>
+                                    <img th:src="@{ ${office.url} }" style="width:100px;height:100px;border-radius:100%">
+                                    <p><span th:text="${office.officeName}">工作室</span></p>
                                 </a>
                             </li>
-                            <!--
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/97.html"
-                                   target="_blank"><img src="/images/5bd40f5b6b1fd.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>张丽钧工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/7.html"
-                                   target="_blank"><img src="/images/5bd721312d2ab.png"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>孙成林工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/12.html"
-                                   target="_blank"><img src="/images/5b9b074392ed9.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>李丽英名师工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/18.html"
-                                   target="_blank"><img src="/images/5baf1cc3c1eaa.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>侯冬梅工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/30.html"
-                                   target="_blank"><img src="/images/5bebdf6153b6c.png"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>Lucky Sunshine</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html"
-                                   target="_blank"><img src="/images/5ba4ab68cb6f7.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>高俊霞工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/71.html"
-                                   target="_blank"><img src="/images/5ba882781740c.png"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>张咏梅工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/95.html"
-                                   target="_blank"><img src="/images/5bb6c3adba618.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>王福会工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/54.html"
-                                   target="_blank"><img src="/images/5be3e334db123.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>呼君工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/92.html"
-                                   target="_blank"><img src="/images/5ba6fa000acd4.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>李国刚工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/33.html"
-                                   target="_blank"><img src="/images/5ba4aa149fa7a.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>孟全海工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/32.html"
-                                   target="_blank"><img src="/images/5b9c81ae2d213.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>李玉芹工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/77.html"
-                                   target="_blank"><img src="/images/5baf158b58891.jpg"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>朱爱平工作室</p></a></li>
-                            <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/58.html"
-                                   target="_blank"><img src="/images/5b9879c670919.png"
-                                                        style="width:100px;height:100px;border-radius:100%">
-                                <p>李华丽工作室</p></a></li>-->
+
                         </ul>
                     </div>
                 </div>
