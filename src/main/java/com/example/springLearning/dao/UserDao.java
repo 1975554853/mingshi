@@ -26,19 +26,18 @@ public interface UserDao extends CrudRepository<User,Integer> {
     @Transactional
     User save(User user);
 
-    /**
-     * 添加中间数据
-     */
-    @Query(value = "insert into user_role(user_id, role_id) values(?1,?2)", nativeQuery = true)
-    @Modifying
-    @Transactional
-    Integer insertUserRole(Integer userId, Integer roleId);
-
-    @Query(value = "select * from user" ,nativeQuery = true)
+    @Query("from User")
     List<User> selectUser();
 
     @Query(value = "insert into user_role (role_id, user_id) values (:r_id,:u_id)" ,nativeQuery = true)
     @Modifying
     @Transactional
     Integer updateUserSetRole(@Param("u_id") int id , @Param("r_id") Integer role);
+
+    /**
+     * 根据角色获取数据
+     */
+    @Query(value = "select * from user where id in (select user_id from user_role where role_id in (select id from role where name=?1))", nativeQuery = true)
+    @Modifying
+    List<User> selectUserByRole(String roleName);
 }

@@ -2,7 +2,6 @@ package com.example.springLearning.domain;
 
 import com.example.springLearning.dao.RoleDao;
 import com.example.springLearning.pojo.Role;
-import com.example.springLearning.pojo.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +21,75 @@ public class RoleService {
 
     /**
      * 添加角色
-     * @param role
+     * @param name
      * @return
      */
-    public HashMap insertRole(Role role) {
+    public HashMap insertRole(String name) {
         HashMap hashMap = new HashMap();
+        Role role = new Role();
+        role.setName(name);
         Role result =  roleDao.save(role);
         if(result.getId() > 0){
             hashMap.put("type", "OK");
         }else{
             hashMap.put("type", "error");
         }
+        return hashMap;
+    }
+
+    /**
+     * 分页获取角色
+     * @author wgb
+     */
+    public HashMap selectRolesByPage(Integer page, Integer limit) {
+        HashMap hashMap = new HashMap();
+        PageHelper.startPage(page,limit);
+
+        List<Role> roles = roleDao.selectAllRoles();
+        PageInfo<Role> pageInfo = new PageInfo<>(roles);
+        hashMap.put("status",0);
+        hashMap.put("message","");
+        hashMap.put("total",pageInfo.getTotal());
+        hashMap.put("data",pageInfo.getList());
+        return hashMap;
+    }
+
+    /**
+     * 根据ID删除角色
+     * @author wgb
+     */
+    public HashMap deleteRoleById(Integer id) {
+        HashMap hashMap = new HashMap();
+        if(roleDao.deleteRoleById(id) > 0){
+            hashMap.put("type", "OK");
+            hashMap.put("message", "删除成功");
+        }else{
+            hashMap.put("type", "error");
+            hashMap.put("message", "删除失败, 系统故障");
+        }
+        return hashMap;
+    }
+
+    /**
+     * 获取全部角色
+     * @author wgb
+     */
+    public HashMap selectRoles() {
+        HashMap hashMap = new HashMap();
+        List<Role> roles = roleDao.selectAllRoles();
+        hashMap.put("data", roles);
+        return hashMap;
+    }
+
+    /**
+     * 根据角色名查询数据
+     * @param name
+     * @return
+     */
+    public HashMap<String, Role> selectRoleByName(String name) {
+        HashMap<String, Role> hashMap = new HashMap<>();
+        Role result = roleDao.queryRoleByName(name);
+        hashMap.put("role",result);
         return hashMap;
     }
 

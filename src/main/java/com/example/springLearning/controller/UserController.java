@@ -1,6 +1,8 @@
 package com.example.springLearning.controller;
 
+import com.example.springLearning.domain.RoleService;
 import com.example.springLearning.domain.UserService;
+import com.example.springLearning.pojo.Role;
 import com.example.springLearning.pojo.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -23,6 +25,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping("/login")
     public String login(String username, String password, Model model){
@@ -57,10 +61,26 @@ public class UserController {
      */
     @PostMapping("/addTeacher")
     @ResponseBody
-    public HashMap<String, String> insertTeacher(@RequestBody User user){
+    public HashMap insertTeacher(@RequestBody User user){
         System.out.println(user);
-        HashMap<String, String> result = userService.insertUser(user);
+        Role role = roleService.selectRoleByName("教师").get("role");
+        System.out.println(role);
+        HashMap result = userService.insertUser(user, role.getId());
         return result;
+    }
+
+    /**
+     * 分页获取获取教师数据
+     * @param page
+     * @param limit
+     * author wgb
+     */
+    @RequestMapping("/selTeaByPage")
+    @ResponseBody
+    public HashMap selectTeacherByPage(Integer page, Integer limit){
+        System.out.println(page+"  "+limit);
+        HashMap hashMap = userService.selectTeacherByPage(page,limit);
+        return hashMap;
     }
 
 

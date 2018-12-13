@@ -20,7 +20,7 @@ public class User {
     private int id;     //id
     @Column(name = "username", nullable = false, length = 50)
     private String username;  //姓名
-    @Column(name = "card", unique = true, nullable = false, length = 20)
+    @Column(name = "card", unique = true, nullable = false, length = 50)
     private String card;    //身份证号
     @Column(name = "password", nullable = false)
     private String password;    //密码
@@ -30,16 +30,19 @@ public class User {
     private String headPhotoUrl;    //头像Url
     @Column(name = "resume_url")
     private String resumeUrl; //简历URL
-    @Column
+    @Column(name = "school", length = 100)
     private String school;
-    @Column
+    @Column(name = "province", length = 20)
+    private String province;        //省份
+    @Column(name = "area", length = 30)
     private String area;
-    @Column
+    @Column(name = "city", length = 30)
     private String city;
     @Column
     private String state;
     @Column
     private Integer section;
+
     private Integer roleId;     //暂存角色ID
 
 }

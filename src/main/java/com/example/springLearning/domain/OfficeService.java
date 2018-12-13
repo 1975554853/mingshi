@@ -67,6 +67,17 @@ public class OfficeService {
         return officeDao.selectOfficeNoState();
     }
 
+    /**
+     * 获取所有工作室
+     * @return
+     */
+    public HashMap selectAllOffice() {
+        HashMap hashMap = new HashMap();
+        List<Office> offices = officeDao.selectOffice();
+        hashMap.put("data",offices);
+        return  hashMap;
+    }
+
     /*//修改工作室信息
     public boolean updateOffice(Office office){
         try {

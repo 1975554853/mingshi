@@ -14,8 +14,6 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -36,14 +34,14 @@
 <div class="x-body">
     <div class="layui-row">
 
-        <button class="layui-btn" onclick="addRole()"><i
-                class="layui-icon"></i>新增角色
+        <button class="layui-btn" onclick="x_admin_show('新增教师','/teacher_add',900,550)"><i
+                class="layui-icon"></i>新增教师
         </button>
 
     </div>
 
 
-    <table class="layui-hide" id="LAY_table_role" lay-filter="role"></table>
+    <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
 
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
@@ -53,37 +51,32 @@
 </div>
 
 <script>
-    //添加商品分类
-    function addRole(){
-        layer.prompt({
-            formType: 3,
-            title: '请输入新角色名',
-            area: ['200px', '50px'] //自定义文本域宽高
-        }, function(value, index, elem){
-            layer.close(index);
-            $.post("/role/add", {"name":value}, function(res){
-                if(res.type === "OK"){
-                    layer.msg('添加成功', {icon: 1});
-                }else{
-                    layer.msg(res.message);
-                }
-            },"json");
-        });
-    }
+
     layui.use(['form', 'layer','table'], function () {
         let table = layui.table;
         let layer = layui.layer;
         let form = layui.form;
+        form.on('submit(submit)', function (data) {
+            let cate_name = data.field.cate_name;
+            if (cate_name == null || cate_name.length < 1) {
+                return false;
+            }
+            $.post('/subject/add', {name: data.field.cate_name}, function (res) {
+                updateMessage(res);
+            }, 'json');
+            return false;
+        });
         //方法级渲染
         table.render({
-            elem: '#LAY_table_role'
-            , url: '/role/sel'
+            elem: '#LAY_table_user'
+            , url: '/user/selTeaByPage'
             , cols: [
                 [
                     {checkbox: true, fixed: true}
                     // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
-                    , {field: 'id', title: 'ID', width: 250, align: 'center'}
-                    , {field: 'name', title: '角色名称', width: 250, align: 'center'}
+                    , {field: 'id', title: 'ID', width: 80, align: 'center'}
+                    , {field: 'username', title: '姓名', width: 180, align: 'center'}
+                    , {field: 'officeId', title: '工作室', width: 250, align: 'center'}
                     , {width: 320, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
                 ]
             ]
@@ -98,11 +91,19 @@
             }
         });
 
-        table.on('tool(role)', function (obj) {
+        table.on('tool(user)', function (obj) {
             let data = obj.data;
             // 修改课程方向
-            if (obj.event === 'drop') {
-                $.post("/role/delete", {id: data.id}, function (res) {
+            if (obj.event === 'edit') {
+                $.post("/subject/delete", {id:data.id}, function (res) {
+                    updateMessage(res)
+                }, "json");
+            }else if (obj.event === 'drop') {
+                $.post("/section/drop", {id: data.id}, function (res) {
+                    updateMessage(res);
+                }, "json");
+            }else if(obj.event === 'hide'){
+                $.post("/subject/show", {id: data.id}, function (res) {
                     updateMessage(res);
                 }, "json");
             }
@@ -116,9 +117,9 @@
 
         function updateMessage(code) {
             if (code.type === 'OK') {
-                layer.msg(code.message);
+                layer.msg("修改成功");
             } else {
-                layer.msg(code.message);
+                layer.msg("修改失败,系统繁忙");
             }
             loadTable();
         }

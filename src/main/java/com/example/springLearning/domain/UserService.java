@@ -1,7 +1,11 @@
 package com.example.springLearning.domain;
 
 import com.example.springLearning.dao.UserDao;
+import com.example.springLearning.dao.UserRoleDao;
 import com.example.springLearning.pojo.User;
+import com.example.springLearning.pojo.UserRole;
+import com.example.springLearning.util.MD5OP;
+import com.example.springLearning.util.Parameter;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +25,15 @@ import java.util.Map;
 public class UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private UserRoleDao userRoleDao;
 
     /**
      * 添加用户
      * @param user
      * @return
      */
-    public HashMap<String, String> insertUser(User user){
+    public HashMap<? extends String, ? extends String> insertUser(User user, Integer roleId){
         HashMap<String, String > hashMap = new HashMap<>();
         String type = "";
         String message = "";
@@ -35,12 +41,21 @@ public class UserService {
         if(exist != null){
             type = "error";
             message = "该用户已存在";
+            System.out.println(message);
         }else{
+            String card = user.getCard();
+            String password = MD5OP.md5(card.substring(card.length()-6), Parameter.key);
+            user.setPassword(password);
+            user.setRoleId(roleId);
             User result = userDao.save(user);
+            System.out.println("开始添加");
             if(result.getId() > 0){
                 type = "OK";
                 message = "添加成功";
-                userDao.insertUserRole(user.getId(), user.getRoleId());     //添加中间表数据
+                UserRole userRole = new UserRole();
+                userRole.setRoleId(user.getRoleId());
+                userRole.setUserId(user.getId());
+                userRoleDao.save(userRole);    //添加中间表数据
             }else{
                 type = "error";
                 message = "系统错误, 请稍后重试";
@@ -86,5 +101,23 @@ public class UserService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * 分页获取教师数据
+     * @param page
+     * @param limit
+     * @return
+     */
+    public HashMap selectTeacherByPage(Integer page, Integer limit) {
+        HashMap hashMap = new HashMap();
+        PageHelper.startPage(page,limit);
+        List<User> teachers = userDao.selectUserByRole("教师");
+        PageInfo<User> pageInfo = new PageInfo<>(teachers);
+        hashMap.put("status",0);
+        hashMap.put("message","");
+        hashMap.put("total",pageInfo.getTotal());
+        hashMap.put("data",pageInfo.getList());
+        return hashMap;
     }
 }

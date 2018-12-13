@@ -75,6 +75,18 @@ public class OfficeController {
     }
 
 
+    /**
+     * 获取所有工作室
+     * @author wgb
+     */
+    @RequestMapping("all")
+    @ResponseBody
+    public HashMap getAllOffice(){
+        HashMap result = officeService.selectAllOffice();
+        return result;
+    }
+
+
     @RequestMapping("/delete")
     @ResponseBody
     public HashMap<String, String> deleteOffice(Integer key){
