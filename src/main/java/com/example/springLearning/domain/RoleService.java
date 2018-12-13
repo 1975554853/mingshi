@@ -20,7 +20,7 @@ public class RoleService {
     private RoleDao roleDao;
 
     /**
-     * 添加角色
+     * 根据角色名字添加角色
      * @param name
      * @return
      */
@@ -35,6 +35,13 @@ public class RoleService {
             hashMap.put("type", "error");
         }
         return hashMap;
+    }
+    /**
+     * 根据角色实体添加角色
+     * @author wgb
+     */
+    public void insertRoleByEntity(Role role){
+        roleDao.save(role);
     }
 
     /**

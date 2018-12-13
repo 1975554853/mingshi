@@ -34,9 +34,9 @@ public class SystemStarter implements CommandLineRunner {
         role2.setName("教师");
         role2.setValue("user");
         role2.setId(3);
-        roleService.insertRole(role.getName());
-        roleService.insertRole(role1.getName());
-        roleService.insertRole(role2.getName());
+        roleService.insertRoleByEntity(role);
+        roleService.insertRoleByEntity(role1);
+        roleService.insertRoleByEntity(role2);
         System.out.println("角色初始化完成");
 
     }
