@@ -2,6 +2,7 @@ package com.example.springLearning.dao;
 
 
 import com.example.springLearning.pojo.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -14,7 +15,19 @@ import java.util.List;
 @Repository
 public interface UserDao extends CrudRepository<User,Integer> {
 
+    @Query
+    //通过card查找user实体
     User queryUserByCard(String card);
+
+    /**
+     * 插入用户数据
+     * @param user
+     * @return
+     * @author wgb
+     */
+    @Override
+    @Transactional
+    User save(User user);
 
     @Query("from User")
     List<User> selectUser();
@@ -30,4 +43,8 @@ public interface UserDao extends CrudRepository<User,Integer> {
     @Query(value = "select * from user where id in (select user_id from user_role where role_id in (select id from role where name=?1))", nativeQuery = true)
     @Modifying
     List<User> selectUserByRole(String roleName);
+
+    //根据用户角色id获取用户
+    @Query(value = "from User where roleId = ?1")
+    List<User> selectUserByRoleId(Integer roleId);
 }
