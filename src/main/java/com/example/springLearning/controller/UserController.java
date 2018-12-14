@@ -128,8 +128,11 @@ public class UserController {
             return JSON.GET_RESULT(false,ERROR.ERROR_CARD_EXITS);
         }
         user.setCard(card);
-        if (StringUtils.isBlank(office + "")) {
-            return JSON.GET_RESULT(false, ERROR.ERROR_NOT_OFFICE);
+        // 如果用户上传工作室ID
+        if (office == null) {
+           if(Page.isLogin()){
+               office = Page.getUser().getOfficeId();
+           }
         }
         user.setOfficeId(office);
         user.setSection(section);

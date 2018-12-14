@@ -26,4 +26,7 @@ public class Page {
     public static User getUser(){
         return  (User) SecurityUtils.getSubject().getPrincipal();
     }
+    public static boolean isLogin(){
+        return SecurityUtils.getSubject().getPrincipal() != null ? true : false;
+    }
 }

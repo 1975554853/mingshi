@@ -129,17 +129,22 @@
                             <cite>待审核</cite>
                         </a>
                     </li>
+                    <li shiro:hasRole="group">
+                        <a _href="/classification">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>文章分类管理</cite>
+                        </a>
+                    </li>
                     <li>
                         <a _href="/resume">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>上传个人简历</cite>
-
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li shiro:hasrole="group">
+            <li shiro:hasRole="group">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b8;</i>
                     <cite>分类管理</cite>

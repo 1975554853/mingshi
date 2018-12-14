@@ -77,7 +77,7 @@
                 [
                     {checkbox: true, fixed: true}
                     , {field: 'id', title: 'ID', width: 250, align: 'center'}
-                    , {field: 'name', title: '分类名称', width: 250, align: 'center' , edit: 'text'}
+                    , {field: 'name', title: '分类名称', width: 250, align: 'center', edit: 'text'}
                     , {width: 320, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
                 ]
             ]
@@ -96,24 +96,24 @@
             let data = obj.data;
             // 修改课程方向
             if (obj.event === 'edit') {
-                $.post("/section/delete", {id:data.id}, function (res) {
+                $.post("/section/delete", {id: data.id}, function (res) {
                     updateMessage(res)
                 }, "json");
-            }else if (obj.event === 'drop') {
+            } else if (obj.event === 'drop') {
                 $.post("/classification/drop", {id: data.id}, function (res) {
                     updateMessage(res);
                 }, "json");
-            }else if(obj.event === 'hide'){
+            } else if (obj.event === 'hide') {
                 $.post("/section/show", {key: data.id}, function (res) {
                     updateMessage(res);
                 }, "json");
-            }else if(obj.event === 'save'){
-                $.get("/classification/update", {id: data.id,name:data.name}, function (res) {
+            } else if (obj.event === 'save') {
+                $.get("/classification/update", {id: data.id, name: data.name}, function (res) {
                     updateMessage(res);
                 }, "json");
-            }else if(obj.event === 'addChildren'){
-                window.sessionStorage.setItem("officeId",data.id);
-                x_admin_show('分类管理','/classification_add',800,600);
+            } else if (obj.event === 'addChildren') {
+                window.sessionStorage.setItem("officeId", data.id);
+                x_admin_show('分类管理', '/classification_add', 800, 600);
             }
         });
 

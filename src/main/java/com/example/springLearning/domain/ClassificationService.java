@@ -6,6 +6,7 @@ import com.example.springLearning.config.Page;
 import com.example.springLearning.dao.ClassificationDao;
 import com.example.springLearning.dao.OfficeDao;
 import com.example.springLearning.pojo.Classification;
+import com.example.springLearning.pojo.Office;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -16,10 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName ClassificationService
@@ -55,12 +53,17 @@ public class ClassificationService {
     }
 
     public Map selectClassification(Integer page, Integer limit) {
+
         List list = new ArrayList();
         PageHelper.startPage(page, limit);
         // 查看访问者角色
         if (SecurityUtils.getSubject().hasRole("admin")) {
             // 超级管理员访问 , 查看所有分类 , 实现查询所有工作室
             list = officeDao.selectOffice();
+        }else if(SecurityUtils.getSubject().hasRole("group")){
+            Integer officeId = Page.getUser().getOfficeId();
+            Optional<Office> office  = officeDao.findById(officeId);
+            list.add(office.get());
         }
         PageInfo pageInfo = new PageInfo(list);
         return Page.page(pageInfo);

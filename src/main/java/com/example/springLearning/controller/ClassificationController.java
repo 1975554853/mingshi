@@ -10,6 +10,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -28,7 +29,16 @@ public class ClassificationController {
 
     @RequestMapping("/tree")
     @ResponseBody
-    public Object treeClass(Integer office){
+    public Object treeClass( @RequestParam(value = "office",required = false) Integer office){
+        // 如果用户没有登录
+        if(office == null){
+            if(Page.isLogin()){
+                // 查看用户属于哪个工作室
+                office = Page.getUser().getOfficeId();
+            }else{
+                return null;
+            }
+        }
         // 获取工作室下的所有分类
         JSON json  = classificationService.selectClassificationByOfficeId(office);
         return json;

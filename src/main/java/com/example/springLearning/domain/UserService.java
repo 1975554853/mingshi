@@ -83,8 +83,13 @@ public class UserService {
     @Transactional
     @Modifying
     public boolean saveUser(User user, Integer role) {
+        System.out.println(StringUtils.isBlank(""+role));
+        // 如果 role 为空 , 说明该学院是一个普通用户
+        if( null == role ){
+            role = 3;
+        }
         // 判断该工作室是否已有管理员
-        if (role == 2) {
+        if (2 == role) {
             Integer id = userDao.queryUserAndOfficeByOfficeId(user.getOfficeId());
             if (StringUtils.isNotBlank("" + id)) {
                 return false;
@@ -96,6 +101,7 @@ public class UserService {
             // 给用户设置角色
             userDao.updateUserSetRole(u.getId(), role);
             // 用户-工作室表中插入数据
+            System.out.println(role + "最后的结果");
             userDao.insertUserAndOfficeAndRole(u.getId(), u.getOfficeId(), role);
             return true;
         } catch (Exception e) {
