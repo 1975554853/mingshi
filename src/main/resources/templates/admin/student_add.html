@@ -87,7 +87,8 @@
             <div class="layui-input-inline">
                 <label for="quiz6"></label>
                 <select id="quiz6" lay-filter="quiz6" name="role">
-                    <option value="0">请选择角色</option>
+                    <option value="2" shiro:hasRole="admin">工作室管理员</option>
+                    <option value="3" shiro:hasAnyRoles="admin,group">普通教师</option>
                 </select>
             </div>
         </div>
@@ -221,37 +222,18 @@
             }
             form.render();
         }, "json");
-
-        $.get("/role/sel",{}, function (res) {
-            $("#quiz6").html("");
-            let list = res.data;
-            for (let i in list) {
-                $("#quiz6").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
-            }
-            form.render();
-        }, "json");
-
-
         //监听提交
         form.on('submit(add)', function (data) {
             console.log(data.field);
             $.post("/user/add", data.field , function (res) {
-                if (res.type === 'OK') {
-                    //发异步，把数据提交给php
-                    layer.msg("增加成功", {icon: 6}, function () {
-                        // 获得frame索引
+                if (res.success === true) {
+                    layer.msg(res.message, {icon: 6}, function () {
                         let index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
                         parent.layer.close(index);
                     });
                 } else {
                     //发异步，把数据提交给php
-                    layer.msg("增加失败,系统繁忙", {icon: 5}, function () {
-                        // 获得frame索引
-                        let index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
-                    });
+                    layer.msg(res.message, {icon: 5});
                 }
 
             }, "json");

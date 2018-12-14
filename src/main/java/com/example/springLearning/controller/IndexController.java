@@ -34,6 +34,11 @@ public class IndexController {
         return "page/index";
     }
 
+    @GetMapping("/examine")
+    public String examine(){
+        return "admin/examine";
+    }
+
     @GetMapping(value = {"/index"})
     public String index() {
         return "admin/index";

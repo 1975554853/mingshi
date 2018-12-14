@@ -2,10 +2,8 @@ package com.example.springLearning.controller;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.BucketReferer;
-import com.example.springLearning.config.Json;
-import com.example.springLearning.config.Page;
+import com.example.springLearning.config.JSON;
 import com.example.springLearning.domain.UserService;
-import com.example.springLearning.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,8 +35,8 @@ public class FileUploadController {
 
     @ResponseBody
     @RequestMapping("/image")
-    public Json uploadText(MultipartFile file){
-        Json json = new Json();
+    public JSON uploadText(MultipartFile file){
+        JSON json = new JSON();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String data = simpleDateFormat.format(new Date());

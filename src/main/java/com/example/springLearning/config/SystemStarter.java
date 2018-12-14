@@ -4,6 +4,7 @@ import com.example.springLearning.domain.RoleService;
 import com.example.springLearning.domain.UserService;
 import com.example.springLearning.pojo.Role;
 import com.example.springLearning.pojo.User;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
@@ -51,8 +52,22 @@ public class SystemStarter implements CommandLineRunner {
         roleService.insertRoleByEntity(role);
         roleService.insertRoleByEntity(role1);
         roleService.insertRoleByEntity(role2);
-
         System.out.println("角色初始化完成");
+        // 查看系统中是否存在管理员
+
+        User user  = userService.selectUserByCard("administrator");
+        System.out.println(user == null);
+        System.out.println(user.toString());
+        if(null == user){
+            user = new User();
+            user.setUsername("admin");
+            user.setCard("administrator");
+            String md5Pass = new SimpleHash("md5", "123456" , "admin" , 5).toHex().toString();
+            System.out.println(md5Pass);
+            user.setPassword( md5Pass );
+            userService.saveUser(user,1);
+        }
+        System.out.println("管理员初始化完成");
 
     }
 }

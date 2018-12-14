@@ -1,10 +1,13 @@
 package com.example.springLearning.controller;
 
+import com.example.springLearning.config.ERROR;
+import com.example.springLearning.config.JSON;
 import com.example.springLearning.config.Page;
 import com.example.springLearning.domain.RoleService;
 import com.example.springLearning.domain.UserService;
 import com.example.springLearning.pojo.Role;
 import com.example.springLearning.pojo.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -92,60 +95,61 @@ public class UserController {
 ////        hashMap.put("office", "张三工作室");
 ////        return hashMap;
 ////    }
-
-
     @GetMapping("/select")
     @ResponseBody
     public Map<String, Object> selectUser(Integer page, Integer limit) {
         return userService.selectUser(page, limit);
     }
 
+
     @PostMapping("/add")
     @ResponseBody
-    public Map<String, String> insertStudent(String name, String card, String school,
-                                             Integer section,
-                                             @RequestParam(value = "office", required = false) Integer office,
-                                             String state,
-                                             String city,
-                                             @RequestParam(value = "role", required = false) Integer role,
-                                             String area, @RequestParam(value = "url", required = false) String url) {
+    public JSON insertStudent(String name, String card, String school,
+                              Integer section,
+                              @RequestParam(value = "office", required = false) Integer office,
+                              String state,
+                              String city,
+                              @RequestParam(value = "role", required = false) Integer role,
+                              String area, @RequestParam(value = "url", required = false) String url) {
+
         User u = (User) SecurityUtils.getSubject().getPrincipal();
         HashMap<String, String> map = new HashMap<>();
         User user = new User();
         user.setUsername(name);
         user.setCity(city);
         user.setSchool(school);
+        if (card.length() != 18) {
+            return JSON.GETRESULT(false, ERROR.ERROR_CARD_CODE);
+        }
+        // 通过身份证查找用户
+        boolean exits = userService.selectUserIsExitsByCard(card);
+        // 如果存在
+        if(exits){
+            return JSON.GETRESULT(false,ERROR.ERROR_CARD_EXITS);
+        }
         user.setCard(card);
-
-        if (office == null) {
-            office = u.getOfficeId();
+        if (StringUtils.isBlank(office + "")) {
+            return JSON.GETRESULT(false, ERROR.ERROR_NOT_OFFICE);
         }
         user.setOfficeId(office);
         user.setSection(section);
         user.setState(state);
         user.setArea(area);
+        // 判断用户有没有头像
+        if (StringUtils.isBlank(url)) {
+            return JSON.GETRESULT(false, ERROR.ERROR_FOUND_IMAGE);
+        }
         user.setHeadPhotoUrl(url);
-
         String pass = card.substring(card.length() - 6);
-        System.out.println(pass);
+        // 对密码进行加密
         String md5Pass = new SimpleHash("md5", pass, name, 5).toHex();
         user.setPassword(md5Pass);
-
-        if (role == null) {
-            role = 3;
-        }
-        if (role == 2) {
-        }
-
         boolean flag = userService.saveUser(user, role);
         if (flag) {
-            map.put("type", "OK");
+            return JSON.GETRESULT(true, ERROR.SUCCESS_STUDENT_UPLOAD);
         } else {
-            map.put("type", "error");
+            return JSON.GETRESULT(false, ERROR.ERROR_OFFICE_EXITS);
         }
-
-        return map;
-
     }
 
 }

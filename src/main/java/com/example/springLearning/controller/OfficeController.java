@@ -1,5 +1,7 @@
 package com.example.springLearning.controller;
 
+import com.example.springLearning.config.ERROR;
+import com.example.springLearning.config.JSON;
 import com.example.springLearning.domain.OfficeService;
 import com.example.springLearning.pojo.Office;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,38 +33,36 @@ public class OfficeController {
      */
     @RequestMapping("/add")
     @ResponseBody
-    public HashMap<String, String> insertOffice(String url, String name, Integer section, Integer subject, String state, String city, String area){
-        HashMap<String, String> hashMap = new HashMap<>();
-        Office office = new Office();
-        office.setUrl(url);
-        office.setName(name);
-        office.setSectionId(section);
-        office.setSubject(subject);
-        office.setState(state);
-        office.setCity(city);
-        office.setArea(area);
-        office.setMembers(0);
-        office.setAchievements(0);
-        office.setArticle(0);
-        office.setFollows(0);
-        try {
-            boolean f = officeService.insertOffice(office);
-            if (f){
-                hashMap.put("type","OK");
-                return hashMap;
-            }
-        }catch (Exception e){
-            return hashMap;
+    public Object insertOffice(String url, String name, Integer section, Integer subject, String state, String city, String area){
+        JSON json = JSON.GETRESULT(false, ERROR.ERROR_SYSTEM);
+        // 查看是否重名
+        Office office = officeService.queryOfficeByName(name);
+        if(office == null){
+            office = new Office();
+            office.setUrl(url);
+            office.setName(name);
+            office.setSectionId(section);
+            office.setSubject(subject);
+            office.setState(state);
+            office.setCity(city);
+            office.setArea(area);
+            office.setMembers(0);
+            office.setAchievements(0);
+            office.setArticle(0);
+            office.setFollows(0);
+            boolean flag = officeService.insertOffice(office);
+            if(flag) return JSON.GETRESULT(true,ERROR.SUCCESS_OFFICE);
+            else return JSON.GETRESULT(false,ERROR.ERROR_SYSTEM);
+        }else{
+            return JSON.GETRESULT(false,ERROR.ERROR_NAME_OFFICE);
         }
-        return hashMap;
+
     }
 
     @GetMapping("/select")
     @ResponseBody
-    public HashMap<String, Object> selectOffice(Integer page, Integer limit){
-        HashMap<String, Object> hashMap = new HashMap<String, Object>();
-        hashMap = officeService.selectOffice(page, limit);
-        return hashMap;
+    public Map<String, Object> selectOffice(Integer page, Integer limit){
+        return officeService.selectOffice(page, limit);
     }
 
     @GetMapping("/sel")

@@ -45,11 +45,19 @@ public interface UserDao extends CrudRepository<User,Integer> {
     List<User> selectUserByRole(String roleName);
 
     //根据用户角色id获取用户
-    @Query(value = "  " , nativeQuery = true)
-    List<User> selectUserByRoleId(Integer roleId);
+//    @Query(value = "  " , nativeQuery = true)
+//    List<User> selectUserByRoleId(Integer roleId);
 
     @Transactional
     @Query(value = "update user set resume_url = ?2 where id = ?1" ,nativeQuery = true)
     @Modifying
     Integer updateUserUrlById(int id, String s);
+
+    @Transactional
+    @Modifying
+    @Query(value = "insert into user_office (office_id, user_id, role_id) values ( ?2 , ?1 , ?3)" ,nativeQuery = true)
+    Integer insertUserAndOfficeAndRole(int id, Integer officeId, Integer role);
+
+    @Query(value = "select id from user_office where role_id = 2 and office_id = ?1" ,nativeQuery = true)
+    Integer queryUserAndOfficeByOfficeId(Integer officeId);
 }

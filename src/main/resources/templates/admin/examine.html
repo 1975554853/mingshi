@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:shiro="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -33,16 +33,18 @@
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <button class="layui-btn" onclick="x_admin_show('添加学员','/student_add',900,600)" shiro:hasanyRoles="admin,group"><i
-                class="layui-icon"></i>为工作室添加学员
-        </button>
+
     </div>
 
 
     <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
 
     <script type="text/html" id="barDemo">
+
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="examine">审核通过</a>
+        <a class="layui-btn layui-btn-xs" lay-event="look">查看详情</a>
+
     </script>
 
 
@@ -67,16 +69,16 @@
         //方法级渲染
         table.render({
             elem: '#LAY_table_user'
-            , url: '/user/select'
+            , url: '/article/selectNoExamine'
             , cols: [
+
                 [
                     {checkbox: true, fixed: true}
                     // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
-                    , {field: 'card', title: '身份证号', width: 250, align: 'center'}
-                    , {field: 'username', title: '姓名', width: 250, align: 'center'}
-                    , {field: 'school', title: '学校', width: 250, align: 'center'}
-                    , {field: 'city', title: '区域', width: 250, align: 'center'}
-                    , {width: 100, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
+                    , {field: 'title', title: '标题', width: 250, align: 'center'}
+                    , {field: 'username', title: '作者', width: 250, align: 'center'}
+                    , {field: 'className', title: '分类', width: 250, align: 'center'}
+                    , {width: 200, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
                 ]
             ]
             , id: 'testReload'
@@ -93,18 +95,23 @@
         table.on('tool(user)', function (obj) {
             let data = obj.data;
             // 修改课程方向
-            if (obj.event === 'edit') {
-                $.post("/subject/delete", {id:data.id}, function (res) {
+            if (obj.event === 'examine') {
+                $.post("/article/examine", {id:data.id}, function (res) {
                     updateMessage(res)
                 }, "json");
-            }else if (obj.event === 'drop') {
-                $.post("/user/delete", {key: data.id}, function (res) {
-                    updateMessage(res);
-                }, "json");
-            }else if(obj.event === 'hide'){
-                $.post("/subject/show", {id: data.id}, function (res) {
-                    updateMessage(res);
-                }, "json");
+            }else if (obj.event === 'look') {
+                layer.open({
+                    type: 1
+                    ,title: false //不显示标题栏
+                    ,closeBtn: false
+                    ,area: ['1000px', '650px']
+                    ,shade: 0.1
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['确定']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: data.txt
+                });
             }
         });
 

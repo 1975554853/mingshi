@@ -16,6 +16,10 @@ import java.util.List;
 @Repository
 public interface OfficeDao extends CrudRepository<Office,Integer> {
 
+    // 查看工作室是否存在
+
+    public Office queryOfficeByName(String name);
+
     //添加工作室
     @Override
     Office save(Office office);

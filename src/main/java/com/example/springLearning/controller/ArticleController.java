@@ -48,5 +48,17 @@ public class ArticleController {
         return articleService.selectArticle(page,limit);
     }
 
+    @RequestMapping("/selectNoExamine")
+    @ResponseBody
+    public Map selectNoExamine(Integer page , Integer limit){
+        return articleService.selectNoExamine(page,limit);
+    }
+
+    @RequestMapping("/examine")
+    @ResponseBody
+    public Map examineArticle(Integer id){
+        return articleService.examineArticle(id);
+    }
+
 
 }
