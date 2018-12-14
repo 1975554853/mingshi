@@ -34,11 +34,22 @@
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
+    <div class="layui-row">
+
+        <form class="layui-form layui-col-md12 x-so layui-form-pane">
+            <input class="layui-input" placeholder="添加一级分类" name="cate_name" id="cate_name">
+            <button class="layui-btn" lay-filter="submit" lay-submit=""><i class="layui-icon"></i>增加</button>
+        </form>
+
+    </div>
+
 
     <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
 
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="addChildren">分类管理</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="save">修改</a>
+        <a class="layui-btn layui-btn-xs" lay-event="addChildren">添加子分类</a>
     </script>
 
 
@@ -76,8 +87,10 @@
             , cols: [
                 [
                     {checkbox: true, fixed: true}
+                    // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
                     , {field: 'id', title: 'ID', width: 250, align: 'center'}
                     , {field: 'name', title: '分类名称', width: 250, align: 'center' , edit: 'text'}
+                    , {field: 'father', title: '所属分类', width: 250, align: 'center'}
                     , {width: 320, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
                 ]
             ]
@@ -112,7 +125,12 @@
                     updateMessage(res);
                 }, "json");
             }else if(obj.event === 'addChildren'){
-                x_admin_show('分类管理','/classification_add',900,600)
+                layer.prompt(function(value, index, elem){
+                    $.get("/classification/addChildren", {id: data.id , name:value}, function (res) {
+                        updateMessage(res);
+                    }, "json");
+                    layer.close(index);
+                });
             }
         });
 

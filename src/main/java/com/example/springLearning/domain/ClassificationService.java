@@ -1,7 +1,10 @@
 package com.example.springLearning.domain;
 
+import com.example.springLearning.config.Page;
 import com.example.springLearning.dao.ClassificationDao;
+import com.example.springLearning.dao.OfficeDao;
 import com.example.springLearning.pojo.Classification;
+import com.example.springLearning.pojo.Office;
 import com.example.springLearning.pojo.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -9,6 +12,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +30,9 @@ public class ClassificationService {
     @Autowired
     private ClassificationDao classificationDao ;
 
+    @Autowired
+    private OfficeDao officeDao;
+
     private static HashMap map = new HashMap();
 
     public Map classificationInsert(Classification classification){
@@ -42,15 +49,23 @@ public class ClassificationService {
     }
 
     public Map selectClassification(Integer page, Integer limit) {
-
+        List list = new ArrayList();
         PageHelper.startPage(page,limit);
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        List<Classification> classifications = classificationDao.selectClassification(user.getOfficeId());
-        PageInfo<Classification> pageInfo = new PageInfo<>(classifications);
-        map.put("total",pageInfo.getTotal());
-        map.put("data",pageInfo.getList());
-        map.put("status",0);
-        return map;
+        // 查看访问者角色
+        if(SecurityUtils.getSubject().hasRole("admin")){
+            // 超级管理员访问 , 查看所有分类 , 实现查询所有工作室
+            list = officeDao.selectOffice();
+        }
+        PageInfo pageInfo = new PageInfo(list);
+        return Page.page(pageInfo);
+
+//        User user = (User) SecurityUtils.getSubject().getPrincipal();
+//        List<Classification> classifications = classificationDao.selectClassification(user.getOfficeId());
+//        PageInfo<Classification> pageInfo = new PageInfo<>(classifications);
+//        map.put("total",pageInfo.getTotal());
+//        map.put("data",pageInfo.getList());
+//        map.put("status",0);
+//        return map;
 
     }
 

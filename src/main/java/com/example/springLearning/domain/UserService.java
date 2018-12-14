@@ -136,11 +136,11 @@ public class UserService {
 
         // 如果为最高权限用户,查询所有学员 , 除了自己
         if (flag) {
-            stringBuilder.append("where r.role_id <> 1");
+            stringBuilder.append(" where r.role_id <> 1");
         } else {
-            stringBuilder.append("where r.role_id <> 1 and f.office_id = ").append(user.getOfficeId());
+            stringBuilder.append(" where r.role_id <> 1 and f.office_id = ").append(user.getOfficeId());
         }
-        stringBuilder.append("order by r.role_id, u.id desc");
+        stringBuilder.append(" order by r.role_id, u.id desc ");
 
         List list = entityManager.createNativeQuery(stringBuilder.toString()).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         PageInfo pageInfo = new PageInfo<>(list);

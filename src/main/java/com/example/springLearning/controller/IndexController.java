@@ -35,7 +35,7 @@ public class IndexController {
     }
 
     @GetMapping("/examine")
-    public String examine(){
+    public String examine() {
         return "admin/examine";
     }
 
@@ -122,6 +122,11 @@ public class IndexController {
     @GetMapping("/resume")
     public String resume() {
         return "admin/resume";
+    }
+
+    @GetMapping("/classification_add")
+    public String classification_add() {
+        return "admin/classification_add";
     }
 
 }
