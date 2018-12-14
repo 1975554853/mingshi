@@ -119,17 +119,17 @@ public class UserController {
         user.setCity(city);
         user.setSchool(school);
         if (card.length() != 18) {
-            return JSON.GETRESULT(false, ERROR.ERROR_CARD_CODE);
+            return JSON.GET_RESULT(false, ERROR.ERROR_CARD_CODE);
         }
         // 通过身份证查找用户
         boolean exits = userService.selectUserIsExitsByCard(card);
         // 如果存在
         if(exits){
-            return JSON.GETRESULT(false,ERROR.ERROR_CARD_EXITS);
+            return JSON.GET_RESULT(false,ERROR.ERROR_CARD_EXITS);
         }
         user.setCard(card);
         if (StringUtils.isBlank(office + "")) {
-            return JSON.GETRESULT(false, ERROR.ERROR_NOT_OFFICE);
+            return JSON.GET_RESULT(false, ERROR.ERROR_NOT_OFFICE);
         }
         user.setOfficeId(office);
         user.setSection(section);
@@ -137,7 +137,7 @@ public class UserController {
         user.setArea(area);
         // 判断用户有没有头像
         if (StringUtils.isBlank(url)) {
-            return JSON.GETRESULT(false, ERROR.ERROR_FOUND_IMAGE);
+            return JSON.GET_RESULT(false, ERROR.ERROR_FOUND_IMAGE);
         }
         user.setHeadPhotoUrl(url);
         String pass = card.substring(card.length() - 6);
@@ -146,9 +146,9 @@ public class UserController {
         user.setPassword(md5Pass);
         boolean flag = userService.saveUser(user, role);
         if (flag) {
-            return JSON.GETRESULT(true, ERROR.SUCCESS_STUDENT_UPLOAD);
+            return JSON.GET_RESULT(true, ERROR.SUCCESS_STUDENT_UPLOAD);
         } else {
-            return JSON.GETRESULT(false, ERROR.ERROR_OFFICE_EXITS);
+            return JSON.GET_RESULT(false, ERROR.ERROR_OFFICE_EXITS);
         }
     }
 

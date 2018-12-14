@@ -97,27 +97,6 @@ public class UserService {
             userDao.updateUserSetRole(u.getId(), role);
             // 用户-工作室表中插入数据
             userDao.insertUserAndOfficeAndRole(u.getId(), u.getOfficeId(), role);
-            // 初始化工作室菜单
-            Classification classification1 = new Classification();
-            Classification classification2 = new Classification();
-            Classification classification3 = new Classification();
-            Classification classification4 = new Classification();
-            classification1.setFather(0);
-            classification2.setFather(0);
-            classification3.setFather(0);
-            classification4.setFather(0);
-            classification1.setOffice(u.getOfficeId());
-            classification2.setOffice(u.getOfficeId());
-            classification3.setOffice(u.getOfficeId());
-            classification4.setOffice(u.getOfficeId());
-            classification1.setName("公告");
-            classification2.setName("成果展示");
-            classification3.setName("教师文章");
-            classification4.setName("资讯");
-            classificationDao.save(classification1);
-            classificationDao.save(classification2);
-            classificationDao.save(classification3);
-            classificationDao.save(classification4);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

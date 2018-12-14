@@ -19,6 +19,9 @@ public class ERROR {
     public static final String SUCCESS_STUDENT_UPLOAD = "学员上传成功";
     public static final String ERROR_OFFICE_EXITS = "该工作室已经存在管理员,如需要再次添加,请联系工作室管理员";
     public static final String ERROR_CARD_EXITS = "该身份证已经登记,请核查身份证号码";
+    public static final String SUCCESS_SYSTEM = "操作成功";
+    public static final String ERROR_CLASS_DELETE = "分类删除失败,请稍后再试";
+    public static final String ERROR_CLASS_INSERT = "该分类已经存在,请换一个分类";
 //    private static final String ERROR_NAME_OFFICE = "办公室名称已存在";
 //    private static final String ERROR_NAME_OFFICE = "办公室名称已存在";
 }

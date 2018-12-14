@@ -1,7 +1,9 @@
 package com.example.springLearning.domain;
 
 import com.example.springLearning.config.Page;
+import com.example.springLearning.dao.ClassificationDao;
 import com.example.springLearning.dao.OfficeDao;
+import com.example.springLearning.pojo.Classification;
 import com.example.springLearning.pojo.Office;
 import com.example.springLearning.pojo.User;
 import com.github.pagehelper.PageHelper;
@@ -10,7 +12,9 @@ import org.apache.shiro.SecurityUtils;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.HashMap;
@@ -23,33 +27,34 @@ public class OfficeService {
     private OfficeDao officeDao;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private ClassificationDao classificationDao;
 
     /**
      * @param office
      * @return 添加工作室
      */
+
+    @Transactional
+    @Modifying
     public boolean insertOffice(Office office) {
         try {
-            officeDao.save(office);
+            Office o = officeDao.save(office);
+            // 初始化更新工作室基本目录 -- 一级目录 分类菜单
+            Classification classification = new Classification();
+            classification.setName("菜单分类");
+            classification.setFather(0);
+            classification.setOffice(o.getId());
+            Classification c = classificationDao.save(classification);
+            // 获取一级目录,初始化真个工作室 , 工作室ID , 一级分类ID
+            classificationDao.initCreateMenu(o.getId(), c.getId());
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;
     }
 
-//    achievements: 0
-//    area: "中原区"
-//    article: 0
-//    city: "郑州市"
-//    follows: 0
-//    id: 222
-//    members: 0
-//    name: "张三工作室"
-//    sectionId: 18
-//    state: "河南"
-//    subject: 17
-//    type: null
-//    url: "https://netschool.oss-cn-beijing.aliyuncs.com/2018-12-13/QQ图片20181210170030.png"
 
     //查询所有office
     public Map selectOffice(Integer page, Integer limit) {

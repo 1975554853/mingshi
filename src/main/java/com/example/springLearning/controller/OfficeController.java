@@ -34,7 +34,7 @@ public class OfficeController {
     @RequestMapping("/add")
     @ResponseBody
     public Object insertOffice(String url, String name, Integer section, Integer subject, String state, String city, String area){
-        JSON json = JSON.GETRESULT(false, ERROR.ERROR_SYSTEM);
+        JSON json = JSON.GET_RESULT(false, ERROR.ERROR_SYSTEM);
         // 查看是否重名
         Office office = officeService.queryOfficeByName(name);
         if(office == null){
@@ -51,10 +51,10 @@ public class OfficeController {
             office.setArticle(0);
             office.setFollows(0);
             boolean flag = officeService.insertOffice(office);
-            if(flag) return JSON.GETRESULT(true,ERROR.SUCCESS_OFFICE);
-            else return JSON.GETRESULT(false,ERROR.ERROR_SYSTEM);
+            if(flag) return JSON.GET_RESULT(true,ERROR.SUCCESS_OFFICE);
+            else return JSON.GET_RESULT(false,ERROR.ERROR_SYSTEM);
         }else{
-            return JSON.GETRESULT(false,ERROR.ERROR_NAME_OFFICE);
+            return JSON.GET_RESULT(false,ERROR.ERROR_NAME_OFFICE);
         }
 
     }

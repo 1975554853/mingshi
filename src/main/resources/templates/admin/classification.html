@@ -112,7 +112,8 @@
                     updateMessage(res);
                 }, "json");
             }else if(obj.event === 'addChildren'){
-                x_admin_show('分类管理','/classification_add',900,600)
+                window.sessionStorage.setItem("officeId",data.id);
+                x_admin_show('分类管理','/classification_add',800,600);
             }
         });
 

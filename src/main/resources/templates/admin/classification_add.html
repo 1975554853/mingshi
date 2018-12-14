@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:shiro="http://www.w3.org/1999/xhtml">
+<html xmlns:shiro="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -9,13 +9,14 @@
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="css/font.css">
-    <link rel="stylesheet" href="css/xadmin.css">
-    <link rel="stylesheet" href="css/dtree.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
+    <link rel="stylesheet" th:href="@{/dtree/dtree.css}">
+    <link rel="stylesheet" th:href="@{/dtree/font/dtreefont.css}">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
-    <script type="text/javascript" src="./js/dtree.js"></script>
+    <script type="text/javascript" th:src="@{/dtree/dtree.js}"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -24,51 +25,144 @@
 </head>
 
 <body>
-<div class="x-body layui-anim layui-anim-up">
 
-    <ul id="demoTree" class="dtree" data-id="0"></ul>
 
+<div>
+    <ul id="commonTree3" class="dtree" data-id="0"></ul>
 </div>
 
 
 <script>
 
-    layui.use(['form', 'layer', 'dtree'], function () {
-        $ = layui.jquery;
-        let form = layui.form
-            , layer = layui.layer
-            , dtree = layui.dtree;
-        var DemoTree = dtree.render({
-            elem: "#demoTree",
-            data: demoTree,
-            type: "all",
-            initLevel: "1"
-        });
-        dtree.on("node('demoTree')", function (obj) {
-            layer.msg(JSON.stringify(obj.param));
-        });
 
-        //监听提交
-        form.on('submit(add)', function (data) {
-            console.log(data.field);
-            $.post("/user/add", data.field, function (res) {
-                if (res.success === true) {
-                    layer.msg(res.message, {icon: 6}, function () {
-                        let index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                    });
-                } else {
-                    //发异步，把数据提交给php
-                    layer.msg(res.message, {icon: 5});
+    layui.use(['element', 'layer', 'dtree'], function () {
+        var element = layui.element, layer = layui.layer, dtree = layui.dtree, $ = layui.$;
+        var DTree3 = dtree.render({
+            elem: "#commonTree3",
+            url: "/classification/tree",
+            icon: "2",
+            skin: "layui",
+            dataFormat: "list",
+            request: {
+                office: sessionStorage.getItem("officeId")
+            },
+            toolbar: true,
+            toolbarScroll: "#commonTree3",
+            toolbarLoad: "node",
+            toolbarStyle: {
+                title: "分类",
+                area: ["50%", "400px"]
+            },
+            toolbarShow: ["add", "delete", "edit"],
+            // toolbarBtn: [
+            //     [],
+            //     [{"label": "级别", "name": "level", "type": "text"},
+            //         {
+            //             "label": "下拉",
+            //             "name": "test",
+            //             "type": "select",
+            //             "optionsData": {"1": "男", "2": "女", "3": "未知", "4": "泰国归来"}
+            //         }
+            //     ] // 自定义编辑页的内容，第一个[]是新增页的，咱不用管它
+            // ],
+            toolbarFun: {
+
+                delTreeNode: function (treeNode, $div) { //删除树后调用的函数，用于用户自定义，如未指定则树不会发生变化
+                    $.post("/classification/delete", {classId: treeNode.nodeId}, function (res) {
+                        layer.msg(res.message);
+                    }, "json");
+                    DTree3.changeTreeNodeDel(treeNode.nodeId) // 调用内置函数，删除节点后改变节点内容。传入false，则树不会发生变化
+                },
+
+                addTreeNode: function (treeNode, $div) { //添加树节点后调用的函数，用于用户自定义，如未指定则树不会发生变化
+                    console.log(JSON.stringify(treeNode));
+                    $.post("/classification/addChild", {
+                        officeId: treeNode.office,
+                        fatherId: treeNode.parentId,
+                        node: treeNode.addNodeName
+                    }, function (res) {
+                        layer.msg(res.message);
+                    }, "json");
+                    DTree3.changeTreeNodeAdd(treeNode.nodeId); // 调用内置函数，删除节点后改变节点内容。传入false，则树不会发生变化
+                },
+                editTreeNode: function(treeNode, $div) { //编辑树节点后调用的函数，用于用户自定义，如未指定则树不会发生变化
+                        $.post("/classification/updateClass", {
+                            officeId: treeNode.office,
+                            nodeId: treeNode.nodeId,
+                            context: treeNode.context
+                        }, function (res) {
+                            layer.msg(res.message);
+                        }, "json");
+                    DTree3.changeTreeNodeEdit(true);
                 }
-
-            }, "json");
-
-
-            return false;
+            },
+            response: {
+                statusName: "code", //返回标识（必填）
+                statusCode: 0, //返回码（必填）
+                message: "message", //返回信息（必填）
+                rootName: "txt", //根节点名称（必填）
+                parentId: "father", //父节点ID（必填）
+                title: "name", //节点名称（必填）
+                spread: "true", //节点展开状态（v2.4.5_finally_beta版本新增。true：展开，false，不展开，非必填）
+            }
+            // menubarTips: {
+            //     toolbar: ["remove", {
+            //         menubarId: "zdy",
+            //         icon: "dtree-icon-rate",
+            //         title: "自定义menu",
+            //         handler: function (node, $div) {
+            //             layer.msg(JSON.stringify(node));
+            //         }
+            //     }]
+            // },
+            // menubarFun: {
+            //     remove: function (checkbarNodes) {
+            //         layer.msg(JSON.stringify(checkbarNodes));
+            //         return true;
+            //     }
+            // },
+            // toolbar: true,
+            // toolbarScroll: "#toolbarDiv",
+            // toolbarShow: ["add"],
+            // toolbarBtn: [
+            //     [{"label": "级别", "name": "level", "type": "text"}, {
+            //         "label": "下拉",
+            //         "name": "test",
+            //         "type": "select",
+            //         "optionsData": {"1": "男", "2": "女", "3": "未知", "4": "泰国归来"}
+            //     }], []
+            // ],
+            // toolbarExt: [{
+            //     toolbarId: "test",
+            //     icon: "dtree-icon-wefill",
+            //     title: "自定义toolbar",
+            //     handler: function (node, $div) {
+            //         layer.msg(JSON.stringify(node));
+            //     }
+            // }],
+            // toolbarFun: {
+            //     addTreeNode: function (treeNode) {
+            //         DTree.changeTreeNodeAdd(treeNode.nodeId);
+            //     }
+            // },
+            // checkbar: true,
+            // checkbarType: "self",
+            // checkbarFun: {
+            //     chooseBefore: function ($i, node) {
+            //         console.log($i);
+            //         return true;
+            //     },
+            //     chooseDone: function (nodes) {
+            //         layer.msg(JSON.stringify(nodes));
+            //     }
+            // }
         });
 
-
+        // 绑定节点的单击事件
+        dtree.on("iframeDone('commonTree3')", function (obj) {
+            layer.alert(JSON.stringify(obj));
+            console.log(obj);
+        });
     });
 </script>
 
