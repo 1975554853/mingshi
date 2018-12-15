@@ -3,11 +3,11 @@
 <head th:fragment="common_header(title)">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title th:text="${title}"></title>
-    <link th:href="@{/page/style.css}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" th:href="@{/page/swiper.min.css}">
-    <script type="text/javascript" th:src="@{/page/jquery.js}"></script>
-    <script type="text/javascript" th:src="@{/page/change.js}"></script>
-    <script type="text/javascript" th:src="@{/page/swiper.min.js}"></script>
+    <link th:href="@{${application.CDN}+'page/style.css'}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{${application.CDN}+'page/swiper.min.css'}">
+    <script type="text/javascript" th:src="@{${application.CDN}+'page/jquery.js'}"></script>
+    <script type="text/javascript" th:src="@{${application.CDN}+'/page/change.js'}"></script>
+    <script type="text/javascript" th:src="@{${application.CDN}+'/page/swiper.min.js'}"></script>
 </head>
 
 
@@ -31,7 +31,7 @@
             <div class="nav">
                 <ul>
                     <li><a th:href="@{${application.CDN}}">首页</a></li>
-                    <li><a th:href="@{${application.CDN}+'banners'}">资讯</a></li>
+                    <li><a th:href="@{${application.CDN}+'info/information/1/10'}">资讯</a></li>
                     <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/index.html">工作室</a></li>
                     <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">成果展示</a></li>
                 </ul>
@@ -138,7 +138,7 @@
 
                             </ul>
 
-                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html" class="zx_bta"
+                            <a th:href="@{${application.CDN}+'info/notice/1/10'}" class="zx_bta"
                                target="_blank">【更多】</a></div>
 
 
@@ -148,32 +148,27 @@
                                     <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1457.html"
                                        th:attr="title=${policy.title}" target="_blank">
                                         <i th:text="${policy.title}"></i>
-                                        <span th:text="${policy.time != null ? #dates.format(notice.time,'yyyy-MM-dd'):''}">2018-12-10</span></a>
+                                        <span th:text="${#dates.format(policy.time,'yyyy-MM-dd')}">2018-12-10</span></a>
                                 </li>
 
                             </ul>
-                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp.html" class="zx_bta"
+                            <a th:href="@{${application.CDN}+'info/information/1/10'}" class="zx_bta"
                                target="_blank">【更多】</a>
                         </div>
                         <div class="zx_nrs" style="display: none;">
                             <ul>
-
-
                                 <li th:each=" information : ${session.information}"><a
                                         href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show2/id/65.html"
                                         th:attr="title=${information.title}" target="_blank">
                                     <i th:text="${information.title}"></i>
                                     <span th:text="${information.time != null ? #dates.format(information.time,'yyyy-MM-dd'):''}">2018-08-17</span></a>
                                 </li>
-
                             </ul>
-                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp2.html" class="zx_bta"
+                            <a th:href="@{${application.CDN}+'info/policy/1/10'}" class="zx_bta"
                                target="_blank">【更多】</a>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
 
@@ -199,17 +194,6 @@
         </div>
 
     </div>
-    <script>
-        var swiper = new Swiper('.swiper-container', {
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            autoplay: {
-                delay: 6000,
-            },
-        });
-    </script>
 </div>
 
 
@@ -263,17 +247,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(".sjxz_topa li").click(function () {
-            $(this).addClass("active").siblings().removeClass("active");
-        });
-        $(".sjxz_topb li").click(function () {
-            $(this).addClass("active").siblings().removeClass("active");
-        });
-        $(".sjxz_topc li").click(function () {
-            $(this).addClass("active").siblings().removeClass("active");
-        });
-    </script>
 </div>
 
 <!--part_three-->
@@ -320,12 +293,102 @@
             <span id="cnzz_stat_icon_1274865269">
                 <img border="0" hspace="0" vspace="0" th:src="@{/images/pic.gif}"></span>
         </p>
-
     </div>
     <p style="text-align:center;">
-        <span id="_ideConac"><img id="imgConac" vspace="0" hspace="0" border="0" th:src="@{/images/red.png}" data-bd-imgshare-binded="1"></span>
+        <span id="_ideConac">
+            <img id="imgConac" vspace="0" hspace="0" border="0" th:src="@{/images/red.png}" data-bd-imgshare-binded="1">
+        </span>
     </p>
 </div>
 
+<div class="list_nav" th:fragment="navigation_8">
+    <h2>资讯中心</h2>
+    <ul>
+        <li th:attr=" class =  ${key eq 'notice' ? 'active' : null }">
+            <a th:href="@{${application.CDN}+'info/notice/1/10'}">
+                <img th:src="@{${application.CDN}+'images/blue1.jpg'}">公告
+            </a>
+        </li>
+        <li th:attr=" class =  ${key eq 'information' ? 'active' : null }">
+            <a th:href="@{${application.CDN}+'info/information/1/10'}">
+                <img th:src="@{${application.CDN}+'images/blue1.jpg'}">资讯</a></li>
+        <li th:attr=" class =  ${key eq 'policy' ? 'active' : null }">
+            <a th:href="@{${application.CDN}+'info/policy/1/10'}">
+                <img th:src="@{${application.CDN}+'images/blue1.jpg'}">政策</a>
+        </li>
+    </ul>
+</div>
+
+<div th:fragment="navigation_9" class="list_tit">
+
+    <h2 th:text="${txt}"></h2>
+
+    <div class="location" th:text=" '您所在的位置：首页&gt;资讯中心&gt;' + ${txt} "></div>
+</div>
+
+<div class="zx_main" th:fragment="navigation_10">
+
+    <!--size=1, index=1, data=[{title=关于收集《2017年名师工作室成员合格证书》照片的通知, id=341, time=2018-12-15 13:58:35.0}]-->
+
+    <div class="zx_lb">
+
+        <ul>
+            <li th:each="dto:${DTO.data}">
+                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1491.html">
+                    <i>&nbsp;</i>
+                    <p th:text="${dto.title}"></p>
+                    <span th:text=" ${#dates.format(dto.time,'yyyy-MM-dd')} "></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div th:fragment="navigation_11">
+
+    <script type="text/javascript">
+        $(".sjxz_topa li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+        $(".sjxz_topb li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+        $(".sjxz_topc li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    </script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            autoplay: {
+                delay: 6000,
+            },
+        });
+    </script>
+</div>
+
+<div class="list_page" th:fragment="navigation_12">
+    <div>
+
+        <a class="next" th:href="@{${application.CDN}+'info/'+${key}+'/'+${DTO.index-1}+'/'+ ${DTO.limit}}"
+           th:if="${DTO.hasPrevious}">上一页</a>
+
+        <a class="current" th:each=" pageNum : ${#numbers.sequence(DTO.firstIndex , DTO.lastIndex)} "
+           th:text="${pageNum}"
+           th:class="${ DTO.index == pageNum } ? 'current' : 'num' "
+           th:href="@{${application.CDN}+'info/'+${key}+'/'+${pageNum}+'/'+ ${DTO.limit}}"></a>
+
+        <a class="next" th:href="@{${application.CDN}+'info/'+${key}+'/'+${DTO.index+1}+'/'+ ${DTO.limit}}"
+           th:if="${DTO.hasNext}">下一页</a>
+
+        <a class="end" th:href="@{${application.CDN}+'info/'+${key}+'/'+${DTO.pageSum}+'/'+ ${DTO.limit} }"
+           th:text=" '共' + ${DTO.pageSum} + '页' "></a>
+
+    </div>
+</div>
 
 </html>

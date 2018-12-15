@@ -1,36 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0032)http://mingshi.hbte.com.cn:5060/ -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head th:replace="page/common :: common_header('河北名师工作室')"></head>
-
 <div th:replace="page/common :: navigation_1"></div>
 <div th:replace="page/common :: navigation_2"></div>
 <div th:replace="page/common :: navigation_4"></div>
 <div th:replace="page/common :: navigation_5"></div>
 <div th:replace="page/common :: navigation_6"></div>
 <div th:replace="page/common :: navigation_7"></div>
-
-
-
-
-
-
-
-
-
-<script language="javascript">
-    $("#searchList").on("change", function () {
-        var searchNum = $(this).val();
-        var searchForm = $("#searchForm");
-        if (searchNum == 0) {
-            searchForm.attr("action", "/index.php/Home/Listsp/listsp.html");
-        } else if (searchNum == 1) {
-            searchForm.attr("action", "/index.php/Home/Listsp/listsp1.html");
-        } else if (searchNum == 2) {
-            searchForm.attr("action", "/index.php/Home/Listsp/listsp2.html");
-        }
-    });
-</script>
+<div th:replace="page/common :: navigation_11"></div>
 </body></html>

@@ -3,9 +3,12 @@ package com.example.springLearning.controller;
 import com.example.springLearning.domain.ArticleService;
 import com.example.springLearning.domain.OfficeService;
 import com.example.springLearning.domain.UserService;
+import com.example.springLearning.pojo.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -26,8 +29,25 @@ public class IndexController {
     @Autowired
     private OfficeService officeService;
 
-    @GetMapping("/banners")
-    public String banners(){
+    @GetMapping("/info/{value}/{page}/{limit}")
+    public String banners(@PathVariable String value, Model model, @PathVariable Integer page, @PathVariable Integer limit) {
+        String txt = null;
+        DTO dto = null;
+        switch (value) {
+            case "information":
+                txt = "资讯";
+                break;
+            case "policy":
+                txt = "政策";
+                break;
+            case "notice":
+                txt = "公告";
+                break;
+        }
+        dto = articleService.queryDTOByClassOrderByDateAndWeight(page,limit,txt);
+        model.addAttribute("key", value);
+        model.addAttribute("txt", txt);
+        model.addAttribute("DTO",dto);
         return "page/banners";
     }
 
@@ -42,7 +62,7 @@ public class IndexController {
         List users = userService.selectUserByRoleId();
         httpSession.setAttribute("offices", users);
         // 加载置顶公告
-        List banners = articleService.selectArticleByTopAndOrderWeight("资讯",3);
+        List banners = articleService.selectArticleByTopAndOrderWeight("资讯", 3);
         httpSession.setAttribute("banners", banners);
         // 查询系统公告
         List notice = articleService.selectArticleByNoticeAndOrderWeight("公告");
@@ -55,18 +75,18 @@ public class IndexController {
         httpSession.setAttribute("information", information);
         // 获取关注人数最多的工作室
         List groups = officeService.queryOfficeByNum(6);
-        httpSession.setAttribute("groups",groups);
+        httpSession.setAttribute("groups", groups);
 
         List groupsMore = officeService.queryOfficeByNum(6);
-        httpSession.setAttribute("groupsMore",groupsMore);
+        httpSession.setAttribute("groupsMore", groupsMore);
 
         // 加载教师文章
-        List teachers = articleService.selectArticleByTopAndOrderWeight("教师文章",15);
+        List teachers = articleService.selectArticleByTopAndOrderWeight("教师文章", 15);
         httpSession.setAttribute("teachers", teachers);
         System.out.println(teachers.toString());
 
         // 加载成果
-        List achievements = articleService.selectArticleByTopAndOrderWeight("成果展示",12);
+        List achievements = articleService.selectArticleByTopAndOrderWeight("成果展示", 12);
         httpSession.setAttribute("achievements", achievements);
         System.out.println(achievements.toString());
 
@@ -169,12 +189,12 @@ public class IndexController {
     }
 
     @GetMapping("/noArticle")
-    public String noArticle(){
+    public String noArticle() {
         return "admin/noArticle";
     }
 
     @GetMapping("/system_article")
-    public String system_article(){
+    public String system_article() {
         return "admin/system_article";
     }
 }
