@@ -63,7 +63,7 @@
             }
             $.post('/subject/add', {name: data.field.cate_name}, function (res) {
                 updateMessage(res);
-            }, 'json');
+            }, 'SYSTEMDTO');
             return false;
         });
         //方法级渲染
@@ -97,15 +97,15 @@
             if (obj.event === 'edit') {
                 $.post("/subject/delete", {id:data.id}, function (res) {
                     updateMessage(res)
-                }, "json");
+                }, "SYSTEMDTO");
             }else if (obj.event === 'drop') {
                 $.post("/section/drop", {id: data.id}, function (res) {
                     updateMessage(res);
-                }, "json");
+                }, "SYSTEMDTO");
             }else if(obj.event === 'hide'){
                 $.post("/subject/show", {id: data.id}, function (res) {
                     updateMessage(res);
-                }, "json");
+                }, "SYSTEMDTO");
             }
         });
 

@@ -57,4 +57,10 @@ public interface ClassificationDao extends CrudRepository<Classification, Intege
     @Modifying
     @Query(value = "insert into classification ( father, name, office) VALUES ( ?2 , '首页' , ?1 ) , ( ?2 , '公告' , ?1 ) , ( ?2 , '资讯' , ?1 ) , ( ?2 , '工作室简介' , ?1 ) , ( ?2 , '成员风采' , ?1 ) , ( ?2 , '成果展示' , ?1 ) , ( ?2 , '教师文章' , ?1 )  ", nativeQuery = true)
     Integer initCreateMenu(Integer office, Integer father);
+
+    @Query(value = "select office from  classification where id = ?1", nativeQuery = true)
+    Integer queryOfficeByClassId(Integer classInfo);
+
+    @Query(value = "select office_id from user_office where user_id = ?1", nativeQuery = true)
+    Integer queryOfficeByUserId(int id);
 }

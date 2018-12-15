@@ -2,7 +2,7 @@ package com.example.springLearning.controller;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.BucketReferer;
-import com.example.springLearning.config.JSON;
+import com.example.springLearning.config.SYSTEM_DTO;
 import com.example.springLearning.domain.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,8 +35,8 @@ public class FileUploadController {
 
     @ResponseBody
     @RequestMapping("/image")
-    public JSON uploadText(MultipartFile file){
-        JSON json = new JSON();
+    public SYSTEM_DTO uploadText(MultipartFile file){
+        SYSTEM_DTO SYSTEMDTO = new SYSTEM_DTO();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String data = simpleDateFormat.format(new Date());
@@ -47,15 +47,15 @@ public class FileUploadController {
 
         try {
             ossClient.putObject(BUCKET_NAME, fileName , file.getInputStream() ) ;
-            json.setCode(0);
+            SYSTEMDTO.setCode(0);
         } catch (IOException e) {
             e.printStackTrace();
-            json.setCode(1);
+            SYSTEMDTO.setCode(1);
         }
 
         ossClient.shutdown();
-        json.getData().put("src","https://netschool.oss-cn-beijing.aliyuncs.com/" + fileName );
-        return json;
+        SYSTEMDTO.getData().put("src","https://netschool.oss-cn-beijing.aliyuncs.com/" + fileName );
+        return SYSTEMDTO;
     }
 
     @PostMapping("/userUpload")
@@ -100,7 +100,7 @@ public class FileUploadController {
             map.put("type","OK");
         } catch (IOException e) {
             e.printStackTrace();
-            map.put("type","ERROR");
+            map.put("type","SYSTEM_MESSAGE");
         }
 
         ossClient.shutdown();

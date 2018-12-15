@@ -88,7 +88,7 @@ public class SectionController {
         if (f){
             hashMap.put("type","OK");
         }else {
-            hashMap.put("type","ERROR");
+            hashMap.put("type","SYSTEM_MESSAGE");
         }
         return hashMap;
     }
@@ -134,7 +134,7 @@ public class SectionController {
         if(b){
             map.put("type","OK");
         }else {
-            map.put("type","ERROR");
+            map.put("type","SYSTEM_MESSAGE");
         }
         return map;
     }

@@ -1,8 +1,8 @@
 package com.example.springLearning.controller;
 
-import com.example.springLearning.config.ERROR;
-import com.example.springLearning.config.JSON;
-import com.example.springLearning.config.Page;
+import com.example.springLearning.config.SYSTEM_DTO;
+import com.example.springLearning.config.SYSTEM_MESSAGE;
+import com.example.springLearning.config.SYSTEM_CONFIG;
 import com.example.springLearning.domain.RoleService;
 import com.example.springLearning.domain.UserService;
 import com.example.springLearning.pojo.Role;
@@ -45,8 +45,8 @@ public class UserController {
             model.addAttribute("error", "用户名或密码错误");
             return "admin/login";
         }
-        httpSession.setAttribute("user", Page.getUser());
-        System.out.println(Page.getUser().toString());
+        httpSession.setAttribute("user", SYSTEM_CONFIG.getUser());
+        System.out.println(SYSTEM_CONFIG.getUser().toString());
 
         return "admin/index";
     }
@@ -104,13 +104,13 @@ public class UserController {
 
     @PostMapping("/add")
     @ResponseBody
-    public JSON insertStudent(String name, String card, String school,
-                              Integer section,
-                              @RequestParam(value = "office", required = false) Integer office,
-                              String state,
-                              String city,
-                              @RequestParam(value = "role", required = false) Integer role,
-                              String area, @RequestParam(value = "url", required = false) String url) {
+    public SYSTEM_DTO insertStudent(String name, String card, String school,
+                                    Integer section,
+                                    @RequestParam(value = "office", required = false) Integer office,
+                                    String state,
+                                    String city,
+                                    @RequestParam(value = "role", required = false) Integer role,
+                                    String area, @RequestParam(value = "url", required = false) String url) {
 
         User u = (User) SecurityUtils.getSubject().getPrincipal();
         HashMap<String, String> map = new HashMap<>();
@@ -119,19 +119,19 @@ public class UserController {
         user.setCity(city);
         user.setSchool(school);
         if (card.length() != 18) {
-            return JSON.GET_RESULT(false, ERROR.ERROR_CARD_CODE);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_CARD_CODE);
         }
         // 通过身份证查找用户
         boolean exits = userService.selectUserIsExitsByCard(card);
         // 如果存在
         if(exits){
-            return JSON.GET_RESULT(false,ERROR.ERROR_CARD_EXITS);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_CARD_EXITS);
         }
         user.setCard(card);
         // 如果用户上传工作室ID
         if (office == null) {
-           if(Page.isLogin()){
-               office = Page.getUser().getOfficeId();
+           if(SYSTEM_CONFIG.isLogin()){
+               office = SYSTEM_CONFIG.getUser().getOfficeId();
            }
         }
         user.setOfficeId(office);
@@ -140,7 +140,7 @@ public class UserController {
         user.setArea(area);
         // 判断用户有没有头像
         if (StringUtils.isBlank(url)) {
-            return JSON.GET_RESULT(false, ERROR.ERROR_FOUND_IMAGE);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_FOUND_IMAGE);
         }
         user.setHeadPhotoUrl(url);
         String pass = card.substring(card.length() - 6);
@@ -149,9 +149,9 @@ public class UserController {
         user.setPassword(md5Pass);
         boolean flag = userService.saveUser(user, role);
         if (flag) {
-            return JSON.GET_RESULT(true, ERROR.SUCCESS_STUDENT_UPLOAD);
+            return SYSTEM_DTO.GET_RESULT(true, SYSTEM_MESSAGE.SUCCESS_STUDENT_UPLOAD);
         } else {
-            return JSON.GET_RESULT(false, ERROR.ERROR_OFFICE_EXITS);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_OFFICE_EXITS);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.example.springLearning.controller;
 
+import com.example.springLearning.domain.ArticleService;
+import com.example.springLearning.domain.OfficeService;
 import com.example.springLearning.domain.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,15 @@ public class IndexController {
     private UserService userService;
     @Autowired
     private HttpSession httpSession;
+    @Autowired
+    private ArticleService articleService;
+    @Autowired
+    private OfficeService officeService;
+
+    @GetMapping("/banners")
+    public String banners(){
+        return "page/banners";
+    }
 
     @GetMapping("/login")
     public String login() {
@@ -29,8 +40,36 @@ public class IndexController {
     public String toIndex() {
         //查询所有工作室的头像和名称
         List users = userService.selectUserByRoleId();
-        System.out.println(users.toString());
         httpSession.setAttribute("offices", users);
+        // 加载置顶公告
+        List banners = articleService.selectArticleByTopAndOrderWeight("资讯",3);
+        httpSession.setAttribute("banners", banners);
+        // 查询系统公告
+        List notice = articleService.selectArticleByNoticeAndOrderWeight("公告");
+        httpSession.setAttribute("notice", notice);
+        // 查询系统政策
+        List policy = articleService.selectArticleByNoticeAndOrderWeight("资讯");
+        httpSession.setAttribute("policy", policy);
+
+        List information = articleService.selectArticleByNoticeAndOrderWeight("政策");
+        httpSession.setAttribute("information", information);
+        // 获取关注人数最多的工作室
+        List groups = officeService.queryOfficeByNum(6);
+        httpSession.setAttribute("groups",groups);
+
+        List groupsMore = officeService.queryOfficeByNum(6);
+        httpSession.setAttribute("groupsMore",groupsMore);
+
+        // 加载教师文章
+        List teachers = articleService.selectArticleByTopAndOrderWeight("教师文章",15);
+        httpSession.setAttribute("teachers", teachers);
+        System.out.println(teachers.toString());
+
+        // 加载成果
+        List achievements = articleService.selectArticleByTopAndOrderWeight("成果展示",12);
+        httpSession.setAttribute("achievements", achievements);
+        System.out.println(achievements.toString());
+
         return "page/index";
     }
 
@@ -129,4 +168,13 @@ public class IndexController {
         return "admin/classification_add";
     }
 
+    @GetMapping("/noArticle")
+    public String noArticle(){
+        return "admin/noArticle";
+    }
+
+    @GetMapping("/system_article")
+    public String system_article(){
+        return "admin/system_article";
+    }
 }

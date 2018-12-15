@@ -167,7 +167,7 @@
                     $("#quiz3").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
                 }
                 form.render();
-        }, "json");
+        }, "SYSTEMDTO");
 
         $.get("/subject/sel",{}, function (res) {
             $("#quiz4").html("");
@@ -176,7 +176,7 @@
                 $("#quiz4").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
             }
             form.render();
-        }, "json");
+        }, "SYSTEMDTO");
         $.get("/office/all",{}, function (res) {
             $("#quiz5").html("");
             let list = res.data;
@@ -184,7 +184,7 @@
                 $("#quiz5").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
             }
             form.render();
-        }, "json");
+        }, "SYSTEMDTO");
 
         //自定义验证规则
         form.verify({
@@ -202,7 +202,7 @@
                 url:"/user/addTeacher",
                 async:true,
                 data:JSON.stringify(data.field),
-                contentType:"application/json; charset=utf-8",
+                contentType:"application/SYSTEMDTO; charset=utf-8",
                 success:function (res) {
                     if (res.type === 'OK') {
                         layer.msg(res.message, {icon: 6}, function () {

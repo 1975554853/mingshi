@@ -1,8 +1,8 @@
 package com.example.springLearning.controller;
 
-import com.example.springLearning.config.ERROR;
-import com.example.springLearning.config.JSON;
-import com.example.springLearning.config.Page;
+import com.example.springLearning.config.SYSTEM_MESSAGE;
+import com.example.springLearning.config.SYSTEM_DTO;
+import com.example.springLearning.config.SYSTEM_CONFIG;
 import com.example.springLearning.domain.ClassificationService;
 import com.example.springLearning.pojo.Classification;
 import com.example.springLearning.pojo.User;
@@ -32,22 +32,22 @@ public class ClassificationController {
     public Object treeClass( @RequestParam(value = "office",required = false) Integer office){
         // 如果用户没有登录
         if(office == null){
-            if(Page.isLogin()){
+            if(SYSTEM_CONFIG.isLogin()){
                 // 查看用户属于哪个工作室
-                office = Page.getUser().getOfficeId();
+                office = SYSTEM_CONFIG.getUser().getOfficeId();
             }else{
                 return null;
             }
         }
         // 获取工作室下的所有分类
-        JSON json  = classificationService.selectClassificationByOfficeId(office);
-        return json;
+        SYSTEM_DTO SYSTEMDTO = classificationService.selectClassificationByOfficeId(office);
+        return SYSTEMDTO;
     }
 
     @RequestMapping("/sel")
     @ResponseBody
     public Object selectClass(){
-       User user =  Page.getUser();
+       User user =  SYSTEM_CONFIG.getUser();
        return classificationService.selectFatherClass(user.getOfficeId());
     }
 
@@ -106,9 +106,9 @@ public class ClassificationController {
         System.out.println(classId);
         boolean flag = classificationService.deleteClass(classId);
         if(flag){
-            return JSON.GET_RESULT(true, ERROR.SUCCESS_SYSTEM);
+            return SYSTEM_DTO.GET_RESULT(true, SYSTEM_MESSAGE.SUCCESS_SYSTEM);
         }else {
-            return JSON.GET_RESULT(false, ERROR.ERROR_CLASS_DELETE);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_CLASS_DELETE);
         }
     }
 

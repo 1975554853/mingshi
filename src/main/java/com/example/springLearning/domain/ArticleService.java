@@ -1,6 +1,8 @@
 package com.example.springLearning.domain;
 
-import com.example.springLearning.config.Page;
+import com.example.springLearning.config.SYSTEM_DTO;
+import com.example.springLearning.config.SYSTEM_MESSAGE;
+import com.example.springLearning.config.SYSTEM_CONFIG;
 import com.example.springLearning.dao.ArticleDao;
 import com.example.springLearning.pojo.Article;
 import com.example.springLearning.pojo.User;
@@ -30,36 +32,44 @@ public class ArticleService {
     private ArticleDao articleDao;
     @Autowired
     private EntityManager entityManager;
+
     private Map map  = new HashMap();
 
-    public Map saveArticle(Article article) {
+    public SYSTEM_DTO saveArticle(Article article) {
         try{
             articleDao.save(article);
-            map.put("type","OK");
+            if(article.getType() == 1){
+                return SYSTEM_DTO.GET_RESULT(true, SYSTEM_MESSAGE.SUCCESS_ARTICLE_SUCCESS);
+            }else{
+                return SYSTEM_DTO.GET_RESULT(true, SYSTEM_MESSAGE.SUCCESS_SYSTEM);
+            }
         }catch (Exception e){
             e.printStackTrace();
-            map.put("type","error");
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_SYSTEM);
         }
-        return map;
-
     }
 
-    public Map selectArticle(Integer page, Integer limit) {
+    public Map selectArticle(Integer page, Integer limit ,Integer type) {
         Map<String, Object> map = new HashMap<>();
-        StringBuilder sql = new StringBuilder(" select a.title , u.id   , a.id as author , u.username  ,a.type , c.name as className , c.id as classId from article a inner join user u on a.author = u.id inner join classification c on c.id = a.classification where 1=1");
-        // 是不是站长
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        if(SecurityUtils.getSubject().hasRole("group")){
-            sql.append(" and a.office = " + user.getOfficeId());
-        }
-        if(SecurityUtils.getSubject().hasRole("user")){
-            sql.append(" and a.author = " + user.getId());
+        StringBuilder sql = new StringBuilder(" select a.title , u.id   , a.id as author , u.username  ,a.type , c.name as className , c.id as classId from article a inner join user u on a.author = u.id inner join classification c on c.id = a.classification where a.type = " );
+        sql.append(type);
+        // 是不是管理员 , 查看所有文章
+        if(!SYSTEM_CONFIG.isAdmin()){
+            User user = SYSTEM_CONFIG.getUser();
+            // 获取办公室ID
+            Integer office = user.getOfficeId();
+            if(SYSTEM_CONFIG.isGroup()){
+                sql.append(" and a.office = " + office);
+            }
+            if(SecurityUtils.getSubject().hasRole("user")){
+                sql.append(" and a.author = " + user.getId());
+            }
         }
         PageHelper.startPage(page,limit);
         System.out.println(sql.toString());
         List list = entityManager.createNativeQuery(sql.toString()).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         PageInfo pageInfo = new PageInfo(list);
-        return Page.page(pageInfo);
+        return SYSTEM_CONFIG.page(pageInfo);
     }
 
     public Map selectNoExamine(Integer page, Integer limit) {
@@ -76,7 +86,7 @@ public class ArticleService {
         PageHelper.startPage(page,limit);
         List list = entityManager.createNativeQuery(sql.toString()).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         PageInfo pageInfo = new PageInfo(list);
-        return Page.page(pageInfo);
+        return SYSTEM_CONFIG.page(pageInfo);
     }
 
     public Map examineArticle(Integer id) {
@@ -89,5 +99,30 @@ public class ArticleService {
             map1.put("type","error");
         }
         return map1;
+    }
+
+    public List selectArticleByTopAndOrderWeight(String name , Integer limit) {
+        String sql = "select  concat(s.name,j.name) as subjectName ,  a.id as id , f.name as officeName , a.url as url , a.title as title , c.office as office , c.id as classInfo from article a inner join classification c on a.classification = c.id inner join office f on f.id = a.office left join learning_section s on s.id = f.section_id left join learning_subject j on j.id = f.subject where c.name = '"+name+"' and c.office not in (select o.id from office o where o.name = '系统工作室') order by a.weight , a.id desc limit  " + limit;
+        List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        return list;
+    }
+
+    public Map selectSystemArticle(Integer page, Integer limit) {
+        Map<String, Object> map = new HashMap<>();
+        String sql = " select a.title, u.id, a.id as author, u.username,a.type, c.name as className, c.id as classId\n" +
+                "from article a\n" +
+                "       inner join user u on a.author = u.id\n" +
+                "       inner join classification c on c.id = a.classification\n" +
+                "where c.office in (select o.id  from office o where o.name = '系统工作室') " ;
+        PageHelper.startPage(page,limit);
+        List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        PageInfo pageInfo = new PageInfo(list);
+        return SYSTEM_CONFIG.page(pageInfo);
+    }
+
+    public List selectArticleByNoticeAndOrderWeight(String name) {
+        String sql = "select a.id as id , a.date as time , a.url as url , a.title as title , c.office as office , c.id as classInfo from article a inner join classification c on a.classification = c.id where c.name = '"+name+"' and c.office in (select o.id from office o where o.name = '系统工作室') order by a.weight , a.id desc limit 8 ";
+        List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        return list;
     }
 }

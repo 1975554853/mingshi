@@ -1,8 +1,8 @@
 package com.example.springLearning.domain;
 
-import com.example.springLearning.config.ERROR;
-import com.example.springLearning.config.JSON;
-import com.example.springLearning.config.Page;
+import com.example.springLearning.config.SYSTEM_DTO;
+import com.example.springLearning.config.SYSTEM_MESSAGE;
+import com.example.springLearning.config.SYSTEM_CONFIG;
 import com.example.springLearning.dao.ClassificationDao;
 import com.example.springLearning.dao.OfficeDao;
 import com.example.springLearning.pojo.Classification;
@@ -61,12 +61,12 @@ public class ClassificationService {
             // 超级管理员访问 , 查看所有分类 , 实现查询所有工作室
             list = officeDao.selectOffice();
         }else if(SecurityUtils.getSubject().hasRole("group")){
-            Integer officeId = Page.getUser().getOfficeId();
+            Integer officeId = SYSTEM_CONFIG.getUser().getOfficeId();
             Optional<Office> office  = officeDao.findById(officeId);
             list.add(office.get());
         }
         PageInfo pageInfo = new PageInfo(list);
-        return Page.page(pageInfo);
+        return SYSTEM_CONFIG.page(pageInfo);
     }
 
     public boolean deleteClass(Integer id) {
@@ -93,28 +93,28 @@ public class ClassificationService {
 
     }
 
-    public JSON selectClassificationByOfficeId(Integer officeId) {
+    public SYSTEM_DTO selectClassificationByOfficeId(Integer officeId) {
         if(StringUtils.isBlank(officeId + "")){
-            return JSON.GET_TREE(1,"系统异常,稍后再试",null);
+            return SYSTEM_DTO.GET_TREE(1,"系统异常,稍后再试",null);
         }
         String sql = " select * from classification c where c.office = " + officeId;
         System.out.println(sql);
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
-        return JSON.GET_TREE(0,"节点获取成功",list);
+        return SYSTEM_DTO.GET_TREE(0,"节点获取成功",list);
     }
 
-    public JSON insertChildrenForClass(String node, Integer officeId, Integer fatherId) {
+    public SYSTEM_DTO insertChildrenForClass(String node, Integer officeId, Integer fatherId) {
         // 首先检查在等添加分类时是否已经存在这样的分类
         List<String> classifications = classificationDao.queryClassByOfficeId(officeId);
         // 该分类已经存在
         if(classifications.contains(node)){
-            return JSON.GET_RESULT(false, ERROR.ERROR_CLASS_INSERT);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_CLASS_INSERT);
         }
         try {
             classificationDao.insertChildrenForClass(node, officeId, fatherId);
-            return JSON.GET_RESULT(true,ERROR.SUCCESS_SYSTEM);
+            return SYSTEM_DTO.GET_RESULT(true, SYSTEM_MESSAGE.SUCCESS_SYSTEM);
         }catch (Exception e){
-            return JSON.GET_RESULT(false,ERROR.ERROR_SYSTEM);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_SYSTEM);
         }
     }
 
@@ -131,14 +131,18 @@ public class ClassificationService {
         List<String> classifications = classificationDao.queryClassByOfficeId(officeId);
         // 该分类已经存在
         if(classifications.contains(context)){
-            return JSON.GET_RESULT(false, ERROR.ERROR_CLASS_INSERT);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_CLASS_INSERT);
         }
         try {
             classificationDao.updateClassByNameAndId(nodeId, context);
-            return JSON.GET_RESULT(true,ERROR.SUCCESS_SYSTEM);
+            return SYSTEM_DTO.GET_RESULT(true, SYSTEM_MESSAGE.SUCCESS_SYSTEM);
         }catch (Exception e){
-            return JSON.GET_RESULT(false,ERROR.ERROR_SYSTEM);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_SYSTEM);
         }
 
+    }
+
+    public Integer findOfficeByClassInfo(Integer classInfo) {
+        return classificationDao.queryOfficeByClassId(classInfo);
     }
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @ClassName Article
@@ -35,4 +36,8 @@ public class Article implements Serializable {
     private String text;
     @Column
     private String url;
+    @Column
+    private Integer weight = 0;
+    @Column
+    private Date date = new Date();
 }

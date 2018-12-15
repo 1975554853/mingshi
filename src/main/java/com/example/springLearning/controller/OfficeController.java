@@ -1,7 +1,7 @@
 package com.example.springLearning.controller;
 
-import com.example.springLearning.config.ERROR;
-import com.example.springLearning.config.JSON;
+import com.example.springLearning.config.SYSTEM_DTO;
+import com.example.springLearning.config.SYSTEM_MESSAGE;
 import com.example.springLearning.domain.OfficeService;
 import com.example.springLearning.pojo.Office;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class OfficeController {
     @RequestMapping("/add")
     @ResponseBody
     public Object insertOffice(String url, String name, Integer section, Integer subject, String state, String city, String area){
-        JSON json = JSON.GET_RESULT(false, ERROR.ERROR_SYSTEM);
+        SYSTEM_DTO SYSTEMDTO = SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_SYSTEM);
         // 查看是否重名
         Office office = officeService.queryOfficeByName(name);
         if(office == null){
@@ -51,10 +51,10 @@ public class OfficeController {
             office.setArticle(0);
             office.setFollows(0);
             boolean flag = officeService.insertOffice(office);
-            if(flag) return JSON.GET_RESULT(true,ERROR.SUCCESS_OFFICE);
-            else return JSON.GET_RESULT(false,ERROR.ERROR_SYSTEM);
+            if(flag) return SYSTEM_DTO.GET_RESULT(true, SYSTEM_MESSAGE.SUCCESS_OFFICE);
+            else return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_SYSTEM);
         }else{
-            return JSON.GET_RESULT(false,ERROR.ERROR_NAME_OFFICE);
+            return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_NAME_OFFICE);
         }
 
     }

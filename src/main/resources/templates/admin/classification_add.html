@@ -70,7 +70,7 @@
                 delTreeNode: function (treeNode, $div) { //删除树后调用的函数，用于用户自定义，如未指定则树不会发生变化
                     $.post("/classification/delete", {classId: treeNode.nodeId}, function (res) {
                         layer.msg(res.message);
-                    }, "json");
+                    }, "SYSTEMDTO");
                     DTree3.changeTreeNodeDel(treeNode.nodeId) // 调用内置函数，删除节点后改变节点内容。传入false，则树不会发生变化
                 },
 
@@ -82,7 +82,7 @@
                         node: treeNode.addNodeName
                     }, function (res) {
                         layer.msg(res.message);
-                    }, "json");
+                    }, "SYSTEMDTO");
                     DTree3.changeTreeNodeAdd(treeNode.nodeId); // 调用内置函数，删除节点后改变节点内容。传入false，则树不会发生变化
                 },
                 editTreeNode: function(treeNode, $div) { //编辑树节点后调用的函数，用于用户自定义，如未指定则树不会发生变化
@@ -92,7 +92,7 @@
                             context: treeNode.context
                         }, function (res) {
                             layer.msg(res.message);
-                        }, "json");
+                        }, "SYSTEMDTO");
                     DTree3.changeTreeNodeEdit(true);
                 }
             },
@@ -111,13 +111,13 @@
             //         icon: "dtree-icon-rate",
             //         title: "自定义menu",
             //         handler: function (node, $div) {
-            //             layer.msg(JSON.stringify(node));
+            //             layer.msg(SYSTEM_DTO.stringify(node));
             //         }
             //     }]
             // },
             // menubarFun: {
             //     remove: function (checkbarNodes) {
-            //         layer.msg(JSON.stringify(checkbarNodes));
+            //         layer.msg(SYSTEM_DTO.stringify(checkbarNodes));
             //         return true;
             //     }
             // },
@@ -137,7 +137,7 @@
             //     icon: "dtree-icon-wefill",
             //     title: "自定义toolbar",
             //     handler: function (node, $div) {
-            //         layer.msg(JSON.stringify(node));
+            //         layer.msg(SYSTEM_DTO.stringify(node));
             //     }
             // }],
             // toolbarFun: {
@@ -153,7 +153,7 @@
             //         return true;
             //     },
             //     chooseDone: function (nodes) {
-            //         layer.msg(JSON.stringify(nodes));
+            //         layer.msg(SYSTEM_DTO.stringify(nodes));
             //     }
             // }
         });

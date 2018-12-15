@@ -1,11 +1,9 @@
 package com.example.springLearning.domain;
 
-import com.example.springLearning.config.Page;
+import com.example.springLearning.config.SYSTEM_CONFIG;
 import com.example.springLearning.dao.ClassificationDao;
 import com.example.springLearning.dao.UserDao;
 import com.example.springLearning.dao.UserRoleDao;
-import com.example.springLearning.pojo.Classification;
-import com.example.springLearning.pojo.Role;
 import com.example.springLearning.pojo.User;
 import com.example.springLearning.pojo.UserRole;
 import com.example.springLearning.util.MD5OP;
@@ -21,12 +19,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * 用户service
@@ -83,7 +79,6 @@ public class UserService {
     @Transactional
     @Modifying
     public boolean saveUser(User user, Integer role) {
-        System.out.println(StringUtils.isBlank(""+role));
         // 如果 role 为空 , 说明该学院是一个普通用户
         if( null == role ){
             role = 3;
@@ -129,7 +124,7 @@ public class UserService {
 
         List list = entityManager.createNativeQuery(stringBuilder.toString()).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         PageInfo pageInfo = new PageInfo<>(list);
-        return Page.page(pageInfo);
+        return SYSTEM_CONFIG.page(pageInfo);
     }
 
     public boolean deleteUser(Integer key) {
@@ -177,7 +172,7 @@ public class UserService {
 
     public boolean updateUserUrl(String s) {
         try {
-            userDao.updateUserUrlById(Page.getUser().getId(), s);
+            userDao.updateUserUrlById(SYSTEM_CONFIG.getUser().getId(), s);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

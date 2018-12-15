@@ -67,7 +67,7 @@
                 }else{
                     layer.msg(res.message);
                 }
-            },"json");
+            },"SYSTEMDTO");
         });
     }
     layui.use(['form', 'layer','table'], function () {
@@ -104,7 +104,7 @@
             if (obj.event === 'drop') {
                 $.post("/role/delete", {id: data.id}, function (res) {
                     updateMessage(res);
-                }, "json");
+                }, "SYSTEMDTO");
             }
         });
 

@@ -115,19 +115,31 @@
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>学员列表</cite>
                         </a>
+
+
                     </li>
 
                     <li>
-                        <a _href="/article">
+                        <a href="javascript:;">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>文章列表</cite>
                         </a>
-                    </li>
-                    <li shiro:hasAnyroles="group,admin">
-                        <a _href="/examine">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>待审核</cite>
-                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="/article">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>已审核文章</cite>
+                                </a>
+                            </li>
+                            <li>
+                                <a _href="/noArticle">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>未审核文章</cite>
+                                </a>
+                            </li>
+
+                        </ul>
+
                     </li>
                     <li shiro:hasRole="group">
                         <a _href="/classification">
@@ -189,6 +201,24 @@
                     </li>
                 </ul>
             </li>
+
+            <li shiro:hasRole="admin">
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>系统消息推送</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="/system_article">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>系统文章管理</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+
+
             <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>

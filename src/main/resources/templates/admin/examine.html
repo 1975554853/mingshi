@@ -63,7 +63,7 @@
             }
             $.post('/subject/add', {name: data.field.cate_name}, function (res) {
                 updateMessage(res);
-            }, 'json');
+            }, 'SYSTEMDTO');
             return false;
         });
         //方法级渲染
@@ -98,7 +98,7 @@
             if (obj.event === 'examine') {
                 $.post("/article/examine", {id:data.id}, function (res) {
                     updateMessage(res)
-                }, "json");
+                }, "SYSTEMDTO");
             }else if (obj.event === 'look') {
                 layer.open({
                     type: 1

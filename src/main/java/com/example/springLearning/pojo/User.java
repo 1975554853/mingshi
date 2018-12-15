@@ -1,6 +1,9 @@
 package com.example.springLearning.pojo;
 
+import com.example.springLearning.config.SYSTEM_CONFIG;
+import com.example.springLearning.dao.ClassificationDao;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +17,10 @@ import java.util.List;
 @Table
 @Data
 public class User {
+
+    @Autowired
+    @Transient
+    private ClassificationDao classificationDao;
 
     @Id
     @GeneratedValue
@@ -42,5 +49,18 @@ public class User {
     private String state;
     @Column
     private Integer section;
+
+
+    public Integer getOffice(){
+        // 不是管理员 , 就去找对应的工作室ID
+        if(!SYSTEM_CONFIG.isAdmin()){
+            try{
+                return classificationDao.queryOfficeByUserId(this.id);
+            }catch (Exception e){
+                return 0;
+            }
+        }
+        return 0;
+    }
 
 }

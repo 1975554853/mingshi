@@ -1,0 +1,331 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:fragment="common_header(title)">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title th:text="${title}"></title>
+    <link th:href="@{/page/style.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{/page/swiper.min.css}">
+    <script type="text/javascript" th:src="@{/page/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/page/change.js}"></script>
+    <script type="text/javascript" th:src="@{/page/swiper.min.js}"></script>
+</head>
+
+
+<!--head-->
+<div class="top" th:fragment="navigation_1">
+    <div class="tops">
+        <div class="topl"><a th:href="@{${application.CDN}}" style="color:#fff;" target="_blank">河北教师教育网</a></div>
+        <div class="topr">
+            <ul>
+                <li><a href="http://help.hbte.com.cn:5056/" target="_blank">帮助中心</a></li>
+                <li><a th:href="@{${application.CDN}+'login'}">教师登录</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="head" th:fragment="navigation_2">
+    <form id="searchForm" action="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp.html" method="post">
+        <div class="heads">
+            <div class="logo"><a th:href="@{${application.CDN}}"><img src="/page/logo.jpg"></a></div>
+            <div class="nav">
+                <ul>
+                    <li><a th:href="@{${application.CDN}}">首页</a></li>
+                    <li><a th:href="@{${application.CDN}+'banners'}">资讯</a></li>
+                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/index.html">工作室</a></li>
+                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">成果展示</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <!--<img src="/Public/Home/img/search.jpg">-->
+                <select id="searchList" style="border:none;border-right:1px solid #999;outline:none;height:30px">
+                    <option value="0">资讯</option>
+                    <option value="1">公告</option>
+                    <option value="2">政策</option>
+                </select>
+                <input type="text" placeholder="请输入关键词" name="ss" style="margin-left:5px;">
+                <a href="javascript:;"><input type="submit" value="确定" style="color:#fff;text-align:right;"></a>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+<div class="z_ad" th:fragment="navigation_3(title)">
+    <div style="background-image:url(http://netschool.oss-cn-beijing.aliyuncs.com/2018-12-15/5b8e794421331.jpg);height:240px;background-size:100% 100%;">
+        <div class="z_ads">
+            <div class="z_ad_left">
+                <h2 th:text="${title}">李淑民工作室</h2>
+                <h3 style="display:none;" th:text=" '欢迎加入'+${title} ">欢迎加入李淑民工作室<span style="display: none">QQ群：962556822</span>
+                </h3>
+            </div>
+            <div class="z_ad_right">
+                <img src="/page/eyes.png">
+                <div class="z_ad_wz">
+                    <h2>今日访客<i>22</i></h2>
+                    <h2>访客总量<i>3403</i></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="part_two" th:fragment="navigation_4">
+    <div class="part_main">
+        <div class="index_main">
+
+            <div class="part_zx">
+
+                <div class="banner">
+                    <div class="swiper-container swiper-container-horizontal swiper-container-wp8-horizontal">
+                        <div class="swiper-wrapper"
+                             style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+
+                            <!--classInfo=314, id=329, office=310, title=名师携手同筑梦，精准帮扶促成长, url=https://netschool.oss-cn-beijing.aliyuncs.com/2018-12-15/1544447774796622.jpg-->
+
+                            <div class="swiper-slide swiper-slide-active" style="width: 336px;"
+                                 th:each=" banner : ${ session.banners }">
+                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1457.html"
+                                   th:attr="title=${banner.title}" target="_blank">
+                                    <img th:src="${banner.url}">
+                                    <p class="swiper_text" th:text="${banner.title}"></p>
+                                </a>
+                            </div>
+
+                        </div>
+
+
+                        <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-clickable"><span
+                                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0"
+                                role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet"
+                                                                                      tabindex="0" role="button"
+                                                                                      aria-label="Go to slide 2"></span><span
+                                class="swiper-pagination-bullet" tabindex="0" role="button"
+                                aria-label="Go to slide 3"></span></div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+
+
+                <div class="zx_list">
+
+                    <div class="zx_bt">
+                        <ul>
+                            <li class="active">公告</li>
+                            <li>资讯</li>
+                            <li>政策</li>
+                        </ul>
+
+                    </div>
+                    <div class="zx_nr">
+
+                        <div class="zx_nrs" style="display: block;">
+
+                            <ul>
+
+                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html"
+                                   class="zx_bta" target="_blank">【更多】</a>
+
+                                <li th:each="notice:${session.notice}">
+                                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show1/id/88.html"
+                                       th:attr="title=${notice.title}"
+                                       target="_blank">
+                                        <i th:text="${notice.title}"></i>
+                                        <span th:text="${#dates.format(notice.time,'yyyy-MM-dd')}">2018-09-25</span>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html" class="zx_bta"
+                               target="_blank">【更多】</a></div>
+
+
+                        <div class="zx_nrs" style="display: none;">
+                            <ul>
+                                <li th:each=" policy : ${session.policy}">
+                                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1457.html"
+                                       th:attr="title=${policy.title}" target="_blank">
+                                        <i th:text="${policy.title}"></i>
+                                        <span th:text="${policy.time != null ? #dates.format(notice.time,'yyyy-MM-dd'):''}">2018-12-10</span></a>
+                                </li>
+
+                            </ul>
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                        </div>
+                        <div class="zx_nrs" style="display: none;">
+                            <ul>
+
+
+                                <li th:each=" information : ${session.information}"><a
+                                        href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show2/id/65.html"
+                                        th:attr="title=${information.title}" target="_blank">
+                                    <i th:text="${information.title}"></i>
+                                    <span th:text="${information.time != null ? #dates.format(information.time,'yyyy-MM-dd'):''}">2018-08-17</span></a>
+                                </li>
+
+                            </ul>
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp2.html" class="zx_bta"
+                               target="_blank">【更多】</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="part_ms">
+            <div class="part_tit2">
+                <img th:src="@{/images/icon5.jpg}">
+                <h2>工作室活跃度排行</h2>
+                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/lists.html" target="_blank">更多&gt;&gt;</a>
+            </div>
+            <div class="ms_main">
+                <ul>
+                    <!--[{name=朱光省工作室, num=2, id=310}, {name=冯松杰, num=1, id=318}]-->
+                    <a th:each="info , step : ${session.groups}"
+                       href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html" target="_blank">
+                        <li>
+                            <i id="num1" th:text="${step.index+1}">1</i>
+                            <h2 th:text="${info.name}">高俊霞工作室</h2>
+                            <div class="gz"><span th:text="${info.num}">28</span>人关注</div>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            autoplay: {
+                delay: 6000,
+            },
+        });
+    </script>
+</div>
+
+
+<div class="part_one" th:fragment="navigation_5">
+
+    <div class="part_main">
+        <div class="index_main">
+            <div class="part_tit">
+                <img th:src="@{/images/icon1.jpg}">
+                <h2>省级名师工作室</h2>
+                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/index.html">更多&gt;&gt;</a>
+            </div>
+            <div class="sjxz">
+                <div class="sjxz_bot">
+
+
+                    <div class="sjzx_bot_nr">
+                        <ul>
+                            <li th:each=" groupsMore : ${session.groupsMore}">
+                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/50.html"
+                                   target="_blank">
+                                    <img th:src="@{${groupsMore.url}}"
+                                         style="width:100px;height:100px;border-radius:100%">
+                                    <p th:text="${groupsMore.name}"></p></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="part_ms">
+            <div class="part_tit2">
+                <img th:src="@{/images/icon2.jpg}">
+                <h2>工作室动态</h2>
+                <a></a>
+            </div>
+            <div class="gzs">
+                <ul>
+                    <li th:each="teacher  : ${session.teachers}">
+                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3085.html"
+                           th:attr="title=${teacher.title}" target="_blank">
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt" th:text="${teacher.title}">跨界教育对英语学科教学的影响</div>
+                                    <div class="gzs_wzb" th:text="${teacher.officeName}">任艳玲工作室</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".sjxz_topa li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+        $(".sjxz_topb li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+        $(".sjxz_topc li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    </script>
+</div>
+
+<!--part_three-->
+<div class="part_three" th:fragment="navigation_6">
+    <div class="part_main">
+        <div class="part_tit3">
+            <img th:src="@{/images/icon4.jpg}">
+            <h2>成果展示</h2>
+            <ul id="tese">
+            </ul>
+            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">更多&gt;&gt;</a>
+        </div>
+        <div class="ts_main">
+            <div class="ts_mains">
+                <li th:each="achievement : ${session.achievements}">
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3263.html"
+                       th:attr="title=${achievement.title}" class="ts_center" target="_blank">
+                        <div class="ts_cen_tp">
+                            <img th:src="@{${achievement.url}}" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2 th:text="${achievement.title}"></h2>
+                            <div class="cen_wz">
+                                <h3 th:text="${achievement.officeName}"></h3>
+                                <h4 th:text="${achievement.subjectName}"></h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--foot-->
+<div class="foot" th:fragment="navigation_7">
+    <div class="foot_bq">版权所有©河北省中小学教师继续教育中心</div>
+    <div class="foot_list">
+        <p>地址：河北省石家庄市红旗大街469号</p>
+        <p>邮编：050091</p>
+        <p>冀ICP备09022130号-6 &nbsp;
+            <span id="cnzz_stat_icon_1274865269">
+                <img border="0" hspace="0" vspace="0" th:src="@{/images/pic.gif}"></span>
+        </p>
+
+    </div>
+    <p style="text-align:center;">
+        <span id="_ideConac"><img id="imgConac" vspace="0" hspace="0" border="0" th:src="@{/images/red.png}" data-bd-imgshare-binded="1"></span>
+    </p>
+</div>
+
+
+</html>

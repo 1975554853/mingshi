@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class Classification implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column
     private String name;

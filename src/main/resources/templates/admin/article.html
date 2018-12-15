@@ -71,13 +71,13 @@
             }
             $.post('/subject/add', {name: data.field.cate_name}, function (res) {
                 updateMessage(res);
-            }, 'json');
+            }, 'SYSTEMDTO');
             return false;
         });
         //方法级渲染
         table.render({
             elem: '#LAY_table_user'
-            , url: '/article/select'
+            , url: '/article/select?type=0'
             , cols: [
 
                 [
@@ -106,15 +106,15 @@
             if (obj.event === 'edit') {
                 $.post("/subject/delete", {id:data.id}, function (res) {
                     updateMessage(res)
-                }, "json");
+                }, "SYSTEMDTO");
             }else if (obj.event === 'drop') {
                 $.post("/user/delete", {key: data.id}, function (res) {
                     updateMessage(res);
-                }, "json");
+                }, "SYSTEMDTO");
             }else if(obj.event === 'hide'){
                 $.post("/subject/show", {id: data.id}, function (res) {
                     updateMessage(res);
-                }, "json");
+                }, "SYSTEMDTO");
             }
         });
 
