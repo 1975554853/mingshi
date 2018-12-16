@@ -253,6 +253,10 @@ public class ArticleService {
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         return list;
     }
+
+    public Article selectArticleById(Integer article) {
+        return articleDao.findById(article).get();
+    }
 }
 
 

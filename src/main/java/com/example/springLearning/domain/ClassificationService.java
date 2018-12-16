@@ -165,4 +165,12 @@ public class ClassificationService {
     public Set<Integer> queryClassInfoByChildren(Integer id, String type) {
         return classificationDao.queryClassInfoByChildren(id,type);
     }
+
+    public List<Classification> queryClassByFatherName( Integer id) {
+        return classificationDao.queryClassByFatherName(id );
+    }
+
+    public Classification selectClassificationById(Integer value) {
+        return classificationDao.findById(value).get();
+    }
 }

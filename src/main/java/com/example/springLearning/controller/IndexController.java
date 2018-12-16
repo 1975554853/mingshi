@@ -36,8 +36,8 @@ public class IndexController {
     @Autowired
     private ClassificationService classificationService;
 
-    @GetMapping("/index/details/{id}/{article}")
-    public String officeDetails(@PathVariable Integer id, Model model, @PathVariable Integer article) {
+    @GetMapping("/index/details/{id}/{value}/{article}")
+    public String officeDetails(@PathVariable Integer id, Model model, @PathVariable Integer article, @PathVariable Integer value) {
 
         // 查询工作室详情
         Office office = officeService.queryOfficeById(id);
@@ -76,14 +76,24 @@ public class IndexController {
             model.addAttribute("t1", t1);
             model.addAttribute("t2", null);
         }
-        if (t1.size()>0 && t1.get(0) != null)
+        if (t1.size() > 0 && t1.get(0) != null)
             model.addAttribute("tp1", ((Map) t1.get(0)).get("url"));
-        if (t2.size()>0 && t2.get(0) != null)
+        if (t2.size() > 0 && t2.get(0) != null)
             model.addAttribute("tp2", ((Map) t2.get(0)).get("url"));
 
-        if(article==null){
+        if (article == null) {
             return "page/officeDetails";
-        }else{
+        } else {
+
+            List<Classification> classifications = classificationService.queryClassByFatherName(value);
+            model.addAttribute("clazz", classifications);
+            // 上一次用户选的什么
+            model.addAttribute("last",value);
+            Classification classification = classificationService.selectClassificationById(value);
+            Article art = articleService.selectArticleById(article);
+            model.addAttribute("art", art);
+            model.addAttribute("cat", classification);
+
             return "page/article";
         }
 

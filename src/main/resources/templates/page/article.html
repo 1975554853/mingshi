@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0078)http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3085.html -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 
@@ -16,61 +17,33 @@
 <div class="list_zx">
 
 
+    <div class="positon" th:text=" '首页&gt;' + ${cat.name} ">教师文章</div>
+    <div class="list_nav">
+        <h2 th:text=" ${cat.name} ">工作室教师文章</h2>
+        <ul>
 
-   <div class="positon">首页&gt;教师文章</div>
-   <div class="list_nav">
-      <h2>工作室教师文章</h2>
-      <ul>
-        <!--<li ><a href="/index.php/Home/Zlistfc/z_list_fc/id/37.html"><img src="/Public/Home/img/blue1.jpg">成员风采</a></li>-->
-        <li class="active"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/37.html"><img src="./任艳玲工作室-教师文章内容_files/blue1.jpg">教师文章</a></li>
-      </ul>
-   </div>
+            <li class="active" th:each=" info : ${clazz} " th:attr=" class= ${ info.id == last } ? active : null ">
+                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/37.html">
+                    <img th:src="@{${application.CDN}+'images/blue1.jpg'}">
+                    <span th:text="${info.name}">教师文章</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
 
 
-   <div class="list_center">
-      <div class="list_tit2">
-         <h2>教师文章</h2>
-      </div>
-      <div class="show_zx">
-         <div class="show_bt" style="display:none;">跨界教育对英语学科教学的影响</div>
-         <div class="show_fb" style="display:none;"><span>发布者：任艳玲</span><span>发布时间：2018-12-15</span></div>
-         <div class="show_wz">
-            <p></p><p style="line-height: 1.5em; text-indent: 2em; text-align: center;"><span style="font-family: 黑体, SimHei; font-size: 24px;">&nbsp;跨界教育对英语学科教学的影响</span></p><p style="line-height: 1.5em; text-indent: 2em; text-align: center;"><span style="font-family: 宋体, SimSun; font-size: 14px;">时间：2018.12.15 作者：任艳玲 来源：河北省名师任艳玲工作室</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun; text-indent: 2em;">跨界教育（</span><span style="font-family: 宋体, SimSun; text-indent: 2em;">cross-border education</span><span style="font-family: 宋体, SimSun; text-indent: 2em;">）指跨越对传统事物认知的界限，突破以往疆界与藩篱的教育议题与内涵，称之为跨界教育。</span><br></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">跨界教育的关键是拥有跨界思维。所谓跨界思维就是大世界大眼光，用多角度，多视野的看待问题和提出解决方案的一种思维方式。交叉、跨越。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">一、为什么要跨界？</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">基于核心素养的英语课程理念，就是从英语的工具性和英语学科的人文性这两个角度来设置英语课程的目的与目标。也就是说，学习课程不仅要考虑学生应该学习哪些英语知识和技能，将来能够用英语做哪些事情，还要考虑学生通过学习课程可以学习其他哪些方面的知识，形成哪些关键能力和必备品格。为了全面体现英语学科的育人价值，在充分吸收和借鉴国内外有关核心素养的理论和实践研究成果的基础上，结合中国基础教育英语课程的现实需求，修订后的《高中英语课程标准》（待颁布）将英语学科核心素养归纳为语言能力、文化品格、思维品质和学习能力四个方面。</span><a href="file:///F:/%E6%95%99%E5%AD%A6%E5%8F%8D%E6%80%9D/%E8%B7%A8%E7%95%8C%E6%95%99%E8%82%B2%E5%AF%B9%E8%8B%B1%E8%AF%AD%E5%AD%A6%E7%A7%91%E6%95%99%E5%AD%A6%E7%9A%84%E5%BD%B1%E5%93%8D.docx#_ftn1" title="" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">[1]</span></a> <span style="font-family: 宋体, SimSun;">如果真的要把某个学科教好，英语教师不要太拘泥于学科，需要我们从其它学科的角度研究英语。比如讲冀教版八年级下第八单元环保的话题的时候，如果只是处理文章中的内容肯定显得非常牵强，不够深入，不够吸引学生。于是我在引入本单元话题的时候融入了一些其它学科的知识。 </span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">1. 中国的雾霾哪些地区严重？如何减少雾霾的伤害？</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">2. 世界上有哪些先进的处理垃圾的方法？</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">3. 结合自己家的生活实际，通过观察、记录、调查，列出垃圾的种类和所占比例，发现了什么？</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">……</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">这些话题有的跟地理知识相关，有的涉及了科技前沿，还有的涉及了社会学的知识等。经过学生查资料发现这些问题的答案。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">1. 中国中东部地区冬季雾霾严重。贺克斌（中国工程院院士、清华大学环境学院院长）：1990年以前，北京也有类似扩散条件不利的天气，但并没有发生重污染。经过这些年的快速发展，京津冀及周边地区燃煤、机动车等排放的污染物翻了四五番。随着污染物排放量上升，成霾的气象门槛逐年降低。气象条件稍微差一点，就发生雾霾，再差一点，就发生重雾霾污染。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">目前，全国二氧化硫、氮氧化物等主要大气污染物排放量均在近两千万吨，而且污染物主要集中排放在东部、在京津冀及周边地区。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">张小曳（国家大气污染专项项目“我国大气重污染累积与天气气候双向反馈机制研究”首席科学家、中国气象学会大气成分委员会主任委员）：主因还是污染排放大，不利气象条件也是重要的配合因素。气候变化和霾之间的联系机制，科学界还在研究。中国工程院对《大气十条》实施情况的中期评估显示，京津冀区域的污染气象条件，2014年比2013年转差17%，2015年比2013年转差12%。总体来讲气象条件是比较不利的。当然，主要是目前污染物排放还没有降到位。如果能降到位，即使在不利气象条件下，雾霾持续时间和出现次数都会减少。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">欧阳志云（中国科学院生态环境研究中心研究员）：发生重污染天气，我觉得人为的污染物排放是主因。天气条件是形成雾霾的外部环境，如果没有那么多污染物排放，即使天气不好，污染物浓度也不会那么高。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">防雾霾的方法：使用空气净化器或安装新风系统、戴防霾口罩、食物防霾等。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">2. 在德国，垃圾是不进行填埋的，而是直接焚烧后发电。垃圾焚烧发电是目前世界上最先进的垃圾处理方式，目前德国已有68个垃圾焚烧厂，每年可处理包括工厂、办公室产生的生活垃圾近1800万吨。但是，德国每年产生的生活垃圾约1400万吨，不包括纸张、玻璃、肥料等回收后再循环使用的垃圾。美国的情况相对特殊一点，因为美国土地广阔一点，垃圾处理目前是以填埋为主，焚烧在全国也保持了14％的处理率。美国并不是在关闭焚烧厂，而是通过更高的环保标准来改造旧的焚烧厂，并保持了焚烧处理比例。美国有87座焚烧处理场，分别在26个州。2007年，</span><a href="http://www.so.com/s?q=%E7%84%9A%E7%83%A7%E7%82%89&amp;ie=utf-8&amp;src=wenda_link" target="_blank" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">焚烧炉</span></a><span style="font-family: 宋体, SimSun;">共220台，总规模93943吨/日。美国的焚烧处理能力是中国的2倍，集中在东北部­济发达地区。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">3. 学生进行了大量的观察和数据收集，利用观察和收集的数据来解决问题。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">这就是跨界教育。学科界限被打破之后，上课的时候老师可以纵横捭阖，很容易找到给学生惊喜的地方。我们在阅读和思考的时候不要有学科的界限。而且任何一个教育家都是杂家。难道英语学科不需要了解心理学和教育学的知识？难道教英语不会遇到物理或化学问题？难道英语学习不需要地理、历史知识？难道教英语用不到汉语？</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">英语教育界人士广泛认为，英语课堂教学中的很多活动能够促进学习者思维能力的发展。我们经常会听到身边的人说教初中就是初中水平，教高中就是高中水平，我要说的是我们的知识、能力和眼光要凌驾在初中、高中水平之上，要懂得跨界，这样才能从英语话题本身出发思考教法，而不是局限在英语语言知识和语言技能的培养上，而忽略对学生思维品质、文化品格、学习能力的培养。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">二、如何跨界？</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">跨界的主要目的是为了“借智”。跨界最难跨越的不是技能之界，而是观念之界。巴菲特的合伙人查理芒格，一直推崇跨界思维，盛赞其为“普世智慧”。他将跨界思维誉为“锤子”，而将创新研究比作“钉子”，认为“对于一个拿着锤子的人来说，所有的问题看起来像一个钉子”，形象地诠释了“大”与“小”的辩证。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">“形而下者谓之器，形而上者谓之道。” 首先是思维模式的转变。思维跨越没有界限，创新才永无止境。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">要求人具有丰富的经历，丰富的阅历和综合的知识结构，能通方能达，不通则不能达。要求通识教育，而不是文理分家。而与杂家的思想又有区别，因为技术的加入，科技的跨界成为一种新锐的思维。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">有了跨界思维，第二步就是如何跨界学习了？如今流行的是“跨界学习四步法”，可简称为“4I法”，即“确定需求（Indentification）”，跨界交叉（Intersection），整合创意（Integration），实施创新（Implementation）。</span><a href="file:///F:/%E6%95%99%E5%AD%A6%E5%8F%8D%E6%80%9D/%E8%B7%A8%E7%95%8C%E6%95%99%E8%82%B2%E5%AF%B9%E8%8B%B1%E8%AF%AD%E5%AD%A6%E7%A7%91%E6%95%99%E5%AD%A6%E7%9A%84%E5%BD%B1%E5%93%8D.docx#_ftn2" title="" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">[2]</span></a> <span style="font-family: 宋体, SimSun;">关系如下图：</span></p><p style="line-height: 1.5em; text-indent: 2em;"><img src="./任艳玲工作室-教师文章内容_files/1544844015926523.png" title="1544844015926523.png" alt="blob.png"></p><p style="line-height: 1.5em; text-indent: 2em;"><img src="./任艳玲工作室-教师文章内容_files/1544844022468094.png" title="1544844022468094.png" alt="blob.png"></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">不同领域、学科或文化的碰撞，与现有的观念结合起来，形成大量杰出的新构想，这种现象称为“美第奇效应”。说到这里，如果你有跨界思维，肯定要问，美第奇效应是什么？美第奇效应又是怎么来的？美第奇家族是意大利佛罗伦萨的银行世家，曾出资帮助各种学科、众多领域里锐意创造的人。由于这个家庭以及几个有着相似背景的其他家族的鼎力资助，雕塑家、科学家、诗人、哲学家、金融家、画家、建筑家齐聚于佛罗伦萨。居住在这所城市里面，他们得以互相了解对方，彼此相互学习，从而打破了不同学科、不同文化之间的壁垒。他们一同用新的思想，开创了人类历史上的一个新的思想纪元，这便是后来被称为“文艺复兴”的那个时代。这种情况使得该城成为创造力的爆炸中心，这一时期也是最具有创造力的历史时期之一。时至今日，人类仍然能够感受到美第奇家族当年影响的余脉。</span><a href="file:///F:/%E6%95%99%E5%AD%A6%E5%8F%8D%E6%80%9D/%E8%B7%A8%E7%95%8C%E6%95%99%E8%82%B2%E5%AF%B9%E8%8B%B1%E8%AF%AD%E5%AD%A6%E7%A7%91%E6%95%99%E5%AD%A6%E7%9A%84%E5%BD%B1%E5%93%8D.docx#_ftn3" title="" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">[3]</span></a></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun;">大量的建议归结为一个问题：“无中生有”(expect the unexpected)——交叉点无处不在。如果你这样去做，你会以一种全新的视角去看待整个世界。突然之间，你会发现交叉点无处不在。随机的谈话、你所参加的会议或者你从事的各种项目，将会奇怪而有趣的汇集到一起。表面看来毫不相干的各种概念将会以一种原来被你认为是不可能的方式联结在一起。并非每一件发生在各种文化、各类学科、各种概念以及各种领域的交叉点上面的事情，它们的逻辑都是直观的。但是如果你能够理解交叉点上的逻辑规则起作用的方式，这些逻辑便是开始发生作用的。简单讲就是“交叉引发创新”。</span></p><p style="line-height: 1.5em; text-indent: 2em; text-align: center;"><img src="./任艳玲工作室-教师文章内容_files/1544844030929881.png" title="1544844030929881.png" alt="blob.png"><span style="font-family: 宋体, SimSun; text-decoration: underline;"><a href="file:///F:/%E6%95%99%E5%AD%A6%E5%8F%8D%E6%80%9D/%E8%B7%A8%E7%95%8C%E6%95%99%E8%82%B2%E5%AF%B9%E8%8B%B1%E8%AF%AD%E5%AD%A6%E7%A7%91%E6%95%99%E5%AD%A6%E7%9A%84%E5%BD%B1%E5%93%8D.docx#_ftn4" title="" style="font-family: 宋体, SimSun; text-decoration: underline;">[4]</a></span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun; text-indent: 2em;">我们也知道STEAM代表科学(Science)，技术(Technology)，工程(Engineering)，艺术(Art)，数学(Mathematics)。STEAM教育就是集科学，技术，工程，艺术，数学多学科融合的综合教育，这就是跨界教育。</span></p><p style="line-height: 1.5em; text-indent: 2em;"><span style="font-family: 宋体, SimSun; text-indent: 2em;">因此，我觉得应有一个全科的思想，英语、物理、地理……，该用什么就用什么，这样对所教的英语学科更有帮助。也更能给学生新鲜感，激发他们的思维能力。</span></p><p><br> </p><hr><p style="line-height: 1.5em; text-indent: 2em;"><a href="file:///F:/%E6%95%99%E5%AD%A6%E5%8F%8D%E6%80%9D/%E8%B7%A8%E7%95%8C%E6%95%99%E8%82%B2%E5%AF%B9%E8%8B%B1%E8%AF%AD%E5%AD%A6%E7%A7%91%E6%95%99%E5%AD%A6%E7%9A%84%E5%BD%B1%E5%93%8D.docx#_ftnref1" title="" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">[1]</span></a> <span style="font-family: 宋体, SimSun;">程晓棠 赵思奇 英语学科核心素养的实质内涵，北师大基础教育教材 2017-01-06</span></p><p style="line-height: 1.5em; text-indent: 2em;"><a href="file:///F:/%E6%95%99%E5%AD%A6%E5%8F%8D%E6%80%9D/%E8%B7%A8%E7%95%8C%E6%95%99%E8%82%B2%E5%AF%B9%E8%8B%B1%E8%AF%AD%E5%AD%A6%E7%A7%91%E6%95%99%E5%AD%A6%E7%9A%84%E5%BD%B1%E5%93%8D.docx#_ftnref2" title="" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">[2]</span></a> <a href="http://baike.so.com/doc/6741533-6956051.html" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">http://baike.so.com/doc/6741533-6956051.html</span></a><span style="font-family: 宋体, SimSun;"> 2017-1-18</span></p><p style="line-height: 1.5em; text-indent: 2em;"><a href="file:///F:/%E6%95%99%E5%AD%A6%E5%8F%8D%E6%80%9D/%E8%B7%A8%E7%95%8C%E6%95%99%E8%82%B2%E5%AF%B9%E8%8B%B1%E8%AF%AD%E5%AD%A6%E7%A7%91%E6%95%99%E5%AD%A6%E7%9A%84%E5%BD%B1%E5%93%8D.docx#_ftnref3" title="" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">[3]</span></a> <span style="font-family: 宋体, SimSun;">什么是美第奇效应，《全球商业经典》2012年2月刊</span></p><p style="line-height: 1.5em; text-indent: 2em;"><a href="file:///F:/%E6%95%99%E5%AD%A6%E5%8F%8D%E6%80%9D/%E8%B7%A8%E7%95%8C%E6%95%99%E8%82%B2%E5%AF%B9%E8%8B%B1%E8%AF%AD%E5%AD%A6%E7%A7%91%E6%95%99%E5%AD%A6%E7%9A%84%E5%BD%B1%E5%93%8D.docx#_ftnref4" title="" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">[4]</span></a> <a href="http://wenku.baidu.com/view/d7a3fcd20975f46527d3e170.html?re=view" style="font-family: 宋体, SimSun; text-decoration: underline;"><span style="font-family: 宋体, SimSun;">http://wenku.baidu.com/view/d7a3fcd20975f46527d3e170.html?re=view</span></a><span style="font-family: 宋体, SimSun;"> 2017-1-18</span></p><p><br></p><p></p>
-                        <h2 style="color: #0180b7; text-indent: 0"></h2>
-         </div>
-         
-      </div>   </div>  
+    <div class="list_center">
+        <div class="list_tit2">
+            <h2 th:text=" ${cat.name} ">教师文章</h2>
+        </div>
+        <div class="show_zx" th:utext="${art.text}">
+
+        </div>
+    </div>
 </div>
 
+<div th:replace="page/common :: navigation_7"></div>
 
-
-
-
-<!--foot-->
-<div class="foot">
-   <div class="foot_bq">版权所有©河北省中小学教师继续教育中心</div>
-   <div class="foot_list">
-      <p>地址：河北省石家庄市红旗大街469号</p>
-      <p>邮编：050091</p>
-      <p>冀ICP备09022130号-6 &nbsp;<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274865269'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274865269%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1274865269"><a href="http://www.cnzz.com/stat/website.php?web_id=1274865269" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./任艳玲工作室-教师文章内容_files/pic.gif"></a></span><script src="./任艳玲工作室-教师文章内容_files/z_stat.php" type="text/javascript"></script><script src="./任艳玲工作室-教师文章内容_files/core.php" charset="utf-8" type="text/javascript"></script></p>
-	  
-   </div>
-   <p style="text-align:center;"><script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='http://dcs.conac.cn/js/05/000/0000/60887956/CA050000000608879560002.js' type='text/javascript'%3E%3C/script%3E"));</script><span id="_ideConac"><a href="http://bszs.conac.cn/sitename?method=show&amp;id=54957018031E45A2E053012819ACD61B" target="_blank"><img id="imgConac" vspace="0" hspace="0" border="0" src="./任艳玲工作室-教师文章内容_files/red.png" data-bd-imgshare-binded="1"></a></span><script src="./任艳玲工作室-教师文章内容_files/CA050000000608879560002.js.下载" type="text/javascript"></script><span id="_ideConac"></span>
-</p>
-</div>
-
-
-<script language="javascript">
-    $("#searchList").on("change",function (){
-        var searchNum = $(this).val();
-        var searchForm = $("#searchForm");
-        if(searchNum == 0){
-            searchForm.attr("action","/index.php/Home/Listsp/listsp.html");
-        }else if(searchNum == 1){
-            searchForm.attr("action","/index.php/Home/Listsp/listsp1.html");
-        }else if(searchNum == 2){
-            searchForm.attr("action","/index.php/Home/Listsp/listsp2.html");
-        }
-    });
-</script>
-</body></html>
+</body>
+</html>

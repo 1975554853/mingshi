@@ -228,7 +228,7 @@
             <div class="gzs">
                 <ul>
                     <li th:each="teacher  : ${session.teachers}">
-                        <a th:href="@{${application.CDN}+'index/details/'+${teacher.officeId} +'/'+${teacher.id} } "
+                        <a th:href="@{${application.CDN}+'index/details/'+${teacher.officeId} +'/'+ ${teacher.classInfo} +'/'+${teacher.id} } "
                            th:attr="title=${teacher.title}" target="_blank">
                             <div class="gzs_top">
                                 <div class="gzs_wz">
@@ -257,7 +257,7 @@
         <div class="ts_main">
             <div class="ts_mains">
                 <li th:each="achievement : ${session.achievements}">
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3263.html"
+                    <a th:href="@{${application.CDN}+'index/details/'+${achievement.officeId} +'/'+ ${achievement.classInfo} +'/'+${achievement.id} } "
                        th:attr="title=${achievement.title}" class="ts_center" target="_blank">
                         <div class="ts_cen_tp">
                             <img th:src="@{${achievement.url}}" style="width:235px;height:175px;">
