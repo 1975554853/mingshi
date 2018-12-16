@@ -202,7 +202,7 @@
                 $("#quiz3").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
             }
             form.render();
-        }, "SYSTEMDTO");
+        }, "json");
 
         $.get("/subject/sel",{}, function (res) {
             $("#quiz4").html("");
@@ -211,7 +211,7 @@
                 $("#quiz4").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
             }
             form.render();
-        }, "SYSTEMDTO");
+        }, "json");
 
 
         $.get("/office/sel",{}, function (res) {
@@ -221,7 +221,7 @@
                 $("#quiz5").append("<option value='" + list[i].id + "'>" + list[i].name + "</option>");
             }
             form.render();
-        }, "SYSTEMDTO");
+        }, "json");
         //监听提交
         form.on('submit(add)', function (data) {
             console.log(data.field);
@@ -236,7 +236,7 @@
                     layer.msg(res.message, {icon: 5});
                 }
 
-            }, "SYSTEMDTO");
+            }, "json");
 
 
             return false;

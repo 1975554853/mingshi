@@ -3,10 +3,13 @@ package com.example.springLearning.controller;
 import com.example.springLearning.config.SYSTEM_DTO;
 import com.example.springLearning.config.SYSTEM_MESSAGE;
 import com.example.springLearning.domain.OfficeService;
+import com.example.springLearning.pojo.DTO;
 import com.example.springLearning.pojo.Office;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,6 +24,14 @@ public class OfficeController {
     @Autowired
     private OfficeService officeService;
 
+//    @GetMapping("/page/{page}/{limit}")
+//    public String officePage(@PathVariable Integer page, @PathVariable Integer limit , Model model){
+//        // 查询所有工作室,按文章数量排序
+//        DTO  dto = officeService.queryOfficeByPageOrderNum(page,limit);
+//        model.addAttribute("DTO",dto);
+//        return "page/office";
+//    }
+
     /**
      * @param name
      * @param section
@@ -34,7 +45,6 @@ public class OfficeController {
     @RequestMapping("/add")
     @ResponseBody
     public Object insertOffice(String url, String name, Integer section, Integer subject, String state, String city, String area){
-        SYSTEM_DTO SYSTEMDTO = SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_SYSTEM);
         // 查看是否重名
         Office office = officeService.queryOfficeByName(name);
         if(office == null){
@@ -46,10 +56,6 @@ public class OfficeController {
             office.setState(state);
             office.setCity(city);
             office.setArea(area);
-            office.setMembers(0);
-            office.setAchievements(0);
-            office.setArticle(0);
-            office.setFollows(0);
             boolean flag = officeService.insertOffice(office);
             if(flag) return SYSTEM_DTO.GET_RESULT(true, SYSTEM_MESSAGE.SUCCESS_OFFICE);
             else return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_SYSTEM);

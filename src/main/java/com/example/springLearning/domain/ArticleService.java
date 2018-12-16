@@ -4,6 +4,8 @@ import com.example.springLearning.config.SYSTEM_DTO;
 import com.example.springLearning.config.SYSTEM_MESSAGE;
 import com.example.springLearning.config.SYSTEM_CONFIG;
 import com.example.springLearning.dao.ArticleDao;
+import com.example.springLearning.dao.ClassificationDao;
+import com.example.springLearning.dao.OfficeDao;
 import com.example.springLearning.pojo.Article;
 import com.example.springLearning.pojo.DTO;
 import com.example.springLearning.pojo.User;
@@ -17,13 +19,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName ArticleService
@@ -39,12 +41,17 @@ public class ArticleService {
     private ArticleDao articleDao;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private ClassificationDao classificationDao;
+    @Autowired
+    private OfficeService officeService;
+    @Autowired
+    private OfficeDao officeDao;
 
     private Map map = new HashMap();
 
     public DTO queryDTOByClassOrderByDateAndWeight(Integer page, Integer limit, String txt) {
 
-        Pageable pageable = PageRequest.of(page, limit);
         String countSql = "select count(*) as sum from article a inner join classification c on a.classification = c.id where a.type = 0 and c.name = '" + txt + "' and a.office  in (select o.id from office o where o.name = '系统工作室') ";
 
         String sql = "select a.id as id , a.title as title , a.date as time from article a inner join classification c on a.classification = c.id where a.type = 0 and c.name = '" + txt + "' and a.office  in (select o.id from office o where o.name = '系统工作室') order by a.date desc ";
@@ -56,12 +63,42 @@ public class ArticleService {
         List list = query.setFirstResult((page - 1) * limit).setMaxResults(limit).unwrap(NativeQueryImpl.class)
                 .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         DTO dto = new DTO(total,limit,page,list);
+
         return dto;
     }
 
+    @Transactional
+    @Modifying
     public SYSTEM_DTO saveArticle(Article article) {
+
+        Integer achievements = classificationDao.queryClassificationByOffice(article.getOffice(),"成果展示");
+        List listAchievements = new ArrayList();
+        listAchievements.add(achievements);
+        List<Integer> childAchievements = officeService.getAllChildren(achievements , listAchievements);
+
+        Integer teacherArticle = classificationDao.queryClassificationByOffice(article.getOffice(),"教师文章");
+
+        List listTeacherArticle = new ArrayList();
+        listTeacherArticle.add(teacherArticle);
+        List<Integer> childListTeacherArticle = officeService.getAllChildren(teacherArticle , listTeacherArticle);
+
         try {
             articleDao.save(article);
+
+            if(childAchievements.size()>0){
+                // 成果展示
+                if( childAchievements.contains( article.getClassification()  )){
+                    officeDao.updateOfficeAchievement(article.getOffice());
+                }
+            }
+
+            if( childListTeacherArticle.size() > 0 ){
+                if( listTeacherArticle.contains( article.getClassification()  )){
+                    officeDao.updateOfficeArticle(article.getOffice());
+                }
+            }
+
+
             if (article.getType() == 1) {
                 return SYSTEM_DTO.GET_RESULT(true, SYSTEM_MESSAGE.SUCCESS_ARTICLE_SUCCESS);
             } else {
@@ -90,7 +127,6 @@ public class ArticleService {
             }
         }
         PageHelper.startPage(page, limit);
-        System.out.println(sql.toString());
         List list = entityManager.createNativeQuery(sql.toString()).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         PageInfo pageInfo = new PageInfo(list);
         return SYSTEM_CONFIG.page(pageInfo);
@@ -132,21 +168,54 @@ public class ArticleService {
     }
 
     public Map selectSystemArticle(Integer page, Integer limit) {
-        Map<String, Object> map = new HashMap<>();
-        String sql = " select a.title, u.id, a.id as author, u.username,a.type, c.name as className, c.id as classId\n" +
-                "from article a\n" +
-                "       inner join user u on a.author = u.id\n" +
-                "       inner join classification c on c.id = a.classification\n" +
-                "where c.office in (select o.id  from office o where o.name = '系统工作室') ";
-        PageHelper.startPage(page, limit);
+
+        String countSql = "select COUNT(*) as sum from article a   inner join user u on a.author = u.id inner join classification c on c.id = a.classification where c.office in (select o.id  from office o where o.name = '系统工作室') ";
+
+        List count  = entityManager.createNativeQuery(countSql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        Integer total = Integer.valueOf(((Map)count.get(0)).get("sum").toString());
+
+
+        String sql = " select a.title, u.id, a.id as author, u.username,a.type, c.name as className, c.id as classId from article a   inner join user u on a.author = u.id inner join classification c on c.id = a.classification where c.office in (select o.id  from office o where o.name = '系统工作室') ";
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
-        PageInfo pageInfo = new PageInfo(list);
-        return SYSTEM_CONFIG.page(pageInfo);
+
+        return SYSTEM_CONFIG.getPage(total,list,0);
+
     }
 
     public List selectArticleByNoticeAndOrderWeight(String name) {
         String sql = "select a.id as id , a.date as time , a.url as url , a.title as title , c.office as office , c.id as classInfo from article a inner join classification c on a.classification = c.id where c.name = '" + name + "' and c.office in (select o.id from office o where o.name = '系统工作室') order by a.weight , a.id desc limit 8 ";
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         return list;
+    }
+
+    public DTO querAchievementsOrderByDate(Integer page, Integer limit) {
+        // 查询所有符合条件的ID
+        Set<Integer> integers = classificationDao.getAllChildrenByFatherId("成果展示");
+        Set<Integer> set = new HashSet<>();
+        getAllChildren(set , integers);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        set.forEach( (x) -> stringBuilder.append(x).append(","));
+        String sql = " select a.id as id , a.title as title , a.url as url , o.name as name , concat( ls.name , sub.name ) as subject  from article a inner join office o on o.id = a.office inner join learning_section ls on o.section_id = ls.id inner join learning_subject sub on sub.id = o.subject where o.name <> '系统工作室' and a.classification in ( "+stringBuilder.toString()+" 0 ) order by a.date desc ";
+
+        List list = entityManager.createNativeQuery(sql)
+                .setFirstResult( (page-1)*limit )
+                .setMaxResults(limit)
+                .unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        return new DTO(set.size(),limit , page , list);
+    }
+
+    private void getAllChildren(Set<Integer> sets  , Set<Integer> any ){
+        any.forEach( (x)->{
+            sets.add(x);
+            Set<Integer> children = classificationDao.queryClassificationsByFather(x);
+            if(children.size()>0){
+                getAllChildren(sets,children);
+            }
+        } );
+    }
+
+    public Object queryArticleById(Integer id) {
+        return articleDao.findById(id).get();
     }
 }

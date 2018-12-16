@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * 科目控制器
+ *
  * @author wgb
  */
 @Service
@@ -21,6 +22,7 @@ public class SubjectService {
 
     /**
      * 添加学科
+     *
      * @param name
      * @return
      */
@@ -30,40 +32,43 @@ public class SubjectService {
         learningSubject.setState(0);
         LearningSubject result = subjectDao.save(learningSubject);
         HashMap<String, String> hashMap = new HashMap<>();
-        if(result.getId() > 0){
-            hashMap.put("type","OK");
-        }else{
-            hashMap.put("type","error");
+        if (result.getId() > 0) {
+            hashMap.put("type", "OK");
+        } else {
+            hashMap.put("type", "error");
         }
         return hashMap;
     }
 
     /**
      * 隐藏/删除学科
+     *
      * @param id
      * @return
      * @author wgb
      */
     public HashMap updateSubjectToDisplay(int id) {
         HashMap hashMap = new HashMap<>();
-        if(subjectDao.updateStatus(id,1) > 0){
+        if (subjectDao.updateStatus(id, 1) > 0) {
             hashMap.put("type", "OK");
-        }else{
+        } else {
             hashMap.put("type", "error");
         }
         return hashMap;
     }
+
     /**
      * 修改学科状态为展示
+     *
      * @param id
      * @return
      * @author wgb
      */
     public HashMap updateSubjectToShow(int id) {
         HashMap hashMap = new HashMap<>();
-        if(subjectDao.updateStatus(id,0) > 0){
+        if (subjectDao.updateStatus(id, 0) > 0) {
             hashMap.put("type", "OK");
-        }else{
+        } else {
             hashMap.put("type", "error");
         }
         return hashMap;
@@ -72,10 +77,9 @@ public class SubjectService {
     /**
      * @param page
      * @param limit
-     * @return
-     * 查询学科
+     * @return 查询学科
      */
-    public HashMap selectSubject(Integer page , Integer limit){
+    public HashMap selectSubject(Integer page, Integer limit) {
         HashMap hashMap = new HashMap();
         try {
             PageHelper.startPage(page, limit);
@@ -88,13 +92,13 @@ public class SubjectService {
                 hashMap.put("data", pageInfo.getList());
             }
             return hashMap;
-        }catch (Exception e){
+        } catch (Exception e) {
             return hashMap;
         }
     }
 
     //查询展示的学科
-    public HashMap selSubject(){
+    public HashMap selSubject() {
         HashMap hashMap = new HashMap();
         try {
             List<LearningSubject> subjects = subjectDao.selSubject(0);
@@ -102,21 +106,26 @@ public class SubjectService {
                 hashMap.put("data", subjects);
             }
             return hashMap;
-        }catch (Exception e){
+        } catch (Exception e) {
             return hashMap;
         }
     }
-     //删除学科
+
+    //删除学科
     public boolean dropSubjectid(Integer id) {
 
-       try{
-       int i= subjectDao.dropSubjectid(id);
-       if (i>0){
-           return true;
-       }
-       }catch (Exception e){
-           return false;
-       }
-       return false;
+        try {
+            int i = subjectDao.dropSubjectid(id);
+            if (i > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
+    public List querySubjectName() {
+       return subjectDao.selectSubject();
     }
 }

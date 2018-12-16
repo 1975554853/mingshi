@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @ClassName Classification
@@ -63,4 +64,16 @@ public interface ClassificationDao extends CrudRepository<Classification, Intege
 
     @Query(value = "select office_id from user_office where user_id = ?1", nativeQuery = true)
     Integer queryOfficeByUserId(int id);
+
+    @Query(value = "select id from classification where office = ?1 and name = ?2 " ,nativeQuery = true)
+    Integer queryClassificationByOffice(Integer id , String name);
+
+    @Query(value = "select id from classification where father = ?1 " ,nativeQuery = true)
+    List<Integer> queryClassIdByFatherId(Integer achievements);
+
+    @Query(value = "select c.id from classification c where c.name = ?1 AND c.office not in (select o.id from office o where o.name = '系统工作室');" , nativeQuery = true )
+    Set<Integer> getAllChildrenByFatherId( String name );
+
+    @Query( value = "select id from classification where father = ?1 " , nativeQuery = true )
+    Set<Integer> queryClassificationsByFather(Integer id);
 }

@@ -7,6 +7,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +27,13 @@ public class SYSTEM_CONFIG {
         map.put("total",pageInfo.getTotal());
         map.put("data",pageInfo.getList());
         map.put("status",0);
+        return map;
+    }
+
+    public static Map getPage(Integer total , List list , Integer code ){
+        map.put("total",total);
+        map.put("data",list);
+        map.put("status",code);
         return map;
     }
 

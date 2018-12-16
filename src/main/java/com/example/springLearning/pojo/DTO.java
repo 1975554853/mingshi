@@ -29,6 +29,13 @@ public class DTO {
     private Integer lastIndex = this.firstIndex + this.count - 1 ;
     private Integer limit = 10;
 
+    /**
+     *
+     * @param total : 数据总数
+     * @param limit : 每页展示几条
+     * @param current : 当前页
+     * @param list : 数据集合
+     */
     public DTO(Integer total , Integer limit ,Integer current ,List list){
 
         this.size = total;

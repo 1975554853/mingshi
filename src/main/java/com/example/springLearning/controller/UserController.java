@@ -46,7 +46,6 @@ public class UserController {
             return "admin/login";
         }
         httpSession.setAttribute("user", SYSTEM_CONFIG.getUser());
-        System.out.println(SYSTEM_CONFIG.getUser().toString());
 
         return "admin/index";
     }
@@ -73,28 +72,12 @@ public class UserController {
     @PostMapping("/addTeacher")
     @ResponseBody
     public HashMap insertTeacher(@RequestBody User user) {
-        System.out.println(user);
         Role role = roleService.selectRoleByName("教师").get("role");
-        System.out.println(role);
-//        user.setRoleId(role.getId());
         HashMap result = userService.insertUser(user);
         return result;
     }
 
-    /**
-     * 分页获取获取教师数据
-     *
-     * @param page
-     * @param limit author wgb
-     */
-//    @RequestMapping("/selTeaByPage")
-////    @ResponseBody
-////    public HashMap selectTeacherByPage(Integer page, Integer limit) {
-////        System.out.println(page + "  " + limit);
-////        HashMap hashMap = userService.selectTeacherByPage(page, limit);
-////        hashMap.put("office", "张三工作室");
-////        return hashMap;
-////    }
+
     @GetMapping("/select")
     @ResponseBody
     public Map<String, Object> selectUser(Integer page, Integer limit) {

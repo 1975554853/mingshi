@@ -32,8 +32,8 @@
                 <ul>
                     <li><a th:href="@{${application.CDN}}">首页</a></li>
                     <li><a th:href="@{${application.CDN}+'info/information/1/10'}">资讯</a></li>
-                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/index.html">工作室</a></li>
-                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">成果展示</a></li>
+                    <li><a th:href="@{${application.CDN}+'info/office/1/12'}">工作室</a></li>
+                    <li><a th:href="@{${application.CDN}+'info/achievements/1/12'}">成果展示</a></li>
                 </ul>
             </div>
             <div class="search">
@@ -78,24 +78,19 @@
             <div class="part_zx">
 
                 <div class="banner">
+
                     <div class="swiper-container swiper-container-horizontal swiper-container-wp8-horizontal">
                         <div class="swiper-wrapper"
                              style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
-
-                            <!--classInfo=314, id=329, office=310, title=名师携手同筑梦，精准帮扶促成长, url=https://netschool.oss-cn-beijing.aliyuncs.com/2018-12-15/1544447774796622.jpg-->
-
                             <div class="swiper-slide swiper-slide-active" style="width: 336px;"
                                  th:each=" banner : ${ session.banners }">
-                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1457.html"
+                                <a th:href="@{ ${application.CDN} + 'details/information/' + ${banner.id} }"
                                    th:attr="title=${banner.title}" target="_blank">
                                     <img th:src="${banner.url}">
                                     <p class="swiper_text" th:text="${banner.title}"></p>
                                 </a>
                             </div>
-
                         </div>
-
-
                         <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-clickable"><span
                                 class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0"
                                 role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet"
@@ -127,7 +122,7 @@
                                    class="zx_bta" target="_blank">【更多】</a>
 
                                 <li th:each="notice:${session.notice}">
-                                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show1/id/88.html"
+                                    <a th:href="@{${application.CDN}+'details/notice/'+ ${notice.id} }"
                                        th:attr="title=${notice.title}"
                                        target="_blank">
                                         <i th:text="${notice.title}"></i>
@@ -145,7 +140,7 @@
                         <div class="zx_nrs" style="display: none;">
                             <ul>
                                 <li th:each=" policy : ${session.policy}">
-                                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1457.html"
+                                    <a th:href="@{${application.CDN}+'details/policy/'+ ${policy.id} }"
                                        th:attr="title=${policy.title}" target="_blank">
                                         <i th:text="${policy.title}"></i>
                                         <span th:text="${#dates.format(policy.time,'yyyy-MM-dd')}">2018-12-10</span></a>
@@ -158,7 +153,7 @@
                         <div class="zx_nrs" style="display: none;">
                             <ul>
                                 <li th:each=" information : ${session.information}"><a
-                                        href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show2/id/65.html"
+                                        th:href="@{${application.CDN}+'details/information/'+ ${information.id} }"
                                         th:attr="title=${information.title}" target="_blank">
                                     <i th:text="${information.title}"></i>
                                     <span th:text="${information.time != null ? #dates.format(information.time,'yyyy-MM-dd'):''}">2018-08-17</span></a>
@@ -176,7 +171,7 @@
             <div class="part_tit2">
                 <img th:src="@{/images/icon5.jpg}">
                 <h2>工作室活跃度排行</h2>
-                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/lists.html" target="_blank">更多&gt;&gt;</a>
+                <a th:href="@{${application.CDN}+'info/office/1/12'}" target="_blank">更多&gt;&gt;</a>
             </div>
             <div class="ms_main">
                 <ul>
@@ -389,6 +384,150 @@
            th:text=" '共' + ${DTO.pageSum} + '页' "></a>
 
     </div>
+</div>
+
+
+<div class="sjxz_top2" th:fragment="navigation_13">
+
+    <div class="sjxz_topa2">
+        <h2>区域：</h2>
+        <ul>
+            <li style="float:left;" class="active"><a href="javascript:filter(&#39;quyu&#39;,&#39;&#39;)" id="quyu_all"
+                                                      style="color:#666;">不限</a></li>
+            <div style="float:right; width:93%; overflow:hidden">
+
+                <li th:each="city:${session.city}">
+                    <!--[市辖区, 朔州市, 郑州市]-->
+                    <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12' (city=${city}) }" style="color:#666;"
+                       th:text="${city}"></a>
+                </li>
+
+            </div>
+        </ul>
+    </div>
+    <div class="sjxz_topb2">
+        <h2>学段：</h2>
+        <ul>
+            <li style="float:left;" class="active"><a
+                    href="javascript:filter(&quot;xueduan&quot;,&quot;&quot;);" id="xueduan_all"
+                    style="color:#666;">不限</a></li>
+            <div style="float:right; width:93%; overflow:hidden">
+                <!--sections (id=268, name=小学, state=0)-->
+                <li th:each="sections:${session.sections}">
+                    <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12' (section=${sections.id}) }"
+                       style="color:#666;" th:text="${sections.name}">幼儿园</a></li>
+            </div>
+        </ul>
+    </div>
+    <div class="sjxz_topc2">
+        <h2>学科：</h2>
+        <ul>
+            <li style="float:left;" class="active"><a
+                    href="javascript:filter(&quot;xueke&quot;,&quot;&quot;);" id="xueke_all"
+                    style="color:#666;">不限</a></li>
+            <div style="float:right; width:93%; overflow:hidden">
+                <!--subject-->
+                <li th:each="subject:${session.subject}">
+                    <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12' (subject=${subject.id}) }"
+                       style="color:#666;" th:text="${subject.name}">语文</a></li>
+            </div>
+        </ul>
+    </div>
+    <div class="sjxz_topd2">
+        <h2>查找：</h2>
+        <input type="text" id="sousuo_1" placeholder="请输入工作室名称" name="sousuo" value=""
+               title="宁可少打也不要输错哦！！！">
+        <!--<input type="button" id='tijiao' value="搜索" style="width:50px;" title="点击搜索">-->
+        <a href="javascript:filter(&quot;sousuo&quot;,$(&quot;#sousuo_1&quot;).val());"
+           style="color:#666;padding:3px 5px;float: left;font-size: 13px;color: #666;outline: none;border: #bfbfbf 1px solid;background: #f9f9f9;">搜索</a>
+    </div>
+</div>
+
+<div class="sjzx_bot_bt2" th:fragment="navigation_14">
+    <h2>排序：</h2>
+    <ul>
+        <li class="abc"><img th:src="@{ ${application.CDN+'images/ltb1.jpg'}}"><span><a
+                href="javascript:filter(&quot;view&quot;,&quot;&quot;);" style="color:#666;">访问量</a></span>
+        </li>
+
+        <li class="abc"><img th:src="@{ ${application.CDN+'images/ltb2.jpg'}}"><span>
+            <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12'(order=follows) }"
+               style="color:#666;">成员数</a></span></li>
+
+        <li class="abc"><img th:src="@{ ${application.CDN+'images/ltb3.jpg'}}"><span>
+            <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12'(order=achievements) }"
+               style="color:#666;">成果数</a></span></li>
+
+        <li class="abc"><img th:src="@{ ${application.CDN+'images/ltb4.jpg'}}"><span>
+            <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12'(order=article) }"
+               style="color:#037cb1;">文章数</a></span>
+        </li>
+    </ul>
+</div>
+
+<div class="list_gzs" th:fragment="navigation_15">
+    <ul>
+        <li th:each="dto:${DTO.data}">
+            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/97.html"
+               target="_blank">
+                <div class="list_gzs_tit">
+                    <h2 th:text="${dto.name}"></h2>
+                    <span th:text="${dto.subjectName}"></span>
+                </div>
+                <div class="list_gzs_nr">
+                    <div class="gzs_tx"><img th:src="@{${dto.url}}"></div>
+                    <div class="gzs_lbwz">
+                        <p>访问：2261</p>
+                        <p th:text=" '成员:&nbsp;&nbsp;&nbsp;'+${dto.follows}">成员：8</p>
+                        <p th:text=" '成果:&nbsp;&nbsp;&nbsp;'+ ${dto.achievements} ">：133</p>
+                        <p th:text=" '文章:&nbsp;&nbsp;&nbsp;'+ ${dto.article} ">：201</p>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="part_tit3" th:fragment="navigation_16">
+    <img th:src="@{/images/icon4.jpg}">
+    <h2>成果展示</h2>
+    <ul id="tese">
+    </ul>
+    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">更多&gt;&gt;</a>
+</div>
+
+
+<div class="ts_mains" th:fragment="navigation_17">
+
+
+    <ul>
+
+        <li th:each=" dto : ${DTO.data} ">
+            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3270.html"
+               title="名师工作室展示观摩课（2）" class="ts_center" target="_blank">
+
+                <div class="ts_cen_tp">
+                    <img th:src="@{${dto.url}}" style="width:230px;height:200px;">
+                </div>
+
+                <div class="ts_cen_wz">
+                    <h2 th:text=" ${dto.title} ">名师工作室展示观摩课（2）</h2>
+                    <div class="cen_wz">
+                        <h3 th:text=" ${dto.name} ">李冬名师工作室</h3>
+                        <h4 th:text=" ${dto.subject} ">初中英语</h4>
+                    </div>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+
+    <div th:replace="page/common :: navigation_12"></div>
+
+</div>
+
+
+<div class="show_zx" th:fragment="navigation_18" th:utext="${obj.text}">
 </div>
 
 </html>

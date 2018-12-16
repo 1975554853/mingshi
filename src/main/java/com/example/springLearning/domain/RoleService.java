@@ -121,4 +121,15 @@ public class RoleService {
         map.put("data",roles);
         return map;
     }
+
+
+    public boolean isRoleIsExists() {
+        for (int i = 1; i <3 ; i++) {
+            Role role = roleDao.queryRoleById(i);
+            if(role == null){
+                return false;
+            }
+        }
+        return true;
+    }
 }

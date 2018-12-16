@@ -2,6 +2,7 @@ package com.example.springLearning.domain;
 
 import com.example.springLearning.config.SYSTEM_CONFIG;
 import com.example.springLearning.dao.ClassificationDao;
+import com.example.springLearning.dao.OfficeDao;
 import com.example.springLearning.dao.UserDao;
 import com.example.springLearning.dao.UserRoleDao;
 import com.example.springLearning.pojo.User;
@@ -39,6 +40,8 @@ public class UserService {
     private UserRoleDao userRoleDao;
     @Autowired
     private ClassificationDao classificationDao;
+    @Autowired
+    private OfficeDao officeDao;
 
     /**
      * 添加用户
@@ -79,14 +82,12 @@ public class UserService {
     @Transactional
     @Modifying
     public boolean saveUser(User user, Integer role) {
-        // 如果 role 为空 , 说明该学院是一个普通用户
         if( null == role ){
             role = 3;
         }
-        // 判断该工作室是否已有管理员
         if (2 == role) {
             Integer id = userDao.queryUserAndOfficeByOfficeId(user.getOfficeId());
-            if (StringUtils.isNotBlank("" + id)) {
+            if ( null != id ) {
                 return false;
             }
         }
@@ -96,8 +97,9 @@ public class UserService {
             // 给用户设置角色
             userDao.updateUserSetRole(u.getId(), role);
             // 用户-工作室表中插入数据
-            System.out.println(role + "最后的结果");
             userDao.insertUserAndOfficeAndRole(u.getId(), u.getOfficeId(), role);
+            // 更新office数据 , group 人数加一
+            officeDao.updateOffice(u.getOfficeId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

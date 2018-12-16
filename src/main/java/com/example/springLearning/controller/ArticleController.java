@@ -43,7 +43,6 @@ public class ArticleController {
         if(classInfo == null){
             return SYSTEM_DTO.GET_RESULT(false, SYSTEM_MESSAGE.ERROR_NOT_CLASS);
         }
-
         article.setClassification(classInfo);
         // 获取用户所属的工作室
         Integer office = classificationService.findOfficeByClassInfo(classInfo);

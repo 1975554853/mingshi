@@ -40,7 +40,7 @@ public interface SubjectDao extends CrudRepository<LearningSubject,Integer> {
     Integer updateStatus(int id, int status);
 
 
-    @Query(value = "from LearningSubject order by state")
+    @Query(value = "from LearningSubject where state = 0 order by state ")
     List<LearningSubject> selectSubject();
 
     //查询展示的subject

@@ -3,6 +3,7 @@ package com.example.springLearning.pojo;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author  樊立扬
@@ -30,9 +31,9 @@ public class Office {
     @Column // 区县
     private String area;
     @Column // 关注人数
-    private Integer follows;
+    private Integer follows=0;
     @Column // 文章数量
-    private Integer article;
+    private Integer article=0;
     @Column // 成果数量
     private Integer achievements;
     @Column // 成员人数
@@ -40,5 +41,6 @@ public class Office {
     @Column
     private Integer type;
 
-
+    @Transient
+    private String subjectName;
 }

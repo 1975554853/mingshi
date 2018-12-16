@@ -139,4 +139,8 @@ public class SectionService {
         hashMap.put("data",sections);
         return hashMap;
     }
+
+    public List querySectionName() {
+        return sectionDao.selectSections();
+    }
 }

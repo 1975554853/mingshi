@@ -70,7 +70,7 @@
             }
             $.post('/subject/add', {name: data.field.cate_name}, function (res) {
                 updateMessage(res);
-            }, 'SYSTEMDTO');
+            }, 'json');
             return false;
         });
         //方法级渲染
@@ -110,15 +110,15 @@
             if (obj.event === 'edit') {
                 $.post("/subject/delete", {id:data.id}, function (res) {
                     updateMessage(res)
-                }, "SYSTEMDTO");
+                }, "json");
             }else if (obj.event === 'drop') {
                 $.post("/user/delete", {key: data.id}, function (res) {
                     updateMessage(res);
-                }, "SYSTEMDTO");
+                }, "json");
             }else if(obj.event === 'hide'){
                 $.post("/subject/show", {id: data.id}, function (res) {
                     updateMessage(res);
-                }, "SYSTEMDTO");
+                }, "json");
             }
         });
 

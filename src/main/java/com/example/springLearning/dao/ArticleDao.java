@@ -7,6 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @ClassName ArticleDao
  * @Description TODO
@@ -23,4 +25,7 @@ public interface ArticleDao extends CrudRepository<Article,Integer> {
     @Modifying
     @Query(value = " update article set type = 0 where id = ?1 " ,nativeQuery = true)
     Integer examineArticle(Integer id);
+
+    Integer countArticleByClassificationIn(List<Integer> ids);
+
 }

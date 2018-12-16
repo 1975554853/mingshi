@@ -22,6 +22,8 @@ public interface RoleDao extends CrudRepository<Role,Integer> {
             ,nativeQuery = true )
     Set<String> queryRoleNameByUserId(@Param("userId") Integer id);
 
+    Role queryRoleById(Integer name);
+
     /**
      * 添加角色数据
      * @param role

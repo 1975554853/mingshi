@@ -1,7 +1,6 @@
 package com.example.springLearning.config;
 
 import com.example.springLearning.dao.SystemConfigDao;
-import com.example.springLearning.dao.UserDao;
 import com.example.springLearning.domain.OfficeService;
 import com.example.springLearning.domain.RoleService;
 import com.example.springLearning.domain.UserService;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.*;
-import java.util.List;
 
 @Component
 public class SystemStarter implements CommandLineRunner {
@@ -58,26 +56,30 @@ public class SystemStarter implements CommandLineRunner {
         }
         System.out.println("系统消息读取成功");
 
-        // 删除role表所有数据
-        roleService.deleteAll();
-        // 插入新的数据
-        Role role = new Role();
-        role.setName("系统管理员");
-        role.setValue("admin");
-        role.setId(1);
-        Role role1 = new Role();
-        role1.setId(2);
-        role1.setName("工作室管理员");
-        role1.setValue("group");
-        Role role2 = new Role();
-        role2.setName("教师");
-        role2.setValue("user");
-        role2.setId(3);
+        // 判断系统角色是否正常
+        if( ! roleService.isRoleIsExists()){
+            // 删除role表所有数据
+            roleService.deleteAll();
+            // 插入新的数据
+            Role role = new Role();
+            role.setName("系统管理员");
+            role.setValue("admin");
+            role.setId(1);
+            Role role1 = new Role();
+            role1.setId(2);
+            role1.setName("工作室管理员");
+            role1.setValue("group");
+            Role role2 = new Role();
+            role2.setName("教师");
+            role2.setValue("user");
+            role2.setId(3);
 
-        roleService.insertRoleByEntity(role);
-        roleService.insertRoleByEntity(role1);
-        roleService.insertRoleByEntity(role2);
+            roleService.insertRoleByEntity(role);
+            roleService.insertRoleByEntity(role1);
+            roleService.insertRoleByEntity(role2);
+        }
         System.out.println("角色初始化完成");
+
         // 查看系统中是否存在管理员
         // 判断系统中是否存在 "系统工作室
         Office office = officeService.queryOfficeByName("系统工作室");

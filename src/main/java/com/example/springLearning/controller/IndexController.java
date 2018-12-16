@@ -1,14 +1,13 @@
 package com.example.springLearning.controller;
 
-import com.example.springLearning.domain.ArticleService;
-import com.example.springLearning.domain.OfficeService;
-import com.example.springLearning.domain.UserService;
+import com.example.springLearning.domain.*;
 import com.example.springLearning.pojo.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -28,11 +27,19 @@ public class IndexController {
     private ArticleService articleService;
     @Autowired
     private OfficeService officeService;
+    @Autowired
+    private SectionService sectionService;
+    @Autowired
+    private SubjectService subjectService;
 
-    @GetMapping("/info/{value}/{page}/{limit}")
-    public String banners(@PathVariable String value, Model model, @PathVariable Integer page, @PathVariable Integer limit) {
+    @GetMapping("/index/details/{id}")
+    public String officeDetails(@PathVariable Integer id){
+        return "page/officeDetails";
+    }
+
+    @GetMapping("/details/{value}/{id}")
+    public String details(@PathVariable String value, @PathVariable Integer id, Model model) {
         String txt = null;
-        DTO dto = null;
         switch (value) {
             case "information":
                 txt = "资讯";
@@ -44,10 +51,52 @@ public class IndexController {
                 txt = "公告";
                 break;
         }
-        dto = articleService.queryDTOByClassOrderByDateAndWeight(page,limit,txt);
+        Object object = articleService.queryArticleById(id);
+        model.addAttribute("key", value);
+        model.addAttribute("obj", object);
+        model.addAttribute("txt",txt);
+        return "page/details";
+    }
+
+    @GetMapping("/info/{value}/{page}/{limit}")
+    public String banners(@PathVariable String value, Model model, @PathVariable Integer page,
+                          @PathVariable Integer limit,
+                          @RequestParam(value = "city", required = false) String city,
+                          @RequestParam(value = "section", required = false) Integer section,
+                          @RequestParam(value = "subject", required = false) Integer subject,
+                          @RequestParam(value = "order", required = false) String order
+    ) {
+        String txt = null;
+        DTO dto = null;
+        switch (value) {
+            case "information":
+                txt = "资讯";
+                dto = articleService.queryDTOByClassOrderByDateAndWeight(page, limit, txt);
+                break;
+            case "policy":
+                txt = "政策";
+                dto = articleService.queryDTOByClassOrderByDateAndWeight(page, limit, txt);
+                break;
+            case "notice":
+                txt = "公告";
+                dto = articleService.queryDTOByClassOrderByDateAndWeight(page, limit, txt);
+                break;
+            case "office":
+                dto = officeService.queryOfficeByPageOrderNum(page, limit, city, section, subject, order);
+                model.addAttribute("key", value);
+                model.addAttribute("DTO", dto);
+                return "page/office";
+            case "achievements":
+                dto = articleService.querAchievementsOrderByDate(page, limit);
+                model.addAttribute("key", value);
+                model.addAttribute("DTO", dto);
+                System.out.println(dto);
+                return "page/achievements";
+        }
+
         model.addAttribute("key", value);
         model.addAttribute("txt", txt);
-        model.addAttribute("DTO",dto);
+        model.addAttribute("DTO", dto);
         return "page/banners";
     }
 
@@ -83,12 +132,22 @@ public class IndexController {
         // 加载教师文章
         List teachers = articleService.selectArticleByTopAndOrderWeight("教师文章", 15);
         httpSession.setAttribute("teachers", teachers);
-        System.out.println(teachers.toString());
 
         // 加载成果
         List achievements = articleService.selectArticleByTopAndOrderWeight("成果展示", 12);
         httpSession.setAttribute("achievements", achievements);
-        System.out.println(achievements.toString());
+
+        // 加载所有区域
+        List city = officeService.queryCity();
+        httpSession.setAttribute("city", city);
+
+        // 加载所有学段
+        List sections = sectionService.querySectionName();
+        httpSession.setAttribute("sections", sections);
+
+        List subject = subjectService.querySubjectName();
+        httpSession.setAttribute("subject", subject);
+        System.out.println(subject.toString());
 
         return "page/index";
     }
