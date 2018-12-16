@@ -98,7 +98,6 @@ public class ClassificationService {
             return SYSTEM_DTO.GET_TREE(1,"系统异常,稍后再试",null);
         }
         String sql = " select * from classification c where c.office = " + officeId;
-        System.out.println(sql);
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         return SYSTEM_DTO.GET_TREE(0,"节点获取成功",list);
     }
@@ -144,5 +143,26 @@ public class ClassificationService {
 
     public Integer findOfficeByClassInfo(Integer classInfo) {
         return classificationDao.queryOfficeByClassId(classInfo);
+    }
+
+    public void queryClassInfoByFather(List<Classification> father){
+        father.forEach( (x)->{
+            Integer id = x.getId();
+            List<Classification> children = classificationDao.queryClassificationsByFatherOrderById(id);
+            x.setChildren(children);
+        } );
+    }
+    public List<Classification> queryClassInfoByRoot(Integer id , String name) {
+
+        // 加载一二级目录
+        Classification classification = classificationDao.queryClassInfoByRoot(id,name);
+        List<Classification> classifications = classificationDao.queryClassificationsByFatherOrderById(classification.getId());
+        queryClassInfoByFather(classifications);
+        return classifications;
+
+    }
+
+    public Set<Integer> queryClassInfoByChildren(Integer id, String type) {
+        return classificationDao.queryClassInfoByChildren(id,type);
     }
 }

@@ -40,4 +40,6 @@ public class Article implements Serializable {
     private Integer weight = 0;
     @Column
     private Date date = new Date();
+    @Column
+    private Integer views = 0;
 }

@@ -60,4 +60,7 @@ public interface UserDao extends CrudRepository<User,Integer> {
 
     @Query(value = "select id from user_office where role_id = 2 and office_id = ?1" ,nativeQuery = true)
     Integer queryUserAndOfficeByOfficeId(Integer officeId);
+
+    @Query( value = " select u.* from office o inner join user_office uo on uo.office_id = o.id inner join user u on u.id = uo.user_id inner join user_role us on u.id = us.user_id inner join role r on r.id = us.role_id where o.id = ?1 and r.value = 'group'  " , nativeQuery = true)
+    User findUserByOfficeId(Integer id);
 }

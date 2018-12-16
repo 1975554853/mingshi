@@ -135,7 +135,7 @@ public class OfficeService {
     }
 
     public List queryOfficeByNum(Integer limit) {
-        String sql = "select count(*) as num , o.url as url , o.name as name , o.id as id  from office o left join user_office uo on o.id = uo.office_id where o.name <> '系统工作室' group by o.id order by num desc limit " + limit;
+        String sql = "select * from office where name <> '系统工作室' order by follows desc limit " + limit;
         return entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
     }
 
@@ -209,4 +209,8 @@ public class OfficeService {
         return list;
     }
 
+    public Office queryOfficeById(Integer id) {
+        officeDao.updateOfficeViewsById(id);
+        return officeDao.findById(id).get();
+    }
 }

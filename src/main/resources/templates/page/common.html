@@ -177,11 +177,11 @@
                 <ul>
                     <!--[{name=朱光省工作室, num=2, id=310}, {name=冯松杰, num=1, id=318}]-->
                     <a th:each="info , step : ${session.groups}"
-                       href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html" target="_blank">
+                       th:href="@{${application.CDN}+'index/details/'+${info.id} } " target="_blank">
                         <li>
                             <i id="num1" th:text="${step.index+1}">1</i>
                             <h2 th:text="${info.name}">高俊霞工作室</h2>
-                            <div class="gz"><span th:text="${info.num}">28</span>人关注</div>
+                            <div class="gz"><span th:text="${info.follows}">28</span>人关注</div>
                         </li>
                     </a>
                 </ul>
@@ -199,7 +199,7 @@
             <div class="part_tit">
                 <img th:src="@{/images/icon1.jpg}">
                 <h2>省级名师工作室</h2>
-                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/index.html">更多&gt;&gt;</a>
+                <a th:href="@{${application.CDN}+'info/office/1/12'}">更多&gt;&gt;</a>
             </div>
             <div class="sjxz">
                 <div class="sjxz_bot">
@@ -208,7 +208,7 @@
                     <div class="sjzx_bot_nr">
                         <ul>
                             <li th:each=" groupsMore : ${session.groupsMore}">
-                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/50.html"
+                                <a th:href="@{${application.CDN}+'index/details/'+${groupsMore.id} } "
                                    target="_blank">
                                     <img th:src="@{${groupsMore.url}}"
                                          style="width:100px;height:100px;border-radius:100%">
@@ -228,12 +228,12 @@
             <div class="gzs">
                 <ul>
                     <li th:each="teacher  : ${session.teachers}">
-                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/3085.html"
+                        <a th:href="@{${application.CDN}+'index/details/'+${teacher.officeId} +'/'+${teacher.id} } "
                            th:attr="title=${teacher.title}" target="_blank">
                             <div class="gzs_top">
                                 <div class="gzs_wz">
-                                    <div class="gzs_wzt" th:text="${teacher.title}">跨界教育对英语学科教学的影响</div>
-                                    <div class="gzs_wzb" th:text="${teacher.officeName}">任艳玲工作室</div>
+                                    <div class="gzs_wzt" th:text="${teacher.title}"></div>
+                                    <div class="gzs_wzb" th:text="${teacher.officeName}"></div>
                                 </div>
                             </div>
                         </a>
@@ -528,6 +528,45 @@
 
 
 <div class="show_zx" th:fragment="navigation_18" th:utext="${obj.text}">
+</div>
+
+<div class="z_ad" th:fragment="navigation_19">
+    <div th:style=" 'background-image:url(' + ${office.url} +  ');height:240px;background-size:100% 100%;'  ">
+        <div class="z_ads">
+            <div class="z_ad_left">
+                <h2 th:text=" ${office.name} "></h2>
+                <h3 style="display:none;" th:text="${ '欢迎来到' + office.name}">
+                    <span style="display: none">QQ群：962556822</span></h3>
+            </div>
+            <div class="z_ad_right">
+                <img th:src="@{ ${application.CDN+'images/eyes.png'}}">
+                <div class="z_ad_wz">
+                    <h2>今日访客<i th:text="${office.viewsDay}">35</i></h2>
+                    <h2>访客总量<i th:text="${office.views}">4239</i></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="z_nav" th:fragment="navigation_20">
+    <ul>
+
+        <!--<li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html">首页</a></li>-->
+
+        <li th:each=" info : ${info} ">
+
+            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx1/id/11.html"
+               th:text="${info.name}">公告</a>
+            <div class="cgzs_nav" th:if=" ${info.children != null} ">
+                <div class="nav_cg" th:each=" children : ${info.children} ">
+                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx/id/11.html"
+                       th:text="${children.name}"></a>
+                    <div>
+                    </div>
+        </li>
+    </ul>
 </div>
 
 </html>

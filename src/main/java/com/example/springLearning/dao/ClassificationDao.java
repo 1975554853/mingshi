@@ -76,4 +76,12 @@ public interface ClassificationDao extends CrudRepository<Classification, Intege
 
     @Query( value = "select id from classification where father = ?1 " , nativeQuery = true )
     Set<Integer> queryClassificationsByFather(Integer id);
+
+    List<Classification> queryClassificationsByFatherOrderById(Integer id);
+
+    @Query(value = " select * from classification where office = ?1 and name = ?2 " , nativeQuery = true)
+    Classification queryClassInfoByRoot(Integer id , String name);
+
+    @Query(value = " select id from classification where father = (select c.id from classification c where  c.office = ?1 and c.name = ?2 ) or id = (select c.id from classification c where  c.office = ?1 and c.name = ?2 ) " , nativeQuery = true)
+    Set<Integer> queryClassInfoByChildren(Integer id, String type);
 }

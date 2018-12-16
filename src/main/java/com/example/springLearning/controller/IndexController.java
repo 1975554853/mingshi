@@ -1,7 +1,7 @@
 package com.example.springLearning.controller;
 
 import com.example.springLearning.domain.*;
-import com.example.springLearning.pojo.DTO;
+import com.example.springLearning.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author fly
@@ -31,10 +33,61 @@ public class IndexController {
     private SectionService sectionService;
     @Autowired
     private SubjectService subjectService;
+    @Autowired
+    private ClassificationService classificationService;
 
-    @GetMapping("/index/details/{id}")
-    public String officeDetails(@PathVariable Integer id){
-        return "page/officeDetails";
+    @GetMapping("/index/details/{id}/{article}")
+    public String officeDetails(@PathVariable Integer id, Model model, @PathVariable Integer article) {
+
+        // 查询工作室详情
+        Office office = officeService.queryOfficeById(id);
+        model.addAttribute("office", office);
+        // 加载所有一级目录
+        List<Classification> info = classificationService.queryClassInfoByRoot(office.getId(), "菜单分类");
+        model.addAttribute("info", info);
+        // 加载作者
+        User user = userService.selectUserByOfficeId(office.getId());
+        model.addAttribute("user", user);
+        // 8条资讯
+        List<Article> articles = articleService.selectArticlesOrderDate(office.getId(), "资讯", 4);
+        model.addAttribute("articles", articles);
+        List<Article> articleMore = articleService.selectArticlesOrderDate(office.getId(), "资讯", 8);
+        model.addAttribute("articleMore", articleMore);
+        //
+        List<Article> achievements = articleService.selectArticlesOrderDate(office.getId(), "成果展示", 4);
+        model.addAttribute("achievements", achievements);
+
+        List teachers = articleService.selectArticlesOrderDateAndTeacherName(office.getId(), "教师文章", 8);
+        List t1 = new ArrayList();
+        List t2 = new ArrayList();
+        if (teachers.size() >= 4) {
+            for (int i = 0; i < 4; i++) {
+                t1.add(teachers.get(i));
+            }
+            model.addAttribute("t1", t1);
+            for (int i = 4; i < teachers.size(); i++) {
+                t2.add(teachers.get(i));
+            }
+            model.addAttribute("t2", t2);
+        } else {
+            for (int i = 0; i < teachers.size(); i++) {
+                t1.add(teachers.get(i));
+            }
+            model.addAttribute("t1", t1);
+            model.addAttribute("t2", null);
+        }
+        if (t1.size()>0 && t1.get(0) != null)
+            model.addAttribute("tp1", ((Map) t1.get(0)).get("url"));
+        if (t2.size()>0 && t2.get(0) != null)
+            model.addAttribute("tp2", ((Map) t2.get(0)).get("url"));
+
+        if(article==null){
+            return "page/officeDetails";
+        }else{
+            return "page/article";
+        }
+
+
     }
 
     @GetMapping("/details/{value}/{id}")
@@ -54,7 +107,7 @@ public class IndexController {
         Object object = articleService.queryArticleById(id);
         model.addAttribute("key", value);
         model.addAttribute("obj", object);
-        model.addAttribute("txt",txt);
+        model.addAttribute("txt", txt);
         return "page/details";
     }
 
@@ -90,7 +143,6 @@ public class IndexController {
                 dto = articleService.querAchievementsOrderByDate(page, limit);
                 model.addAttribute("key", value);
                 model.addAttribute("DTO", dto);
-                System.out.println(dto);
                 return "page/achievements";
         }
 
@@ -123,10 +175,10 @@ public class IndexController {
         List information = articleService.selectArticleByNoticeAndOrderWeight("政策");
         httpSession.setAttribute("information", information);
         // 获取关注人数最多的工作室
-        List groups = officeService.queryOfficeByNum(6);
+        List groups = officeService.queryOfficeByNum(8);
         httpSession.setAttribute("groups", groups);
 
-        List groupsMore = officeService.queryOfficeByNum(6);
+        List groupsMore = officeService.queryOfficeByNum(15);
         httpSession.setAttribute("groupsMore", groupsMore);
 
         // 加载教师文章

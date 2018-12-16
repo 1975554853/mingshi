@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @ClassName ArticleDao
@@ -28,4 +29,6 @@ public interface ArticleDao extends CrudRepository<Article,Integer> {
 
     Integer countArticleByClassificationIn(List<Integer> ids);
 
+    @Query(value = " select * from article where classification in (?2) order by date desc limit  0 , ?1 " ,nativeQuery = true)
+    List<Article> selectArticlesOrderDate(int i, Set<Integer> set);
 }

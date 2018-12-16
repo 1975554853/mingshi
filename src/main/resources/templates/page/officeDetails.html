@@ -1,369 +1,211 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0071)http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<head th:replace="page/common :: common_header('河北名师工作室_')"></head>
+<head th:replace="page/common :: common_header('河北名师工作室_'+${office.name})"></head>
 
 
 <body>
 
 
 <div th:replace="page/common :: navigation_1"></div>
-
-
-
-<div class="head">
-
- <form id="searchForm" action="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp.html" method="post">
-   <div class="heads">
-      <div class="logo"><a href="http://mingshi.hbte.com.cn:5060/"><img src="./高俊霞工作室-首页_files/logo.jpg"></a></div>
-      <div class="nav">
-         <ul>
-           <li><a href="http://mingshi.hbte.com.cn:5060/">首页</a></li>
-           <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp.html">资讯</a></li>
-           <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Lists/index.html">工作室</a></li>
-           <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">成果展示</a></li>
-         </ul>
-      </div>
-      <div class="search">
-         <!--<img src="/Public/Home/img/search.jpg">-->
-          <select id="searchList" style="border:none;border-right:1px solid #999;outline:none;height:30px">
-              <option value="0">资讯</option>
-              <option value="1">公告</option>
-              <option value="2">政策</option>
-          </select>
-         <input type="text" placeholder="请输入关键词" name="ss" style="margin-left:5px;">
-         <a href="javascript:;"><input type="submit" value="确定" style="color:#fff;text-align:right;"></a>
-      </div>
-
-
-   </div>
-   </form>
-</div>
-
-
-<title>高俊霞工作室-首页</title>
+<div th:replace="page/common :: navigation_2"></div>
 
 <!--ad-->
-<div class="z_ad">
-    <div style="background-image:url(/Uploads/2018-08-28/5b85066bd9a5d.jpg);height:240px;background-size:100% 100%;">
-        <div class="z_ads">
-            <div class="z_ad_left">
-                <h2>高俊霞工作室</h2>
-                <h3 style="display:none;">欢迎加入高俊霞工作室<span style="display: none">QQ群：962556822</span></h3>
-            </div>
-            <div class="z_ad_right">
-                <img src="./高俊霞工作室-首页_files/eyes.png">
-                <div class="z_ad_wz">
-                    <h2>今日访客<i>35</i></h2>
-                    <h2>访客总量<i>4239</i></h2>
-                </div>
-            </div>
-        </div>	</div></div>
+<div th:replace="page/common :: navigation_19"></div>
 <!--z_nav-->
-<div class="z_nav">
-    <ul>
-        <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html">首页</a></li>
-        <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx1/id/11.html">公告</a></li>
-        <li>
-		<a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx/id/11.html">资讯</a>
-		 <div class="cgzs_nav">
-		
-             <div class="nav_cg">
-             <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx/id/11.html">工作室资讯</a>
-             <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/zifenlei/zid/1/id/11.html">教研活动简报</a>
-             <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/zifenlei/zid/2/id/11.html">送培送教简报</a>
-            <!--  <a href="/index.php/Home/Zlistzx/zifenlei/zid/1/id/11.html">教研活动简报</a><a href="/index.php/Home/Zlistzx/zifenlei/zid/2/id/11.html">送培送教简报</a> -->
-             </div>
-       
-		</div>
-		</li>
-        <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zgzsjs/zgzsjs/id/11.html">工作室简介</a></li>
-        <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc/id/11.html">成员风采</a></li>
-        <li style="display:none;"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zjyhd/z_jyhd/id/11.html">教研活动</a></li>
-        <li>
-            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx2/id/11.html">成果展示</a>
-            <div class="cgzs_nav">
-                <div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/15.html">学习反思</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/16.html">培训心得</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/17.html">理论研究</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/18.html">实践教研</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/19.html">送教下乡</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/20.html">考核验收</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/21.html">参观学习</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/103.html">曹香蕊基地学校</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/102.html">魏焕强基地学校</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/104.html">高超基地学校</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/105.html">邢志杰基地学校</a></div><div class="nav_cg"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/fenlei/id/524.html">讲座专栏</a></div>            </div>
-        </li>
-        <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/11.html">教师文章</a></li>
-        <li style="display: none;"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/ziyuan/id/11.html">资源下载</a></li>
-        <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zbo/index/id/11.html">直播</a></li>
-    </ul>
-</div>
+
 
 <!--zindex-->
 <div class="z_index_main">
-   <div class="z_index_left">
-    <div class="z_index_ljs">
-         <div class="z_ljs_tit">
-            <h2>工作室简介</h2>
-           
-         </div>
-        
-         <div class="z_ljs_top">
-            <div class="ljs_topl"><img src="./高俊霞工作室-首页_files/5ba4ab68cb6f7.jpg"></div>
-            <div class="ljs_topr">
-               <h2>高俊霞工作室</h2>
-               <!-- <h3>高俊霞</h3> -->
-              <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/guanzhu/id/11.html">+关注</a>
-									  
-				  
-              
-			                  <div class="ljs_else"><span>28</span>人关注</div>
+    <div class="z_index_left">
+        <div class="z_index_ljs">
+            <div class="z_ljs_tit">
+                <h2>工作室简介</h2>
+
             </div>
-         </div>
-       
-         <div class="z_ljs_mid">
-            <ul>
-              <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc/id/11.html"><h2>14</h2><p>成员</p></a></li>
-               <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/11.html"><h3>135</h3><p>文章</p></a></li>
-              <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx2/id/11.html"><h4>84</h4><p>成果</p></a></li>
-            </ul>
-         </div>
-           <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/gongzuoshi/ids/11.html" class="z_ljs_sq">申请加入工作室</a>		                  </div>      <div class="z_index_ltj">
-         <div class="z_ljs_tit">
-            <h2 style="width: 100%">名师工作室推荐</h2>
-         </div>
-         <div class="ljs_main">
-            <ul>
-              <li><i id="num1" style="font-weight:normal">1</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html">高俊霞工作室</a><p><span>28</span>人关注</p></li>
-              <li><i id="num2" style="font-weight:normal">2</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/95.html">王福会工作室</a><p><span>24</span>人关注</p></li>
-              <li><i id="num3" style="font-weight:normal">3</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/89.html">田贺书工作室</a><p><span>22</span>人关注</p></li>
-              <li><i id="num4" style="font-weight:normal">4</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/31.html">崔艳波工作室</a><p><span>19</span>人关注</p></li>
-			  <li><i id="num5" style="font-weight:normal">5</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/6.html">李冬工作室</a><p><span>17</span>人关注</p></li>
-			  <li><i id="num6" style="font-weight:normal">6</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/12.html">李丽英名师工作室</a><p><span>15</span>人关注</p></li>
-			  <li><i id="num7" style="font-weight:normal">7</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/5.html">张惠英工作室</a><p><span>14</span>人关注</p></li>
-			  <li><i id="num8" style="font-weight:normal">8</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/1.html">潘军令工作室</a><p><span>12</span>人关注</p></li>
-			  <li><i id="num9" style="font-weight:normal">9</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/16.html">徐娜工作室</a><p><span>12</span>人关注</p></li>
-			  <li><i id="num10" style="font-weight:normal">10</i><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/4.html">白瑜工作室</a><p><span>11</span>人关注</p></li>
-            
-            </ul>
-         </div>
-      </div>
-   </div>
-   <div class="z_index_right">
-   
-   
-   
-   
-      <div class="z_ir_one" style="margin-top: 0">
-         <div class="list_tit2">
-           <h2>资讯</h2>
-           <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx/id/11.html" target="_blank">更多&gt;&gt;</a>
-         </div>
-         <div class="z_one_nr">
-            <div class="z_one_ban">
-               <div class="swiper-container swiper-container-horizontal swiper-container-wp8-horizontal">
-                  <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
-                   <div class="swiper-slide swiper-slide-active" style="width: 356px;">
-                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/1332.html" title="小学体育“精细化”课堂教学研讨 ——研究共同体研讨活动纪实" target="_blank">
-						<img src="./高俊霞工作室-首页_files/5c039cb7cb91a.jpg">
-						                           <p class="swiper_text">小学体育“精细化”课堂教学研讨 ——研究...</p>
-                        </a>
-                      </div><div class="swiper-slide swiper-slide-next" style="width: 356px;">
-                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/1326.html" title="进一步深化“精细化”课堂教学研讨" target="_blank">
-						<img src="./高俊霞工作室-首页_files/5c02a62b16dec.jpg">
-						                           <p class="swiper_text">进一步深化“精细化”课堂教学研讨...</p>
-                        </a>
-                      </div><div class="swiper-slide" style="width: 356px;">
-                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/1325.html" title="小学体育“精细化”课堂教学研讨——研究共同体研讨活动纪实" target="_blank">
-						<img src="./高俊霞工作室-首页_files/5c029ee288cd0.jpg">
-						                           <p class="swiper_text">小学体育“精细化”课堂教学研讨——研究共...</p>
-                        </a>
-                      </div><div class="swiper-slide" style="width: 356px;">
-                        <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/1324.html" title="小学体育“精细化”课堂教学研讨活动----齐聚一堂" target="_blank">
-						<img src="./高俊霞工作室-首页_files/5c0296350ebe2.jpg">
-						                           <p class="swiper_text">小学体育“精细化”课堂教学研讨活动---...</p>
-                        </a>
-                      </div>                  </div>
-                  <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-clickable"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span></div>
-               <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+
+            <div class="z_ljs_top">
+                <div class="ljs_topl"><img th:src="@{${user!=null?user.headPhotoUrl:''}}"></div>
+                <div class="ljs_topr">
+                    <h2 th:text=" ${office.name} ">高俊霞工作室</h2>
+                    <!-- <h3>高俊霞</h3> -->
+                    <a th:href="@{${application.CDN}+'login'}">+关注</a>
+                    <div class="ljs_else"><span th:text="${office.follows}">28</span>人关注</div>
+
+                </div>
             </div>
-             <div class="z_one_list">
-               <ul>
-               <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/333.html" title="在线系列研讨第二阶段------教学实践 之 体育教师教学过程中的语言表达" target="_blank"><i>在线系列研讨第二阶段------教学实践 之 体育教师教学过程中的语言表达</i><span>2018-10-01</span></a></li>
-				 <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/253.html" title="网络在线教研系列二-----体育教学实践" target="_blank"><i>网络在线教研系列二-----体育教学实践</i><span>2018-09-26</span></a></li>
-				 <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/135.html" title="高俊霞获得&quot;石家庄市十大名师工作室导师&quot;称号" target="_blank"><i>高俊霞获得"石家庄市十大名师工作室导师"称号</i><span>2018-09-08</span></a></li>
-				 <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/123.html" title="喜 报" target="_blank"><i>喜 报</i><span>2018-08-15</span></a></li>
-				 <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/120.html" title="〖阳光足球〗高超老师在全省足球专项教师 基本功大赛中喜获一等奖" target="_blank"><i>〖阳光足球〗高超老师在全省足球专项教师 基本功大赛中喜获一等奖</i><span>2018-08-11</span></a></li>
-				 <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/106.html" title="成立省名师工作室" target="_blank"><i>成立省名师工作室</i><span>2018-08-08</span></a></li>
-				                </ul>
+
+            <div class="z_ljs_mid">
+                <ul>
+                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc/id/11.html">
+                        <h2 th:text=" ${office.follows} ">14</h2>
+                        <p>成员</p></a></li>
+                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/11.html">
+                        <h3 th:text=" ${office.article} ">135</h3>
+                        <p>文章</p></a></li>
+                    <li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx2/id/11.html">
+                        <h4 th:text=" ${office.achievements} "> 84</h4>
+                        <p>成果</p></a></li>
+                </ul>
             </div>
-			         </div>
-      </div>
-	  
-	  
-	  
-	  
-      <div class="z_ir_one">
-         <div class="list_tit2">
-           <h2>成果展示</h2>
-           
-           <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx2/id/11.html" target="_blank">更多&gt;&gt;</a>
-         </div>
-         <div class="ir_two_lb">
-		 <ul>
-            <li style="height:150px;"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/2452.html" title="心系工作室 冬日暖关怀——河北民族师范学院教师教育学院张立新书记一行调研纪实" target="_blank">
-			  <img src="./高俊霞工作室-首页_files/5bef533b0759e.jpg"> 
-			                            <div class="title">心系工作室 冬日暖...</div>
-			  </a></li><li style="height:150px;"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/692.html" title="辅导青年教师获奖" target="_blank">
-			  <img src="./高俊霞工作室-首页_files/5bbee23464d57.jpg"> 
-			                            <div class="title">辅导青年教师获奖...</div>
-			  </a></li><li style="height:150px;"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/403.html" title="在线系列研讨第二阶段------教学实践 之深度备课" target="_blank">
-			  <img src="./高俊霞工作室-首页_files/5bad7b3aa945e.jpg"> 
-			                            <div class="title">在线系列研讨第二阶...</div>
-			  </a></li><li style="height:150px;"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/336.html" title="在线系列研讨第二阶段------教学实践之课前备什么、准备什么？" target="_blank">
-			  <img src="./高俊霞工作室-首页_files/5baadafd18990.jpg"> 
-			                            <div class="title">在线系列研讨第二阶...</div>
-			  </a></li>            </ul>
-			         </div>
-      </div>
-      <div class="z_ir_one">
-       
-         <div class="list_tit2">
-           <h2>教师文章</h2>
-           <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/11.html" target="_blank">更多&gt;&gt;</a>
-         </div>
-         <div class="jsart">
-		              <div class="jsart_tp"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/730.html" target="_blank">
-			<img src="./高俊霞工作室-首页_files/5bbd6b0c0d106.JPG">
-						</a></div>            <div class="jsart_wz">
-			
-			<ul>
-               				
-                 <li>
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/730.html" title="踏石过河" target="_blank">
-                      <p>踏石过河</p>
-                      <i>崔秀香</i>
-                      <span>2018-10-10</span>
-					  
-                      <div class="eye"><img src="./高俊霞工作室-首页_files/eye.jpg">44</div>				  
-                    </a>
-                 </li>				
-                 <li>
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/703.html" title="体育教师要做引导者" target="_blank">
-                      <p>体育教师要做引导者</p>
-                      <i>张铮</i>
-                      <span>2018-10-09</span>
-					  
-                      <div class="eye"><img src="./高俊霞工作室-首页_files/eye.jpg">28</div>				  
-                    </a>
-                 </li>				
-                 <li>
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/663.html" title="《一个都不能少》观后感" target="_blank">
-                      <p>《一个都不能少》观后感</p>
-                      <i>高超</i>
-                      <span>2018-10-09</span>
-					  
-                      <div class="eye"><img src="./高俊霞工作室-首页_files/eye.jpg">22</div>				  
-                    </a>
-                 </li>				
-                 <li>
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/649.html" title="做学生喜爱的体育教师！ ——教学随想" target="_blank">
-                      <p>做学生喜爱的体育教师！ ——教学随想</p>
-                      <i>邢志洁</i>
-                      <span>2018-10-09</span>
-					  
-                      <div class="eye"><img src="./高俊霞工作室-首页_files/eye.jpg">24</div>				  
-                    </a>
-                 </li>               </ul>
-			               </div>
-         </div>
-		
-		 
-         <div class="jsart">
-		             <div class="jsart_tp"><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/635.html" target="_blank">
-			<img src="./高俊霞工作室-首页_files/5bbb3e5e1500e.png">
-			</a>
-						</div>            <div class="jsart_wz">
-               <ul>
-                                <li>
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/635.html" title="充分发挥学生的主体地位丰富教师之经验" target="_blank">
-                      <p>充分发挥学生的主体地位丰富教师之经验</p>
-                      <i>曹香蕊</i>
-                      <span>2018-10-09</span>
-                      <div class="eye"><img src="./高俊霞工作室-首页_files/eye.jpg">27</div>
-                    </a>
-                 </li>                 <li>
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/634.html" title="关爱后进生----教师的幸福所在" target="_blank">
-                      <p>关爱后进生----教师的幸福所在</p>
-                      <i>曹香蕊</i>
-                      <span>2018-10-09</span>
-                      <div class="eye"><img src="./高俊霞工作室-首页_files/eye.jpg">22</div>
-                    </a>
-                 </li>                 <li>
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/632.html" title="  体育教学与田径训练" target="_blank">
-                      <p>&nbsp;&nbsp;体育教学与田径训练</p>
-                      <i>曹香蕊</i>
-                      <span>2018-10-09</span>
-                      <div class="eye"><img src="./高俊霞工作室-首页_files/eye.jpg">21</div>
-                    </a>
-                 </li>                 <li>
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/631.html" title="设置“圈套”练接力" target="_blank">
-                      <p>设置“圈套”练接力</p>
-                      <i>曹香蕊</i>
-                      <span>2018-10-09</span>
-                      <div class="eye"><img src="./高俊霞工作室-首页_files/eye.jpg">22</div>
-                    </a>
-                 </li>               </ul>
+            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/gongzuoshi/ids/11.html" class="z_ljs_sq">申请加入工作室</a>
+        </div>
+        <div class="z_index_ltj">
+            <div class="z_ljs_tit">
+                <h2 style="width: 100%">名师工作室推荐</h2>
             </div>
-         </div>
-		 
-      </div>
-      <div class="z_ir_one" style="display: none;">
-          <div class="list_tit2">
-            <h2>教研活动</h2>
-            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zjyhd/z_jyhd/id/11.html" target="_blank">更多&gt;&gt;</a>
-          </div>
-          <div class="jyhd">
-             <ul>
-                          </ul>
-          </div>
-      </div>
-   </div>
-</div>
-<script src="./高俊霞工作室-首页_files/swiper.min.js.下载"></script>
-<script>
-  var swiper = new Swiper('.swiper-container', {
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-   autoplay: {
-  delay:6000,
-  },
-  });
-</script>
+            <div class="ljs_main">
+                <ul>
+                    <li th:each="info , step : ${session.groups}"><i id="num1" style="font-weight:normal" th:text="${step.index+1}">1</i><a
+                            href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html" th:text="${info.name}">高俊霞工作室</a>
+                        <p><span th:text="${info.follows}">28</span>人关注</p></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="z_index_right">
+
+
+        <div class="z_ir_one" style="margin-top: 0">
+            <div class="list_tit2">
+                <h2>资讯</h2>
+                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx/id/11.html" target="_blank">更多&gt;&gt;</a>
+            </div>
+            <div class="z_one_nr">
+                <div class="z_one_ban">
+                    <div class="swiper-container swiper-container-horizontal swiper-container-wp8-horizontal">
+                        <div class="swiper-wrapper"
+                             style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+
+                            <div th:each=" info : ${articles} " class="swiper-slide swiper-slide-active"
+                                 style="width: 356px;">
+                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/1332.html"
+                                   th:attr="title=${info.title}" target="_blank">
+                                    <img th:src="@{${info.url}}">
+                                    <p th:text="${info.title}" class="swiper_text">小学体育“精细化”课堂教学研讨 ——研究...</p>
+                                </a>
+                            </div>
+
+
+                        </div>
+                        <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-clickable"><span
+                                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0"
+                                role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet"
+                                                                                      tabindex="0" role="button"
+                                                                                      aria-label="Go to slide 2"></span><span
+                                class="swiper-pagination-bullet" tabindex="0" role="button"
+                                aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0"
+                                                                        role="button" aria-label="Go to slide 4"></span>
+                        </div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+                <div class="z_one_list">
+                    <ul>
+                        <li th:each=" info : ${articleMore} ">
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/333.html"
+                               th:attr="title=${info.title}" title="在线系列研讨第二阶段------教学实践 之 体育教师教学过程中的语言表达"
+                               target="_blank">
+                                <i th:text=" ${info.title} ">在线系列研讨第二阶段------教学实践 之
+                                    体育教师教学过程中的语言表达</i><span th:text="${#dates.format(info.date,'yyyy-MM-dd')}">2018-10-01</span></a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="z_ir_one">
+            <div class="list_tit2">
+                <h2>成果展示</h2>
+
+                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx2/id/11.html" target="_blank">更多&gt;&gt;</a>
+            </div>
+            <div class="ir_two_lb">
+                <ul>
+
+                    <li th:each=" info : ${achievements} " style="height:150px;"><a
+                            href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/2452.html"
+                            th:attr="title=${info.title}"  title="心系工作室 冬日暖关怀——河北民族师范学院教师教育学院张立新书记一行调研纪实" target="_blank">
+                        <img th:src="@{${info.url}}" src="./高俊霞工作室-首页_files/5bef533b0759e.jpg">
+                        <div class="title" th:text=" ${info.title} ">心系工作室 冬日暖...</div>
+                    </a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="z_ir_one">
+
+            <div class="list_tit2">
+                <h2>教师文章</h2>
+                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/11.html" target="_blank">更多&gt;&gt;</a>
+            </div>
+            <div class="jsart">
+
+                <div class="jsart_tp"><a
+                        href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/730.html"
+                        target="_blank">
+                    <img th:src="@{${tp1}}" >
+                </a>
+                </div>
+
+                <div class="jsart_wz">
+
+                    <ul>
+
+                        <li th:each=" info : ${t1} ">
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/730.html"
+                               th:attr="title=${info.title}" title="踏石过河" target="_blank">
+                                <p th:text=" ${info.title} "> 踏石过河</p>
+                                <i th:text=" ${info.name} ">崔秀香</i>
+                                <span th:text="${#dates.format(info.time,'yyyy-MM-dd')}">2018-10-10</span>
+
+                                <div class="eye" th:text="${info.views}"><img th:src="@{ ${application.CDN+'images/eye.jpg'}}">44</div>
+                            </a>
+                        </li>
 
 
 
+                    </ul>
+                </div>
+            </div>
 
-<!--foot-->
-<div class="foot">
-   <div class="foot_bq">版权所有©河北省中小学教师继续教育中心</div>
-   <div class="foot_list">
-      <p>地址：河北省石家庄市红旗大街469号</p>
-      <p>邮编：050091</p>
-      <p>冀ICP备09022130号-6 &nbsp;<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274865269'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274865269%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1274865269"><a href="http://www.cnzz.com/stat/website.php?web_id=1274865269" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./高俊霞工作室-首页_files/pic.gif"></a></span><script src="./高俊霞工作室-首页_files/z_stat.php" type="text/javascript"></script><script src="./高俊霞工作室-首页_files/core.php" charset="utf-8" type="text/javascript"></script></p>
-	  
-   </div>
-   <p style="text-align:center;"><script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='http://dcs.conac.cn/js/05/000/0000/60887956/CA050000000608879560002.js' type='text/javascript'%3E%3C/script%3E"));</script><span id="_ideConac"><a href="http://bszs.conac.cn/sitename?method=show&amp;id=54957018031E45A2E053012819ACD61B" target="_blank"><img id="imgConac" vspace="0" hspace="0" border="0" src="./高俊霞工作室-首页_files/red.png" data-bd-imgshare-binded="1"></a></span><script src="./高俊霞工作室-首页_files/CA050000000608879560002.js.下载" type="text/javascript"></script><span id="_ideConac"></span>
-</p>
+
+            <div class="jsart">
+                <div class="jsart_tp"><a
+                        href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/635.html"
+                        target="_blank">
+                    <img th:src="@{${tp2}}">
+                </a>
+                </div>
+                <div class="jsart_wz">
+                    <ul>
+                        <li th:each=" info : ${t2} ">
+                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/730.html"
+                               th:attr="title=${info.title}" title="踏石过河" target="_blank">
+                                <p th:text=" ${info.title} "> 踏石过河</p>
+                                <i th:text=" ${info.name} ">崔秀香</i>
+                                <span th:text="${#dates.format(info.time,'yyyy-MM-dd')}">2018-10-10</span>
+
+                                <div class="eye" th:text="${info.views}"><img th:src="@{ ${application.CDN+'images/eye.jpg'}}">44</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
 </div>
 
+<div th:replace="page/common :: navigation_7"></div>
 
-<script language="javascript">
-    $("#searchList").on("change",function (){
-        var searchNum = $(this).val();
-        var searchForm = $("#searchForm");
-        if(searchNum == 0){
-            searchForm.attr("action","/index.php/Home/Listsp/listsp.html");
-        }else if(searchNum == 1){
-            searchForm.attr("action","/index.php/Home/Listsp/listsp1.html");
-        }else if(searchNum == 2){
-            searchForm.attr("action","/index.php/Home/Listsp/listsp2.html");
-        }
-    });
-</script>
-</body></html>
+
+</body>
+</html>

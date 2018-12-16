@@ -43,4 +43,11 @@ public class Office {
 
     @Transient
     private String subjectName;
+    @Column
+    private String QQ;
+    @Column
+    private Integer views = 0;
+    @Column
+    private Integer viewsDay = 0;
+
 }

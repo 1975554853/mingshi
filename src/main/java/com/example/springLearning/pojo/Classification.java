@@ -1,6 +1,7 @@
 package com.example.springLearning.pojo;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
@@ -28,5 +29,8 @@ public class Classification implements Serializable {
     private Integer father;
     @Column
     private Integer office;
+
+    @Transient
+    private List<Classification> children;
 
 }
