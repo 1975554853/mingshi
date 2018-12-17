@@ -400,4 +400,9 @@ public class IndexController {
     public String system_article() {
         return "admin/system_article";
     }
+
+    @GetMapping("/user_info")
+    public String userInfo() {
+        return "admin/user-info";
+    }
 }

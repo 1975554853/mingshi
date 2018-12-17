@@ -4,7 +4,6 @@ package com.example.springLearning.dao;
 import com.example.springLearning.pojo.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -44,9 +43,6 @@ public interface UserDao extends CrudRepository<User,Integer> {
     @Modifying
     List<User> selectUserByRole(String roleName);
 
-    //根据用户角色id获取用户
-//    @Query(value = "  " , nativeQuery = true)
-//    List<User> selectUserByRoleId(Integer roleId);
    /* //根据用户角色id获取用户
     @Query(value = "select user.*,user_role.role_id from user left join user_role on user.id = user_role.user_id where user_role.role_id = 2" , nativeQuery = true)
     List<User> selectUserByRoleId();*/
@@ -63,6 +59,11 @@ public interface UserDao extends CrudRepository<User,Integer> {
 
     @Query(value = "select id from user_office where role_id = 2 and office_id = ?1" ,nativeQuery = true)
     Integer queryUserAndOfficeByOfficeId(Integer officeId);
+
+    @Query(value = "update user set password=?2 where id=?1", nativeQuery = true)
+    @Modifying
+    @Transactional
+    Integer updateUserPasswordById(Integer id, String md5Pass);
 
     @Query( value = " select u.* from office o inner join user_office uo on uo.office_id = o.id inner join user u on u.id = uo.user_id inner join user_role us on u.id = us.user_id inner join role r on r.id = us.role_id where o.id = ?1 and r.value = 'group'  " , nativeQuery = true)
     User findUserByOfficeId(Integer id);

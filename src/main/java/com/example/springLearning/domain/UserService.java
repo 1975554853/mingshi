@@ -13,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -192,6 +193,46 @@ public class UserService {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 根据用户id查出用户的所有可显示信息
+     * @param id
+     * @return
+     */
+    public HashMap selectUserInfoById(Integer id) {
+        HashMap hashMap = new HashMap();
+        String queryStr = "select u.*,ofals.of_name as offName,ofals.sec_id as secId, ofals.sec_name as secName, ofals.sub_id as subId, ofals.sub_name as subName from user as u inner join (select of.id as of_id,of.name as of_name,ls.id as sec_id,ls.name as sec_name,lsu.id as sub_id, lsu.name as sub_name from office as of,learning_section as ls,learning_subject as lsu where of.section_id=ls.id and of.subject=lsu.id) as ofals on u.office_id=ofals.of_id where u.id="+id;
+        List list = entityManager.createNativeQuery(queryStr).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        list.forEach(System.out :: println);
+        if(list.size() > 0){
+            hashMap.put("user",list.get(0));
+            hashMap.put("isUser", 1);
+            System.out.println(list.get(0));
+        }else{
+            User admin = userDao.queryUserByCard("admin");
+            hashMap.put("user",admin);
+            hashMap.put("isUser", 0);
+            System.out.println(admin);
+        }
+        return hashMap;
+    }
+
+    /**
+     * 更新用户密码
+     * @param id
+     * @param password
+     * @return
+     */
+    public HashMap updateUserPassword(Integer id, String password, String username) {
+        HashMap hashMap = new HashMap();
+        String md5Pass = new SimpleHash("md5", password, username, 5).toHex();
+        if(userDao.updateUserPasswordById(id, md5Pass) > 0){
+            hashMap.put("type","OK");
+        }else{
+            hashMap.put("type","error");
+        }
+        return hashMap;
     }
 
     public Integer selectUserNum() {

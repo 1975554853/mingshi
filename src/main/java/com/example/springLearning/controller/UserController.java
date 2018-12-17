@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -106,6 +107,17 @@ public class UserController {
         return result;
     }
 
+    /**
+     * 根据用户ID查出用户信息, 返回给user-info.html
+     * @return
+     */
+    @GetMapping("/userInfo")
+    @ResponseBody
+    public HashMap selectUserInfoById(Integer id, Model model){
+        System.out.println("当前用户ID : "+id);
+        HashMap result = userService.selectUserInfoById(id);
+        return result;
+    }
 
     @GetMapping("/select")
     @ResponseBody
@@ -113,6 +125,16 @@ public class UserController {
         return userService.selectUser(page, limit);
     }
 
+    /**
+     * 修改用户密码
+     */
+    @PostMapping("/upPass")
+    @ResponseBody
+    public HashMap updateUserPassword(Integer id, String password, String username){
+        System.out.println(id + " , " +password);
+        HashMap hashMap = userService.updateUserPassword(id, password, username);
+        return hashMap;
+    }
 
     @PostMapping("/add")
     @ResponseBody
