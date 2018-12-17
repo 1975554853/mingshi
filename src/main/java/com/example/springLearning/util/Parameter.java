@@ -9,9 +9,10 @@ public class Parameter {
 
     public String  getFreePhysicalMemorySize(){
         int kb = 1024;
+        int M = 1024;
         OperatingSystemMXBean osmxb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
         // 剩余的物理内存
-        long freePhysicalMemorySize = osmxb.getFreePhysicalMemorySize() / kb;
-        return freePhysicalMemorySize +"M";
+        long freePhysicalMemorySize = (osmxb.getFreePhysicalMemorySize() / kb)/M;
+        return freePhysicalMemorySize +"G";
     }
 }
