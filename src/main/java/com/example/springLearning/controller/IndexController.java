@@ -56,6 +56,7 @@ public class IndexController {
 
         List<Classification> classifications = classificationService.queryClassByFatherName(value);
         model.addAttribute("clazz", classifications);
+
         // 上一次用户选的什么
         model.addAttribute("last",value);
         Classification classification = classificationService.selectClassificationById(value);
@@ -125,7 +126,6 @@ public class IndexController {
         // 加载所有一级目录
         List<Classification> info = classificationService.queryClassInfoByRoot(office.getId(), "菜单分类");
         model.addAttribute("info", info);
-       System.out.println(info + "++++++++++++++++++++++++++++++++++++++++");
         // 加载作者
         User user = userService.selectUserByOfficeId(office.getId());
         model.addAttribute("user", user);

@@ -14,10 +14,10 @@
 <!--head-->
 <div class="top" th:fragment="navigation_1">
     <div class="tops">
-        <div class="topl"><a th:href="@{${application.CDN}}" style="color:#fff;" target="_blank">河北教师教育网</a></div>
+        <div class="topl"><a th:href="@{${application.CDN}}" style="color:#fff;" >河北教师教育网</a></div>
         <div class="topr">
             <ul>
-                <!--<li><a href="http://help.hbte.com.cn:5056/" target="_blank">帮助中心</a></li>-->
+                <!--<li><a href="http://help.hbte.com.cn:5056/" >帮助中心</a></li>-->
                 <li><a th:href="@{${application.CDN}+'login'}">教师登录</a></li>
             </ul>
         </div>
@@ -85,7 +85,7 @@
                             <div class="swiper-slide swiper-slide-active" style="width: 336px;"
                                  th:each=" banner : ${ session.banners }">
                                 <a th:href="@{ ${application.CDN} + 'details/information/' + ${banner.id} }"
-                                   th:attr="title=${banner.title}" target="_blank">
+                                   th:attr="title=${banner.title}" >
                                     <img th:src="${banner.url}">
                                     <p class="swiper_text" th:text="${banner.title}"></p>
                                 </a>
@@ -119,12 +119,12 @@
                             <ul>
 
                                 <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html"
-                                   class="zx_bta" target="_blank">【更多】</a>
+                                   class="zx_bta" >【更多】</a>
 
                                 <li th:each="notice:${session.notice}">
                                     <a th:href="@{${application.CDN}+'details/notice/'+ ${notice.id} }"
                                        th:attr="title=${notice.title}"
-                                       target="_blank">
+                                       >
                                         <i th:text="${notice.title}"></i>
                                         <span th:text="${#dates.format(notice.time,'yyyy-MM-dd')}">2018-09-25</span>
                                     </a>
@@ -134,33 +134,33 @@
                             </ul>
 
                             <a th:href="@{${application.CDN}+'info/notice/1/10'}" class="zx_bta"
-                               target="_blank">【更多】</a></div>
+                               >【更多】</a></div>
 
 
                         <div class="zx_nrs" style="display: none;">
                             <ul>
                                 <li th:each=" policy : ${session.policy}">
                                     <a th:href="@{${application.CDN}+'details/policy/'+ ${policy.id} }"
-                                       th:attr="title=${policy.title}" target="_blank">
+                                       th:attr="title=${policy.title}" >
                                         <i th:text="${policy.title}"></i>
                                         <span th:text="${#dates.format(policy.time,'yyyy-MM-dd')}">2018-12-10</span></a>
                                 </li>
 
                             </ul>
                             <a th:href="@{${application.CDN}+'info/information/1/10'}" class="zx_bta"
-                               target="_blank">【更多】</a>
+                               >【更多】</a>
                         </div>
                         <div class="zx_nrs" style="display: none;">
                             <ul>
                                 <li th:each=" information : ${session.information}"><a
                                         th:href="@{${application.CDN}+'details/information/'+ ${information.id} }"
-                                        th:attr="title=${information.title}" target="_blank">
+                                        th:attr="title=${information.title}" >
                                     <i th:text="${information.title}"></i>
                                     <span th:text="${information.time != null ? #dates.format(information.time,'yyyy-MM-dd'):''}">2018-08-17</span></a>
                                 </li>
                             </ul>
                             <a th:href="@{${application.CDN}+'info/policy/1/10'}" class="zx_bta"
-                               target="_blank">【更多】</a>
+                               >【更多】</a>
                         </div>
                     </div>
                 </div>
@@ -171,13 +171,13 @@
             <div class="part_tit2">
                 <img th:src="@{/images/icon5.jpg}">
                 <h2>工作室活跃度排行</h2>
-                <a th:href="@{${application.CDN}+'info/office/1/12'}" target="_blank">更多&gt;&gt;</a>
+                <a th:href="@{${application.CDN}+'info/office/1/12'}" >更多&gt;&gt;</a>
             </div>
             <div class="ms_main">
                 <ul>
                     <!--[{name=朱光省工作室, num=2, id=310}, {name=冯松杰, num=1, id=318}]-->
                     <a th:each="info , step : ${session.groups}"
-                       th:href="@{${application.CDN}+'index/details/'+${info.id} } " target="_blank">
+                       th:href="@{${application.CDN}+'index/details/'+${info.id} } " >
                         <li>
                             <i id="num1" th:text="${step.index+1}">1</i>
                             <h2 th:text="${info.name}">高俊霞工作室</h2>
@@ -209,7 +209,7 @@
                         <ul>
                             <li th:each=" groupsMore : ${session.groupsMore}">
                                 <a th:href="@{${application.CDN}+'index/details/'+${groupsMore.id} } "
-                                   target="_blank">
+                                   >
                                     <img th:src="@{${groupsMore.url}}"
                                          style="width:100px;height:100px;border-radius:100%">
                                     <p th:text="${groupsMore.name}"></p></a>
@@ -229,7 +229,7 @@
                 <ul>
                     <li th:each="teacher  : ${session.teachers}">
                         <a th:href="@{${application.CDN}+'index/details/'+${teacher.officeId} +'/'+ ${teacher.classInfo} +'/'+${teacher.id} } "
-                           th:attr="title=${teacher.title}" target="_blank">
+                           th:attr="title=${teacher.title}" >
                             <div class="gzs_top">
                                 <div class="gzs_wz">
                                     <div class="gzs_wzt" th:text="${teacher.title}"></div>
@@ -258,7 +258,7 @@
             <div class="ts_mains">
                 <li th:each="achievement : ${session.achievements}">
                     <a th:href="@{${application.CDN}+'index/details/'+${achievement.officeId} +'/'+ ${achievement.classInfo} +'/'+${achievement.id} } "
-                       th:attr="title=${achievement.title}" class="ts_center" target="_blank">
+                       th:attr="title=${achievement.title}" class="ts_center" >
                         <div class="ts_cen_tp">
                             <img th:src="@{${achievement.url}}" style="width:235px;height:175px;">
                         </div>
@@ -329,7 +329,7 @@
 
         <ul>
             <li th:each="dto:${DTO.data}">
-                <a th:href="@{${application.CDN}+'details/'+${key}+'/'+ ${dto.id} }" >
+                <a th:href="@{${application.CDN}+'details/'+${key}+'/'+ ${dto.id} }">
                     <i>&nbsp;</i>
                     <p th:text="${dto.title}"></p>
                     <span th:text=" ${#dates.format(dto.time,'yyyy-MM-dd')} "></span>
@@ -397,7 +397,6 @@
             <div style="float:right; width:93%; overflow:hidden">
 
                 <li th:each="city:${session.city}">
-                    <!--[市辖区, 朔州市, 郑州市]-->
                     <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12' (city=${city}) }" style="color:#666;"
                        th:text="${city}"></a>
                 </li>
@@ -469,7 +468,7 @@
     <ul>
         <li th:each="dto:${DTO.data}">
             <a th:href="@{${application.CDN}+'index/details/'+${dto.id} } "
-               target="_blank">
+               >
                 <div class="list_gzs_tit">
                     <h2 th:text="${dto.name}"></h2>
                     <span th:text="${dto.subjectName}"></span>
@@ -504,7 +503,7 @@
 
         <li th:each=" dto : ${DTO.data} ">
             <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3270.html"
-               title="名师工作室展示观摩课（2）" class="ts_center" target="_blank">
+               title="名师工作室展示观摩课（2）" class="ts_center" >
 
                 <div class="ts_cen_tp">
                     <img th:src="@{${dto.url}}" style="width:230px;height:200px;">
@@ -528,6 +527,7 @@
 
 
 <div class="show_zx" th:fragment="navigation_18" th:utext="${obj.text}">
+
 </div>
 
 <div class="z_ad" th:fragment="navigation_19">
@@ -577,7 +577,7 @@
     <ul>
 
         <li class="active" th:each=" info : ${clazz} " th:attr=" class= ${ info.id == last } ? active : null ">
-            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/37.html">
+            <a th:href="@{${application.CDN}+'index/list/'+${info.office} +'/'+${info.id} + '/1/10' } ">
                 <img th:src="@{${application.CDN}+'images/blue1.jpg'}">
                 <span th:text="${info.name}">教师文章</span>
             </a>
