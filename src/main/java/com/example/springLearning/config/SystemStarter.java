@@ -1,6 +1,7 @@
 package com.example.springLearning.config;
 
 import com.example.springLearning.dao.SystemConfigDao;
+import com.example.springLearning.domain.ArticleService;
 import com.example.springLearning.domain.OfficeService;
 import com.example.springLearning.domain.RoleService;
 import com.example.springLearning.domain.UserService;
@@ -8,6 +9,7 @@ import com.example.springLearning.pojo.Office;
 import com.example.springLearning.pojo.Role;
 import com.example.springLearning.pojo.SystemConfig;
 import com.example.springLearning.pojo.User;
+import com.example.springLearning.util.Parameter;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,20 +25,23 @@ import javax.servlet.http.*;
 public class SystemStarter implements CommandLineRunner {
 
     private final RoleService roleService;
-
     private final UserService userService;
     private final OfficeService officeService;
+    private final ArticleService articleService;
 
     @Autowired
     private SystemConfigDao systemConfigDao;
     @Autowired
     private ServletContext servletContext;
 
+    private Parameter parameter = new Parameter();
+
     @Autowired
-    public SystemStarter(RoleService roleService ,UserService userService ,OfficeService officeService) {
+    public SystemStarter(RoleService roleService , UserService userService , OfficeService officeService ,ArticleService articleService) {
         this.roleService = roleService;
         this.userService = userService;
         this.officeService = officeService;
+        this.articleService = articleService;
     }
 
     @Autowired
@@ -107,6 +112,23 @@ public class SystemStarter implements CommandLineRunner {
         }
 
         System.out.println("系统管理员生成");
+        //初始化系统数据统计
+        Integer officeNum = officeService.selectOfficeCount();
+        servletContext.setAttribute("officeNum",officeNum);
+        Integer articleNum = articleService.selectArticleNum();
+        servletContext.setAttribute("articleNum",articleNum);
+        Integer userNum = userService.selectUserNum();
+        servletContext.setAttribute("userNum",userNum);
+
+        String windows = System.getProperty("os.name");
+        servletContext.setAttribute("windows",windows);
+        String javaVersion = System.getProperty("java.version");
+        servletContext.setAttribute("javaVersion",javaVersion);
+
+        //剩余空间
+        String freeSize = parameter.getFreePhysicalMemorySize();
+        servletContext.setAttribute("freeSize",freeSize);
+
         System.out.println("系统配置完成");
 
     }

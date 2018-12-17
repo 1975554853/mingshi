@@ -194,6 +194,10 @@ public class UserService {
         return true;
     }
 
+    public Integer selectUserNum() {
+        return userDao.selectUserNum();
+    }
+
     public User selectUserByOfficeId(Integer id) {
         User user = userDao.findUserByOfficeId(id);
         return user;

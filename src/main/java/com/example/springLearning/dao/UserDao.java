@@ -47,6 +47,9 @@ public interface UserDao extends CrudRepository<User,Integer> {
     //根据用户角色id获取用户
 //    @Query(value = "  " , nativeQuery = true)
 //    List<User> selectUserByRoleId(Integer roleId);
+   /* //根据用户角色id获取用户
+    @Query(value = "select user.*,user_role.role_id from user left join user_role on user.id = user_role.user_id where user_role.role_id = 2" , nativeQuery = true)
+    List<User> selectUserByRoleId();*/
 
     @Transactional
     @Query(value = "update user set resume_url = ?2 where id = ?1" ,nativeQuery = true)
@@ -63,4 +66,7 @@ public interface UserDao extends CrudRepository<User,Integer> {
 
     @Query( value = " select u.* from office o inner join user_office uo on uo.office_id = o.id inner join user u on u.id = uo.user_id inner join user_role us on u.id = us.user_id inner join role r on r.id = us.role_id where o.id = ?1 and r.value = 'group'  " , nativeQuery = true)
     User findUserByOfficeId(Integer id);
+
+    @Query(value = "select count(*) from user" ,nativeQuery = true)
+    Integer selectUserNum();
 }

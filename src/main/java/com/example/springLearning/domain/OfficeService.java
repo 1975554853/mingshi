@@ -209,6 +209,10 @@ public class OfficeService {
         return list;
     }
 
+    //查询工作室个数
+    public Integer selectOfficeCount() {
+        return officeDao.selectOfficeCount();
+    }
     public Office queryOfficeById(Integer id) {
         officeDao.updateOfficeViewsById(id);
         return officeDao.findById(id).get();

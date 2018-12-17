@@ -260,6 +260,10 @@ public class ArticleService {
         Page<Article> articlePage = articleDao.queryArticleByClassAndOffice(office,clazz,pageable);
         return new DTO(  Integer.valueOf(articlePage.getTotalElements()+"") ,limit , page , articlePage.getContent()  );
     }
+
+    public Integer selectArticleNum() {
+        return articleDao.selectArticleNum();
+    }
 }
 
 

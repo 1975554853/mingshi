@@ -38,4 +38,6 @@ public interface ArticleDao extends CrudRepository<Article, Integer> {
     @Query(value = " select * from article where office = ?1 and classification = ?2 ", nativeQuery = true, countQuery = "select * from article where office = ?1 and classification = ?2")
     Page<Article> queryArticleByClassAndOffice(Office office, Integer clazz, Pageable pageable);
 
+    @Query(value = "select count(*) from article",nativeQuery = true)
+    Integer selectArticleNum();
 }

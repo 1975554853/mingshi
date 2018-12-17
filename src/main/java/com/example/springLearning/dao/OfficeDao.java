@@ -78,6 +78,8 @@ public interface OfficeDao extends CrudRepository<Office, Integer> {
     @Query(value = "update office set article = article + 1 where id = ?1 ", nativeQuery = true)
     Integer updateOfficeArticle(Integer office);
 
+    @Query(value = "select count(*) from office",nativeQuery = true)
+    Integer selectOfficeCount();
     @Transactional
     @Modifying
     @Query(value = "update office set views = views +1 , views_day = views_day +1 "  , nativeQuery = true)
