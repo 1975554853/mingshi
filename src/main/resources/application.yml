@@ -32,4 +32,4 @@ pagehelper:
 server:
   error:
     path: /page/error
-  port: 8009
+  port: 8010
