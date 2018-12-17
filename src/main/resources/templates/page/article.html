@@ -16,29 +16,14 @@
 <!--list-->
 <div class="list_zx">
 
-
-    <div class="positon" th:text=" '首页&gt;' + ${cat.name} ">教师文章</div>
-    <div class="list_nav">
-        <h2 th:text=" ${cat.name} ">工作室教师文章</h2>
-        <ul>
-
-            <li class="active" th:each=" info : ${clazz} " th:attr=" class= ${ info.id == last } ? active : null ">
-                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/37.html">
-                    <img th:src="@{${application.CDN}+'images/blue1.jpg'}">
-                    <span th:text="${info.name}">教师文章</span>
-                </a>
-            </li>
-
-        </ul>
-    </div>
-
+    <div th:replace="page/common :: navigation_21"></div>
+    <div th:replace="page/common :: navigation_22"></div>
 
     <div class="list_center">
-        <div class="list_tit2">
-            <h2 th:text=" ${cat.name} ">教师文章</h2>
-        </div>
-        <div class="show_zx" th:utext="${art.text}">
 
+        <div th:replace="page/common :: navigation_23"></div>
+
+        <div class="show_zx" th:utext="${art.text}">
         </div>
     </div>
 </div>

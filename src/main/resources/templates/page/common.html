@@ -17,7 +17,7 @@
         <div class="topl"><a th:href="@{${application.CDN}}" style="color:#fff;" target="_blank">河北教师教育网</a></div>
         <div class="topr">
             <ul>
-                <li><a href="http://help.hbte.com.cn:5056/" target="_blank">帮助中心</a></li>
+                <!--<li><a href="http://help.hbte.com.cn:5056/" target="_blank">帮助中心</a></li>-->
                 <li><a th:href="@{${application.CDN}+'login'}">教师登录</a></li>
             </ul>
         </div>
@@ -252,7 +252,7 @@
             <h2>成果展示</h2>
             <ul id="tese">
             </ul>
-            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">更多&gt;&gt;</a>
+            <a th:href="@{${application.CDN}+'info/achievements/1/12'}">更多&gt;&gt;</a>
         </div>
         <div class="ts_main">
             <div class="ts_mains">
@@ -329,7 +329,7 @@
 
         <ul>
             <li th:each="dto:${DTO.data}">
-                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/show/id/1491.html">
+                <a th:href="@{${application.CDN}+'details/'+${key}+'/'+ ${dto.id} }" >
                     <i>&nbsp;</i>
                     <p th:text="${dto.title}"></p>
                     <span th:text=" ${#dates.format(dto.time,'yyyy-MM-dd')} "></span>
@@ -468,7 +468,7 @@
 <div class="list_gzs" th:fragment="navigation_15">
     <ul>
         <li th:each="dto:${DTO.data}">
-            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/97.html"
+            <a th:href="@{${application.CDN}+'index/details/'+${dto.id} } "
                target="_blank">
                 <div class="list_gzs_tit">
                     <h2 th:text="${dto.name}"></h2>
@@ -493,7 +493,7 @@
     <h2>成果展示</h2>
     <ul id="tese">
     </ul>
-    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html">更多&gt;&gt;</a>
+    <a th:href="@{${application.CDN}+'info/achievements/1/12'}">更多&gt;&gt;</a>
 </div>
 
 
@@ -553,20 +553,41 @@
 <div class="z_nav" th:fragment="navigation_20">
     <ul>
 
-        <!--<li><a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html">首页</a></li>-->
+        <li><a th:href="@{${application.CDN}+'index/details/'+${office.id} }">首页</a></li>
 
-        <li th:each=" info : ${info} ">
+        <li th:each=" info : ${info} " th:if=" ${ info.name ne '首页' } ">
 
-            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx1/id/11.html"
+            <a th:href=" @{${application.CDN}+'index/list/'+${info.office} + '/'+${info.id} + '/1/10' } "
                th:text="${info.name}">公告</a>
             <div class="cgzs_nav" th:if=" ${info.children != null} ">
                 <div class="nav_cg" th:each=" children : ${info.children} ">
-                    <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_list_zx/id/11.html"
+                    <a th:href="@{${application.CDN}+'index/list/'+${children.office} +'/'+${children.id} + '/1/10' } "
                        th:text="${children.name}"></a>
                     <div>
                     </div>
+                </div>
+            </div>
         </li>
     </ul>
+</div>
+
+<div class="positon" th:text=" '首页&gt;' + ${cat.name} " th:fragment="navigation_21">教师文章</div>
+<div class="list_nav" th:fragment="navigation_22">
+    <h2 th:text=" ${cat.name} ">工作室教师文章</h2>
+    <ul>
+
+        <li class="active" th:each=" info : ${clazz} " th:attr=" class= ${ info.id == last } ? active : null ">
+            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc1/id/37.html">
+                <img th:src="@{${application.CDN}+'images/blue1.jpg'}">
+                <span th:text="${info.name}">教师文章</span>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+<div class="list_tit2" th:fragment="navigation_23">
+    <h2 th:text=" ${cat.name} ">教师文章</h2>
 </div>
 
 </html>

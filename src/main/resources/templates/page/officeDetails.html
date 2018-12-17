@@ -58,8 +58,10 @@
             </div>
             <div class="ljs_main">
                 <ul>
-                    <li th:each="info , step : ${session.groups}"><i id="num1" style="font-weight:normal" th:text="${step.index+1}">1</i><a
-                            href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html" th:text="${info.name}">高俊霞工作室</a>
+                    <li th:each="info , step : ${session.groups}"><i id="num1" style="font-weight:normal"
+                                                                     th:text="${step.index+1}">1</i><a
+                            href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html"
+                            th:text="${info.name}">高俊霞工作室</a>
                         <p><span th:text="${info.follows}">28</span>人关注</p></li>
 
                 </ul>
@@ -82,7 +84,7 @@
 
                             <div th:each=" info : ${articles} " class="swiper-slide swiper-slide-active"
                                  style="width: 356px;">
-                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/1332.html"
+                                <a th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.classification} +'/'+${info.id} } "
                                    th:attr="title=${info.title}" target="_blank">
                                     <img th:src="@{${info.url}}">
                                     <p th:text="${info.title}" class="swiper_text">小学体育“精细化”课堂教学研讨 ——研究...</p>
@@ -105,7 +107,7 @@
                 <div class="z_one_list">
                     <ul>
                         <li th:each=" info : ${articleMore} ">
-                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx/id/333.html"
+                            <a th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.classification} +'/'+${info.id} } "
                                th:attr="title=${info.title}" title="在线系列研讨第二阶段------教学实践 之 体育教师教学过程中的语言表达"
                                target="_blank">
                                 <i th:text=" ${info.title} ">在线系列研讨第二阶段------教学实践 之
@@ -129,8 +131,9 @@
                 <ul>
 
                     <li th:each=" info : ${achievements} " style="height:150px;"><a
-                            href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/2452.html"
-                            th:attr="title=${info.title}"  title="心系工作室 冬日暖关怀——河北民族师范学院教师教育学院张立新书记一行调研纪实" target="_blank">
+                            th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.classification} +'/'+${info.id} } "
+                            th:attr="title=${info.title}" title="心系工作室 冬日暖关怀——河北民族师范学院教师教育学院张立新书记一行调研纪实"
+                            target="_blank">
                         <img th:src="@{${info.url}}" src="./高俊霞工作室-首页_files/5bef533b0759e.jpg">
                         <div class="title" th:text=" ${info.title} ">心系工作室 冬日暖...</div>
                     </a></li>
@@ -149,7 +152,7 @@
                 <div class="jsart_tp"><a
                         href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/730.html"
                         target="_blank">
-                    <img th:src="@{${tp1}}" >
+                    <img th:src="@{${tp1}}">
                 </a>
                 </div>
 
@@ -158,16 +161,17 @@
                     <ul>
 
                         <li th:each=" info : ${t1} ">
-                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/730.html"
+                            <a th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.clazz} +'/'+${info.id} } "
                                th:attr="title=${info.title}" title="踏石过河" target="_blank">
                                 <p th:text=" ${info.title} "> 踏石过河</p>
                                 <i th:text=" ${info.name} ">崔秀香</i>
                                 <span th:text="${#dates.format(info.time,'yyyy-MM-dd')}">2018-10-10</span>
 
-                                <div class="eye" th:text="${info.views}"><img th:src="@{ ${application.CDN+'images/eye.jpg'}}">44</div>
+                                <div class="eye" th:text="${info.views}"><img
+                                        th:src="@{ ${application.CDN+'images/eye.jpg'}}">44
+                                </div>
                             </a>
                         </li>
-
 
 
                     </ul>
@@ -185,13 +189,15 @@
                 <div class="jsart_wz">
                     <ul>
                         <li th:each=" info : ${t2} ">
-                            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/730.html"
+                            <a th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.clazz} +'/'+${info.id} } "
                                th:attr="title=${info.title}" title="踏石过河" target="_blank">
                                 <p th:text=" ${info.title} "> 踏石过河</p>
                                 <i th:text=" ${info.name} ">崔秀香</i>
                                 <span th:text="${#dates.format(info.time,'yyyy-MM-dd')}">2018-10-10</span>
 
-                                <div class="eye" th:text="${info.views}"><img th:src="@{ ${application.CDN+'images/eye.jpg'}}">44</div>
+                                <div class="eye" th:text="${info.views}"><img
+                                        th:src="@{ ${application.CDN+'images/eye.jpg'}}">44
+                                </div>
                             </a>
                         </li>
                     </ul>

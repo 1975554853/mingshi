@@ -6,10 +6,7 @@ import com.example.springLearning.config.SYSTEM_CONFIG;
 import com.example.springLearning.dao.ArticleDao;
 import com.example.springLearning.dao.ClassificationDao;
 import com.example.springLearning.dao.OfficeDao;
-import com.example.springLearning.pojo.Article;
-import com.example.springLearning.pojo.Classification;
-import com.example.springLearning.pojo.DTO;
-import com.example.springLearning.pojo.User;
+import com.example.springLearning.pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
@@ -249,13 +246,19 @@ public class ArticleService {
                 }
         );
 
-        String sql = " select a.id as id , a.url as url , a.views as views , a.title as title , u.username as name , a.date as time  from article a inner join user u on a.author = u.id where a.classification in ( 0 "+ stringBuilder.toString() +" ) limit 0," + limit;
+        String sql = " select a.id as id , a.url as url , a.classification as clazz , a.office as office , a.views as views , a.title as title , u.username as name , a.date as time  from article a inner join user u on a.author = u.id where a.classification in ( 0 "+ stringBuilder.toString() +" ) limit 0," + limit;
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         return list;
     }
 
     public Article selectArticleById(Integer article) {
         return articleDao.findById(article).get();
+    }
+
+    public DTO queryArticle(Office office, Integer clazz, Integer page, Integer limit) {
+        Pageable pageable = PageRequest.of( (page-1)*limit ,limit );
+        Page<Article> articlePage = articleDao.queryArticleByClassAndOffice(office,clazz,pageable);
+        return new DTO(  Integer.valueOf(articlePage.getTotalElements()+"") ,limit , page , articlePage.getContent()  );
     }
 }
 
