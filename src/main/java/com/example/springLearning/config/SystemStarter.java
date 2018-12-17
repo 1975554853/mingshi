@@ -50,7 +50,7 @@ public class SystemStarter implements CommandLineRunner {
         // 读取系统消息
         SystemConfig systemConfig = systemConfigDao.querySystemConfigByKeyWords("url");
         if(systemConfig == null){
-            servletContext.setAttribute("CDN","http://localhost:8080/");
+            servletContext.setAttribute("CDN","http://localhost:8009/");
         }else{
             servletContext.setAttribute("CDN",systemConfig.getContent());
         }
