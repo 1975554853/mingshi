@@ -34,8 +34,6 @@ public class SystemStarter implements CommandLineRunner {
     @Autowired
     private ServletContext servletContext;
 
-    private Parameter parameter = new Parameter();
-
     @Autowired
     public SystemStarter(RoleService roleService , UserService userService , OfficeService officeService ,ArticleService articleService) {
         this.roleService = roleService;
@@ -112,23 +110,6 @@ public class SystemStarter implements CommandLineRunner {
         }
 
         System.out.println("系统管理员生成");
-        //初始化系统数据统计
-        Integer officeNum = officeService.selectOfficeCount();
-        servletContext.setAttribute("officeNum",officeNum);
-        Integer articleNum = articleService.selectArticleNum();
-        servletContext.setAttribute("articleNum",articleNum);
-        Integer userNum = userService.selectUserNum();
-        servletContext.setAttribute("userNum",userNum);
-
-        String windows = System.getProperty("os.name");
-        servletContext.setAttribute("windows",windows);
-        String javaVersion = System.getProperty("java.version");
-        servletContext.setAttribute("javaVersion",javaVersion);
-
-        //剩余空间
-        String freeSize = parameter.getFreePhysicalMemorySize();
-        servletContext.setAttribute("freeSize",freeSize);
-
         System.out.println("系统配置完成");
 
     }

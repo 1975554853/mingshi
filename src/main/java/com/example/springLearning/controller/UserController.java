@@ -3,10 +3,13 @@ package com.example.springLearning.controller;
 import com.example.springLearning.config.SYSTEM_DTO;
 import com.example.springLearning.config.SYSTEM_MESSAGE;
 import com.example.springLearning.config.SYSTEM_CONFIG;
+import com.example.springLearning.domain.ArticleService;
+import com.example.springLearning.domain.OfficeService;
 import com.example.springLearning.domain.RoleService;
 import com.example.springLearning.domain.UserService;
 import com.example.springLearning.pojo.Role;
 import com.example.springLearning.pojo.User;
+import com.example.springLearning.util.Parameter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -16,11 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +35,13 @@ public class UserController {
     @Autowired
     private RoleService roleService;
     @Autowired
+    private OfficeService officeService;
+    @Autowired
+    private ArticleService articleService;
+    @Autowired
     private HttpSession httpSession;
+
+    private Parameter parameter = new Parameter();
 
     @RequestMapping("/login")
     public String login(String username, String password, Model model) {
@@ -49,6 +54,21 @@ public class UserController {
             return "admin/login";
         }
         httpSession.setAttribute("user", SYSTEM_CONFIG.getUser());
+        //初始化系统数据统计
+        Integer officeNum = officeService.selectOfficeCount();
+        httpSession.setAttribute("officeNum",officeNum);
+        Integer articleNum = articleService.selectArticleNum();
+        httpSession.setAttribute("articleNum",articleNum);
+        Integer userNum = userService.selectUserNum();
+        httpSession.setAttribute("userNum",userNum);
+
+        String windows = System.getProperty("os.name");
+        httpSession.setAttribute("windows",windows);
+        String javaVersion = System.getProperty("java.version");
+        httpSession.setAttribute("javaVersion",javaVersion);
+        //剩余空间
+        String freeSize = parameter.getFreePhysicalMemorySize();
+        httpSession.setAttribute("freeSize",freeSize);
 
         return "admin/index";
     }

@@ -48,21 +48,21 @@
                                         <li class="layui-col-xs2">
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>工作室数</h3>
-                                                <p><cite th:text="${application.officeNum}"></cite></p>
+                                                <p><cite th:text="${session.officeNum}"></cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs2">
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>用户数</h3>
                                                 <p>
-                                                    <cite th:text="${application.userNum}"></cite></p>
+                                                    <cite th:text="${session.userNum}"></cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs2">
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>文章数</h3>
                                                 <p>
-                                                    <cite th:text="${application.articleNum}"></cite></p>
+                                                    <cite th:text="${session.articleNum}"></cite></p>
                                             </a>
                                         </li>
                                     </ul>
@@ -80,19 +80,19 @@
                     <tbody>
                         <tr>
                             <th>Java版本</th>
-                            <td th:text="${application.javaVersion}"></td></tr>
+                            <td th:text="${session.javaVersion}"></td></tr>
                         <tr>
                             <th>服务器地址</th>
                             <td th:text="${application.CDN}"></td></tr>
                         <tr>
                             <th>操作系统</th>
-                            <td th:text="${application.windows}"></td></tr>
+                            <td th:text="${session.windows}"></td></tr>
                         <tr>
                             <th>上传附件限制</th>
                             <td>100M</td></tr>
                         <tr>
                             <th>剩余空间</th>
-                            <td th:text="${application.freeSize}"></td></tr>
+                            <td th:text="${session.freeSize}"></td></tr>
                     </tbody>
                 </table>
             </div>
