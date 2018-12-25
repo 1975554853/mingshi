@@ -25,7 +25,7 @@
 </div>
 
 <div class="head" th:fragment="navigation_2">
-    <form id="searchForm" action="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp.html" method="post">
+    <form id="searchForm" th:action="${application.CDN}+'info/information/1/10'" method="get">
         <div class="heads">
             <div class="logo"><a th:href="@{${application.CDN}}"><img src="/page/logo.jpg"></a></div>
             <div class="nav">
@@ -38,14 +38,14 @@
             </div>
             <div class="search">
                 <!--<img src="/Public/Home/img/search.jpg">-->
-                <select id="searchList" style="border:none;border-right:1px solid #999;outline:none;height:30px">
-                    <option value="0">资讯</option>
-                    <option value="1">公告</option>
-                    <option value="2">政策</option>
+                <select name="parm" id="searchList" style="border:none;border-right:1px solid #999;outline:none;height:30px">
+                    <option value="information">资讯</option>
+                    <option value="notice">公告</option>
+                    <option value="policy">政策</option>
                 </select>
-                <input type="text" placeholder="请输入关键词" name="ss" style="margin-left:5px;">
+                <input type="text" placeholder="请输入关键词" name="keyword" style="margin-left:5px;">
                 <a href="javascript:;"><input type="submit" value="确定" style="color:#fff;text-align:right;"></a>
-            </div>
+        </div>
 
 
         </div>

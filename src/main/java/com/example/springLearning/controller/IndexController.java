@@ -184,17 +184,7 @@ public class IndexController {
     @GetMapping("/details/{value}/{id}")
     public String details(@PathVariable String value, @PathVariable Integer id, Model model) {
         String txt = null;
-        switch (value) {
-            case "information":
-                txt = "资讯";
-                break;
-            case "policy":
-                txt = "政策";
-                break;
-            case "notice":
-                txt = "公告";
-                break;
-        }
+        txt = getString(value, txt);
         Object object = articleService.queryArticleById(id);
         model.addAttribute("key", value);
         model.addAttribute("obj", object);
@@ -208,24 +198,15 @@ public class IndexController {
                           @RequestParam(value = "city", required = false) String city,
                           @RequestParam(value = "section", required = false) Integer section,
                           @RequestParam(value = "subject", required = false) Integer subject,
-                          @RequestParam(value = "order", required = false) String order
+                          @RequestParam(value = "order", required = false) String order,
+                          @RequestParam(value = "parm",required = false) String parm,
+                          @RequestParam(value = "keyword", required = false) String keyword
     ) {
 
-        String txt = null;
         DTO dto = null;
+        String txt = returnInfo(value , parm);
+        dto = articleService.queryDTOByClassOrderByDateAndWeight(page,limit,txt,keyword);
         switch (value) {
-            case "information":
-                txt = "资讯";
-                dto = articleService.queryDTOByClassOrderByDateAndWeight(page, limit, txt);
-                break;
-            case "policy":
-                txt = "政策";
-                dto = articleService.queryDTOByClassOrderByDateAndWeight(page, limit, txt);
-                break;
-            case "notice":
-                txt = "公告";
-                dto = articleService.queryDTOByClassOrderByDateAndWeight(page, limit, txt);
-                break;
             case "office":
                 dto = officeService.queryOfficeByPageOrderNum(page, limit, city, section, subject, order);
                 model.addAttribute("key", value);
@@ -237,8 +218,12 @@ public class IndexController {
                 model.addAttribute("DTO", dto);
                 return "page/achievements";
         }
+        if(parm == null){
+            model.addAttribute("key", value);
+        }else{
+            model.addAttribute("key", parm);
+        }
 
-        model.addAttribute("key", value);
         model.addAttribute("txt", txt);
         model.addAttribute("DTO", dto);
         return "page/banners";
@@ -404,5 +389,29 @@ public class IndexController {
     @GetMapping("/user_info")
     public String userInfo() {
         return "admin/user-info";
+    }
+    private String returnInfo(String value, String params){
+        String txt = "资讯";
+        if (params !=null){
+            txt = getString(params, txt);
+        }else {
+            txt = getString(value, txt);
+        }
+        return txt;
+    }
+
+    private String getString(String keyword, String txt) {
+        switch (keyword){
+            case "information":
+                txt = "资讯";
+                break;
+            case "policy":
+                txt = "政策";
+                break;
+            case "notice":
+                txt = "公告";
+                break;
+        }
+        return txt;
     }
 }

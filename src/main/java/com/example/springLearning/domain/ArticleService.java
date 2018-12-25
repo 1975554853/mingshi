@@ -50,11 +50,11 @@ public class ArticleService {
 
     private Map map = new HashMap();
 
-    public DTO queryDTOByClassOrderByDateAndWeight(Integer page, Integer limit, String txt) {
+    public DTO queryDTOByClassOrderByDateAndWeight(Integer page, Integer limit, String txt,String keyword) {
 
         String countSql = "select count(*) as sum from article a inner join classification c on a.classification = c.id where a.type = 0 and c.name = '" + txt + "' and a.office  in (select o.id from office o where o.name = '系统工作室') ";
 
-        String sql = "select a.id as id , a.title as title , a.date as time from article a inner join classification c on a.classification = c.id where a.type = 0 and c.name = '" + txt + "' and a.office  in (select o.id from office o where o.name = '系统工作室') order by a.date desc ";
+        String sql = "select a.id as id , a.title as title , a.date as time from article a inner join classification c on a.classification = c.id where a.type = 0 and c.name = '" + txt + "' and a.office  in (select o.id from office o where o.name = '系统工作室') and a.title like '%"+keyword+"%' order by a.date desc ";
 
         Query queryCount = entityManager.createNativeQuery(countSql);
         List count = queryCount.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
