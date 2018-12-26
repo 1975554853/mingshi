@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
@@ -280,6 +281,10 @@ public class IndexController {
         System.out.println(subject.toString());
 
         return "page/index";
+    }
+    @RequestMapping("/error")
+    public String error(){
+        return "page/error";
     }
 
     @GetMapping("/examine")
