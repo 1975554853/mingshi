@@ -143,10 +143,17 @@ public class OfficeService {
         return officeDao.queryCity();
     }
 
-    public DTO queryOfficeByPageOrderNum(Integer page, Integer limit, String city, Integer section, Integer subject, String order) {
+    public DTO queryOfficeByPageOrderNum(Integer page, Integer limit, String city, Integer section, Integer subject, String order,String sousuo) {
+        String sql = "";
+        String sqlCount = "";
 
-        String sqlCount = " select count(*) as sum from office o where o.name <> '系统工作室' ";
-        String sql = " select * from office where name <> '系统工作室'  ";
+        if (sousuo !=null) {
+            sqlCount = " select count(*) as sum from office o where o.name <> '系统工作室' and name like '%" + sousuo + "%'";
+            sql = " select * from office where name <> '系统工作室'  and name like '%" + sousuo + "%'";
+        }else {
+            sqlCount = " select count(*) as sum from office o where o.name <> '系统工作室' ";
+            sql = " select * from office where name <> '系统工作室' ";
+        }
         if (StringUtils.isNotBlank(city)) {
             sqlCount += " and city = '" + city + "' ";
             sql += " and city = '" + city + "' ";

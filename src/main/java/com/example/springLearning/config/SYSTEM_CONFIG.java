@@ -4,11 +4,7 @@ import com.example.springLearning.dao.ClassificationDao;
 import com.example.springLearning.pojo.User;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

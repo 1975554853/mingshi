@@ -21,8 +21,12 @@ import java.util.Map;
 @RequestMapping("/office")
 public class OfficeController {
 
+    private final OfficeService officeService;
+
     @Autowired
-    private OfficeService officeService;
+    public OfficeController(OfficeService officeService) {
+        this.officeService = officeService;
+    }
 
 //    @GetMapping("/page/{page}/{limit}")
 //    public String officePage(@PathVariable Integer page, @PathVariable Integer limit , Model model){

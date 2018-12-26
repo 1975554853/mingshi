@@ -433,12 +433,13 @@
         </ul>
     </div>
     <div class="sjxz_topd2">
+        <form  th:action="${application.CDN}+'info/office/1/12'" method="get">
         <h2>查找：</h2>
         <input type="text" id="sousuo_1" placeholder="请输入工作室名称" name="sousuo" value=""
                title="宁可少打也不要输错哦！！！">
         <!--<input type="button" id='tijiao' value="搜索" style="width:50px;" title="点击搜索">-->
-        <a href="javascript:filter(&quot;sousuo&quot;,$(&quot;#sousuo_1&quot;).val());"
-           style="color:#666;padding:3px 5px;float: left;font-size: 13px;color: #666;outline: none;border: #bfbfbf 1px solid;background: #f9f9f9;">搜索</a>
+        <a href="javascript:;"><input type="submit" value="搜索"  style="width:55px;color:#666;padding:3px 5px;float: left;font-size: 13px;color: #666;outline: none;border: #bfbfbf 1px solid;background: #f9f9f9;"></a>
+        </form>
     </div>
 </div>
 

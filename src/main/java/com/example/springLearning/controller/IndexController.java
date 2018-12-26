@@ -200,7 +200,8 @@ public class IndexController {
                           @RequestParam(value = "subject", required = false) Integer subject,
                           @RequestParam(value = "order", required = false) String order,
                           @RequestParam(value = "parm",required = false) String parm,
-                          @RequestParam(value = "keyword", required = false) String keyword
+                          @RequestParam(value = "keyword", required = false) String keyword,
+                          @RequestParam(value = "sousuo", required = false) String sousuo
     ) {
 
         DTO dto = null;
@@ -208,7 +209,7 @@ public class IndexController {
         dto = articleService.queryDTOByClassOrderByDateAndWeight(page,limit,txt,keyword);
         switch (value) {
             case "office":
-                dto = officeService.queryOfficeByPageOrderNum(page, limit, city, section, subject, order);
+                dto = officeService.queryOfficeByPageOrderNum(page, limit, city, section, subject, order,sousuo);
                 model.addAttribute("key", value);
                 model.addAttribute("DTO", dto);
                 return "page/office";
@@ -309,6 +310,10 @@ public class IndexController {
     @GetMapping("/office")
     public String office() {
         return "admin/office";
+    }
+    @GetMapping("/office_information")
+    public String officeinformation() {
+        return "admin/office_information";
     }
 
     @GetMapping("/office_add")
