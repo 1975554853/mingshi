@@ -52,12 +52,12 @@ public class SystemStarter implements CommandLineRunner {
 
         // 读取系统消息
         SystemConfig systemConfig = systemConfigDao.querySystemConfigByKeyWords("url");
-//        if(systemConfig == null){
-//            servletContext.setAttribute("CDN","http://localhost:8009/");
-//        }else{
-//            servletContext.setAttribute("CDN",systemConfig.getContent());
-//        }
-        servletContext.setAttribute("CDN","http://localhost:8010/");
+        if(systemConfig == null){
+            servletContext.setAttribute("CDN","http://localhost:8009/");
+        }else{
+            servletContext.setAttribute("CDN",systemConfig.getContent());
+        }
+//        servletContext.setAttribute("CDN","http://localhost:8010/");
         System.out.println("系统消息读取成功");
 
         // 判断系统角色是否正常
