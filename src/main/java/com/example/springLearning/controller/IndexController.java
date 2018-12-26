@@ -282,10 +282,7 @@ public class IndexController {
 
         return "page/index";
     }
-    @RequestMapping("/error")
-    public String error(){
-        return "page/error";
-    }
+
 
     @GetMapping("/examine")
     public String examine() {
@@ -374,6 +371,10 @@ public class IndexController {
     @GetMapping("/article_add")
     public String article_add() {
         return "admin/article_add";
+    }
+    @GetMapping("/officeadd")
+    public String officeAdd() {
+        return "admin/officeadd";
     }
 
     @GetMapping("/resume")
