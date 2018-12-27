@@ -6,6 +6,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.springLearning.pojo.LearningSection;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +26,7 @@ import java.util.List;
  **/
 
 @Service
-
+@CacheConfig(cacheNames = "sectionService")
 public class SectionService {
 
     @Autowired
@@ -33,6 +37,7 @@ public class SectionService {
      * @param name  学段名
      * @return  OK / error
      */
+    @CachePut
     public String insertSection(String name) {
         LearningSection ls = new LearningSection();
         ls.setName(name);
@@ -50,7 +55,7 @@ public class SectionService {
      * @param limit
      * @return
      */
-
+@Cacheable
     public HashMap selectSection(Integer page, Integer limit) {
         PageHelper.startPage(page,limit);
         List<LearningSection> sections = sectionDao.selectSections();
@@ -70,6 +75,7 @@ public class SectionService {
      * @param key
      * @return
      */
+    @CachePut
     public boolean updateSection(int key){
         try{
             Integer line = sectionDao.upadateSection(key);
@@ -82,6 +88,7 @@ public class SectionService {
         return false;
     }
     //修改字段名
+    @CachePut
     public boolean updateSection(int id,String name) {
 
      try{
@@ -103,6 +110,7 @@ public class SectionService {
      * @author zgs
      * 展示学段
      */
+    @Cacheable
     public boolean showSection(int key){
         try{
             Integer line = sectionDao.showSection(key);
@@ -121,6 +129,7 @@ public class SectionService {
      * @return
      * 通过key(id)删除学段
      */
+    @CacheEvict
     public boolean deleteSectionById(int key){
         try {
             Integer line = sectionDao.deleteSectionById(key);
@@ -133,6 +142,7 @@ public class SectionService {
         return false;
     }
 
+    @Cacheable
     public HashMap selectAllSection() {
         HashMap hashMap = new HashMap();
         List<LearningSection> sections = sectionDao.selectSections();
@@ -140,6 +150,7 @@ public class SectionService {
         return hashMap;
     }
 
+    @Cacheable
     public List querySectionName() {
         return sectionDao.selectSections();
     }

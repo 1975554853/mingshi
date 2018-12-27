@@ -2,6 +2,7 @@ package com.example.springLearning.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -20,7 +21,15 @@ public class ShiroConfiguration {
     }
 
     @Bean
+    public EhCacheManager ehCacheManager(){
+        EhCacheManager cacheManager = new EhCacheManager();
+        cacheManager.setCacheManagerConfigFile("classpath:config/ehcache-shiro.xml");
+        return cacheManager;
+    }
+
+    @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
+
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String,String> defaultFilterMap = new LinkedHashMap<>();
@@ -30,32 +39,7 @@ public class ShiroConfiguration {
         defaultFilterMap.put("/login","anon");
         defaultFilterMap.put("/user/login","anon");
         defaultFilterMap.put("/page/**","anon");
-//        defaultFilterMap.put("/admin/css/**","anon");
-//        defaultFilterMap.put("/admin/player/**","anon");
-//        defaultFilterMap.put("/admin/js/**","anon");
-//        defaultFilterMap.put("/admin/images/**","anon");
-//        defaultFilterMap.put("/admin/fonts/**","anon");
-//        defaultFilterMap.put("/admin/lib/**","anon");
-//        defaultFilterMap.put("/admin/**","roles[administrator]");
-//
-//        defaultFilterMap.put("/index","anon");
-//        defaultFilterMap.put("/register","anon");
-//        defaultFilterMap.put("/sendCode","anon");
-//
-//        defaultFilterMap.put("/video","anon");
-//        defaultFilterMap.put("/video/dir/*","anon");
-//        defaultFilterMap.put("/video_detail/**","anon");
-//        defaultFilterMap.put("/video/**","authc");
-//
-//        defaultFilterMap.put("/css/**","anon");
-//        defaultFilterMap.put("/fonts/**","anon");
-//        defaultFilterMap.put("/img/**","anon");
-//        defaultFilterMap.put("/js/**","anon");
-//        defaultFilterMap.put("/player/**","anon");
-//        defaultFilterMap.put("/imageCode/**","anon");
-//        defaultFilterMap.put("/images/**","anon");
         shiroFilterFactoryBean.setLoginUrl("/login");
-//        shiroFilterFactoryBean.setSuccessUrl("/video");
         shiroFilterFactoryBean.setUnauthorizedUrl("/login");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(defaultFilterMap);
@@ -66,6 +50,7 @@ public class ShiroConfiguration {
     public SecurityManager securityManager(){
         DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
         defaultSecurityManager.setRealm(myShiroRealm());
+        defaultSecurityManager.setCacheManager(ehCacheManager());
         return defaultSecurityManager;
     }
 

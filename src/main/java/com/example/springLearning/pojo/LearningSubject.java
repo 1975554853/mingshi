@@ -3,6 +3,7 @@ package com.example.springLearning.pojo;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 学科实体类
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table
 @Data
-public class LearningSubject {
+public class LearningSubject implements Serializable {
     @Id
     @GeneratedValue
     private int id;

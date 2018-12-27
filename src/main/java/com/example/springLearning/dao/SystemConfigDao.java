@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SystemConfigDao extends CrudRepository<SystemConfig,Integer> {
 
-    public SystemConfig querySystemConfigByKeyWords(String key);
+     SystemConfig querySystemConfigByKeyWords(String key);
 
 }

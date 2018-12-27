@@ -10,11 +10,12 @@
     <script type="text/javascript" th:src="@{${application.CDN}+'/page/swiper.min.js'}"></script>
 </head>
 
-
 <!--head-->
 <div class="top" th:fragment="navigation_1">
     <div class="tops">
-        <div class="topl"><a th:href="@{${application.CDN}}" style="color:#fff;" >河北教师教育网</a></div>
+        <div class="topl">
+            <!--<a th:href="@{${application.CDN}}" style="color:#fff;" >河北教师教育网</a>-->
+        </div>
         <div class="topr">
             <ul>
                 <!--<li><a href="http://help.hbte.com.cn:5056/" >帮助中心</a></li>-->
@@ -27,7 +28,9 @@
 <div class="head" th:fragment="navigation_2">
     <form id="searchForm" th:action="${application.CDN}+'info/information/1/10'" method="get">
         <div class="heads">
-            <div class="logo"><a th:href="@{${application.CDN}}"><img src="/page/logo.jpg"></a></div>
+            <div class="logo">
+                <!--<a th:href="@{${application.CDN}}"><img src="/page/logo.jpg"></a>-->
+            </div>
             <div class="nav">
                 <ul>
                     <li><a th:href="@{${application.CDN}}">首页</a></li>
@@ -198,7 +201,7 @@
         <div class="index_main">
             <div class="part_tit">
                 <img th:src="@{/images/icon1.jpg}">
-                <h2>省级名师工作室</h2>
+                <h2>名师工作室</h2>
                 <a th:href="@{${application.CDN}+'info/office/1/12'}">更多&gt;&gt;</a>
             </div>
             <div class="sjxz">
@@ -280,11 +283,11 @@
 
 <!--foot-->
 <div class="foot" th:fragment="navigation_7">
-    <div class="foot_bq">版权所有©河北省中小学教师继续教育中心</div>
+    <div class="foot_bq">版权所有©渑池县职业中等专业学校</div>
     <div class="foot_list">
-        <p>地址：河北省石家庄市红旗大街469号</p>
-        <p>邮编：050091</p>
-        <p>冀ICP备09022130号-6 &nbsp;
+        <p>地址：渑池县黄河路与桥东路交叉口</p>
+        <!--<p>邮编：050091</p>-->
+        <p>豫ICP备09022130号-6 &nbsp;
             <span id="cnzz_stat_icon_1274865269">
                 <img border="0" hspace="0" vspace="0" th:src="@{/images/pic.gif}"></span>
         </p>
@@ -389,21 +392,21 @@
 
 <div class="sjxz_top2" th:fragment="navigation_13">
 
-    <div class="sjxz_topa2">
-        <h2>区域：</h2>
-        <ul>
-            <li style="float:left;" class="active"><a href="javascript:filter(&#39;quyu&#39;,&#39;&#39;)" id="quyu_all"
-                                                      style="color:#666;">不限</a></li>
-            <div style="float:right; width:93%; overflow:hidden">
+    <!--<div class="sjxz_topa2">-->
+        <!--<h2>区域：</h2>-->
+        <!--<ul>-->
+            <!--<li style="float:left;" class="active"><a href="javascript:filter(&#39;quyu&#39;,&#39;&#39;)" id="quyu_all"-->
+                                                      <!--style="color:#666;">不限</a></li>-->
+            <!--<div style="float:right; width:93%; overflow:hidden">-->
 
-                <li th:each="city:${session.city}">
-                    <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12' (city=${city}) }" style="color:#666;"
-                       th:text="${city}"></a>
-                </li>
+                <!--<li th:each="city:${session.city}">-->
+                    <!--<a th:href="@{${application.CDN} +'info/'+${key}+'/1/12' (city=${city}) }" style="color:#666;"-->
+                       <!--th:text="${city}"></a>-->
+                <!--</li>-->
 
-            </div>
-        </ul>
-    </div>
+            <!--</div>-->
+        <!--</ul>-->
+    <!--</div>-->
     <div class="sjxz_topb2">
         <h2>学段：</h2>
         <ul>

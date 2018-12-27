@@ -27,7 +27,6 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        
         String username = (String) authenticationToken.getPrincipal();
         // 获取身份证
         User user = userDao.queryUserByCard(username);
@@ -46,8 +45,6 @@ public class ShiroRealm extends AuthorizingRealm {
         Set<String> roles = roleDao.queryRoleNameByUserId(user.getId());
         System.out.println(roles.toString());
         authorizationInfo.setRoles(roles);
-//        Set<String> permissions = permissionService.queryPermissionByUser(user);
-//        authorizationInfo.setStringPermissions(permissions);
         return authorizationInfo;
     }
 

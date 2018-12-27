@@ -5,6 +5,10 @@ import com.example.springLearning.pojo.LearningSubject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,6 +20,7 @@ import java.util.List;
  * @author wgb
  */
 @Service
+@CacheConfig(cacheNames = "subjectService")
 public class SubjectService {
     @Autowired
     private SubjectDao subjectDao;
@@ -26,6 +31,7 @@ public class SubjectService {
      * @param name
      * @return
      */
+    @CachePut
     public HashMap insertSubject(String name) {
         LearningSubject learningSubject = new LearningSubject();
         learningSubject.setName(name);
@@ -47,6 +53,7 @@ public class SubjectService {
      * @return
      * @author wgb
      */
+    @CachePut
     public HashMap updateSubjectToDisplay(int id) {
         HashMap hashMap = new HashMap<>();
         if (subjectDao.updateStatus(id, 1) > 0) {
@@ -64,6 +71,7 @@ public class SubjectService {
      * @return
      * @author wgb
      */
+    @CachePut
     public HashMap updateSubjectToShow(int id) {
         HashMap hashMap = new HashMap<>();
         if (subjectDao.updateStatus(id, 0) > 0) {
@@ -79,6 +87,7 @@ public class SubjectService {
      * @param limit
      * @return 查询学科
      */
+    @Cacheable
     public HashMap selectSubject(Integer page, Integer limit) {
         HashMap hashMap = new HashMap();
         try {
@@ -98,6 +107,7 @@ public class SubjectService {
     }
 
     //查询展示的学科
+    @Cacheable
     public HashMap selSubject() {
         HashMap hashMap = new HashMap();
         try {
@@ -112,6 +122,7 @@ public class SubjectService {
     }
 
     //删除学科
+    @CacheEvict
     public boolean dropSubjectid(Integer id) {
 
         try {
@@ -125,6 +136,7 @@ public class SubjectService {
         return false;
     }
 
+    @Cacheable
     public List querySubjectName() {
        return subjectDao.selectSubject();
     }

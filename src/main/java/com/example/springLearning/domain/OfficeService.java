@@ -7,26 +7,25 @@ import com.example.springLearning.dao.OfficeDao;
 import com.example.springLearning.pojo.Classification;
 import com.example.springLearning.pojo.DTO;
 import com.example.springLearning.pojo.Office;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@CacheConfig(cacheNames = "officeService")
 public class OfficeService {
 
     @Autowired
@@ -45,6 +44,7 @@ public class OfficeService {
 
     @Transactional
     @Modifying
+    @CachePut
     public boolean insertOffice(Office office) {
         try {
             Office o = officeDao.save(office);
@@ -64,7 +64,7 @@ public class OfficeService {
         }
     }
 
-
+    @Cacheable
     //查询所有office
     public Map selectOffice(Integer page, Integer limit) {
 
@@ -83,6 +83,7 @@ public class OfficeService {
 
     }
 
+    @CacheEvict
     //删除office
     public boolean deleteOffice(Integer id) {
         HashMap hashMap = new HashMap();
@@ -97,6 +98,8 @@ public class OfficeService {
         return false;
     }
 
+    @Cacheable
+
     public List<Office> selectOffice() {
         return officeDao.selectOfficeNoState();
     }
@@ -106,6 +109,8 @@ public class OfficeService {
      *
      * @return
      */
+    @Cacheable
+
     public HashMap selectAllOffice() {
         HashMap hashMap = new HashMap();
         List<Office> offices = officeDao.selectOffice();
@@ -113,9 +118,13 @@ public class OfficeService {
         return hashMap;
     }
 
+    @Cacheable
+
     public Office queryOfficeByName(String name) {
         return officeDao.queryOfficeByName(name);
     }
+
+    @Cacheable
 
     public Integer getOfficeId(Office office) {
         try {
@@ -134,23 +143,29 @@ public class OfficeService {
         }
     }
 
+    @Cacheable
+
     public List queryOfficeByNum(Integer limit) {
         String sql = "select * from office where name <> '系统工作室' order by follows desc limit " + limit;
         return entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
     }
 
+    @Cacheable
+
     public List queryCity() {
         return officeDao.queryCity();
     }
 
-    public DTO queryOfficeByPageOrderNum(Integer page, Integer limit, String city, Integer section, Integer subject, String order,String sousuo) {
+    @Cacheable
+
+    public DTO queryOfficeByPageOrderNum(Integer page, Integer limit, String city, Integer section, Integer subject, String order, String sousuo) {
         String sql = "";
         String sqlCount = "";
 
-        if (sousuo !=null) {
+        if (sousuo != null) {
             sqlCount = " select count(*) as sum from office o where o.name <> '系统工作室' and name like '%" + sousuo + "%'";
             sql = " select * from office where name <> '系统工作室'  and name like '%" + sousuo + "%'";
-        }else {
+        } else {
             sqlCount = " select count(*) as sum from office o where o.name <> '系统工作室' ";
             sql = " select * from office where name <> '系统工作室' ";
         }
@@ -204,6 +219,8 @@ public class OfficeService {
 
     }
 
+    @Cacheable
+
     public List<Integer> getAllChildren(Integer achievements, List list) {
         List<Integer> children = classificationDao.queryClassIdByFatherId(achievements);
         System.out.println(children.toString() + "第一层子节点");
@@ -216,10 +233,15 @@ public class OfficeService {
         return list;
     }
 
+    @Cacheable
+
     //查询工作室个数
     public Integer selectOfficeCount() {
         return officeDao.selectOfficeCount();
     }
+
+    @Cacheable
+
     public Office queryOfficeById(Integer id) {
         officeDao.updateOfficeViewsById(id);
         return officeDao.findById(id).get();

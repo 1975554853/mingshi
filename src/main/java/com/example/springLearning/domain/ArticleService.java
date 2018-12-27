@@ -13,6 +13,9 @@ import org.apache.shiro.SecurityUtils;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +36,7 @@ import java.util.*;
  * @Version 1.0
  **/
 @Service
+@CacheConfig(cacheNames = "articleService")
 public class ArticleService {
 
     @Autowired
@@ -50,6 +54,7 @@ public class ArticleService {
 
     private Map map = new HashMap();
 
+    @Cacheable
     public DTO queryDTOByClassOrderByDateAndWeight(Integer page, Integer limit, String txt,String keyword) {
 
         String countSql = "select count(*) as sum from article a inner join classification c on a.classification = c.id where a.type = 0 and c.name = '" + txt + "' and a.office  in (select o.id from office o where o.name = '系统工作室') ";
@@ -69,6 +74,7 @@ public class ArticleService {
 
     @Transactional
     @Modifying
+    @CachePut
     public SYSTEM_DTO saveArticle(Article article) {
 
         Integer achievements = classificationDao.queryClassificationByOffice(article.getOffice(), "成果展示");
@@ -110,6 +116,7 @@ public class ArticleService {
         }
     }
 
+    @Cacheable
     public Map selectArticle(Integer page, Integer limit, Integer type) {
         Map<String, Object> map = new HashMap<>();
         StringBuilder sql = new StringBuilder(" select a.title , u.id   , a.id as author , u.username  ,a.type , c.name as className , c.id as classId from article a inner join user u on a.author = u.id inner join classification c on c.id = a.classification where a.type = ");
@@ -131,7 +138,7 @@ public class ArticleService {
         PageInfo pageInfo = new PageInfo(list);
         return SYSTEM_CONFIG.page(pageInfo);
     }
-
+    @Cacheable
     public Map selectNoExamine(Integer page, Integer limit) {
         Map<String, Object> map = new HashMap<>();
         StringBuilder sql = new StringBuilder(" select a.title , u.id as authorId  , a.id as id , u.username  ,a.type , c.name as className , a.text as txt ,  c.id as classId from article a inner join user u on a.author = u.id inner join classification c on c.id = a.classification where 1=1 and a.type = 1");
@@ -160,13 +167,13 @@ public class ArticleService {
         }
         return map1;
     }
-
+    @Cacheable
     public List selectArticleByTopAndOrderWeight(String name, Integer limit) {
         String sql = "select  concat(s.name,j.name) as subjectName , f.id as officeId ,  a.id as id , f.name as officeName , a.url as url , a.title as title , c.office as office , c.id as classInfo from article a inner join classification c on a.classification = c.id inner join office f on f.id = a.office left join learning_section s on s.id = f.section_id left join learning_subject j on j.id = f.subject where c.name = '" + name + "' and c.office not in (select o.id from office o where o.name = '系统工作室') order by a.weight , a.id desc limit  " + limit;
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         return list;
     }
-
+    @Cacheable
     public Map selectSystemArticle(Integer page, Integer limit) {
 
         String countSql = "select COUNT(*) as sum from article a   inner join user u on a.author = u.id inner join classification c on c.id = a.classification where c.office in (select o.id  from office o where o.name = '系统工作室') ";
@@ -181,13 +188,13 @@ public class ArticleService {
         return SYSTEM_CONFIG.getPage(total, list, 0);
 
     }
-
+    @Cacheable
     public List selectArticleByNoticeAndOrderWeight(String name) {
         String sql = "select a.id as id , a.date as time , a.url as url , a.title as title , c.office as office , c.id as classInfo from article a inner join classification c on a.classification = c.id where c.name = '" + name + "' and c.office in (select o.id from office o where o.name = '系统工作室') order by a.weight , a.id desc limit 8 ";
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         return list;
     }
-
+    @Cacheable
     public DTO querAchievementsOrderByDate(Integer page, Integer limit) {
         // 查询所有符合条件的ID
         Set<Integer> integers = classificationDao.getAllChildrenByFatherId("成果展示");
@@ -214,11 +221,11 @@ public class ArticleService {
             }
         });
     }
-
+    @Cacheable
     public Object queryArticleById(Integer id) {
         return articleDao.findById(id).get();
     }
-
+    @Cacheable
     public List<Article> selectArticlesOrderDate(Integer id, String type ,Integer limit) {
 
         Set<Integer> set = classificationService.queryClassInfoByChildren(id, type);
@@ -236,7 +243,7 @@ public class ArticleService {
                     }
                 });
     }
-
+    @Cacheable
     public List selectArticlesOrderDateAndTeacherName(Integer id, String  type , Integer limit ) {
         Set<Integer> set = classificationService.queryClassInfoByChildren(id, type);
         StringBuilder stringBuilder = new StringBuilder();
@@ -250,17 +257,17 @@ public class ArticleService {
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         return list;
     }
-
+    @Cacheable
     public Article selectArticleById(Integer article) {
         return articleDao.findById(article).get();
     }
-
+    @Cacheable
     public DTO queryArticle(Office office, Integer clazz, Integer page, Integer limit) {
         Pageable pageable = PageRequest.of( (page-1)*limit ,limit );
         Page<Article> articlePage = articleDao.queryArticleByClassAndOffice(office,clazz,pageable);
         return new DTO(  Integer.valueOf(articlePage.getTotalElements()+"") ,limit , page , articlePage.getContent()  );
     }
-
+    @Cacheable
     public Integer selectArticleNum() {
         return articleDao.selectArticleNum();
     }

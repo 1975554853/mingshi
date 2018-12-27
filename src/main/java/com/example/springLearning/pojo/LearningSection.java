@@ -3,6 +3,7 @@ package com.example.springLearning.pojo;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author fly
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table
 @Data
-public class LearningSection {
+public class LearningSection implements Serializable {
 
     @Id
     @GeneratedValue

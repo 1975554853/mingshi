@@ -3,6 +3,7 @@ package com.example.springLearning.pojo;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table
 @Data
-public class Office {
+public class Office implements Serializable {
 
     @Id
     @GeneratedValue

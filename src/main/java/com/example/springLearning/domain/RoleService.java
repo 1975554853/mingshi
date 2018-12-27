@@ -5,6 +5,10 @@ import com.example.springLearning.pojo.Role;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,6 +19,7 @@ import java.util.Map;
  * 角色管理
  */
 @Service
+@CacheConfig(cacheNames = "roleService")
 public class RoleService {
     @Autowired
     private RoleDao roleDao;
@@ -24,6 +29,7 @@ public class RoleService {
      * @param name
      * @return
      */
+    @CachePut
     public HashMap insertRole(String name) {
         HashMap hashMap = new HashMap();
         Role role = new Role();
@@ -40,6 +46,7 @@ public class RoleService {
      * 根据角色实体添加角色
      * @author wgb
      */
+    @CachePut
     public void insertRoleByEntity(Role role){
         roleDao.insertRole(role.getId(), role.getName(),role.getValue());
     }
@@ -48,6 +55,7 @@ public class RoleService {
      * 分页获取角色
      * @author wgb
      */
+    @Cacheable
     public HashMap selectRolesByPage(Integer page, Integer limit) {
         HashMap hashMap = new HashMap();
         PageHelper.startPage(page,limit);
@@ -65,6 +73,7 @@ public class RoleService {
      * 根据ID删除角色
      * @author wgb
      */
+    @CacheEvict
     public HashMap deleteRoleById(Integer id) {
         HashMap hashMap = new HashMap();
         if(roleDao.deleteRoleById(id) > 0){
@@ -81,6 +90,7 @@ public class RoleService {
      * 获取全部角色
      * @author wgb
      */
+    @Cacheable
     public HashMap selectRoles() {
         HashMap hashMap = new HashMap();
         List<Role> roles = roleDao.selectAllRoles();
@@ -93,6 +103,7 @@ public class RoleService {
      * @param name
      * @return
      */
+    @Cacheable
     public HashMap<String, Role> selectRoleByName(String name) {
         HashMap<String, Role> hashMap = new HashMap<>();
         Role result = roleDao.queryRoleByName(name);
@@ -104,17 +115,7 @@ public class RoleService {
         roleDao.deleteAll();
     }
 
-    public Map selectRole(Integer page, Integer limit) {
-        Map<String, Object> map = new HashMap<>();
-        PageHelper.startPage(page,limit);
-        List<Role> roles = roleDao.selectRole();
-        PageInfo<Role> pageInfo = new PageInfo<>(roles);
-        map.put("total",pageInfo.getTotal());
-        map.put("data",pageInfo.getList());
-        map.put("status",0);
-        return map;
-    }
-
+    @Cacheable
     public Object selectSel() {
         List<Role> roles = roleDao.selectRole();
         Map map = new HashMap();
@@ -122,7 +123,7 @@ public class RoleService {
         return map;
     }
 
-
+@CachePut
     public boolean isRoleIsExists() {
         for (int i = 1; i <3 ; i++) {
             Role role = roleDao.queryRoleById(i);

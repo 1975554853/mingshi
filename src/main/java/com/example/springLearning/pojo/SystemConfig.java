@@ -3,6 +3,7 @@ package com.example.springLearning.pojo;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @ClassName SystemConfig
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Table
 @Entity
 @Data
-public class SystemConfig {
+public class SystemConfig implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

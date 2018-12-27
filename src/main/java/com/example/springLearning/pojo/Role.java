@@ -3,6 +3,7 @@ package com.example.springLearning.pojo;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity
 @Table
 @Data
-public class Role {
+public class Role implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;

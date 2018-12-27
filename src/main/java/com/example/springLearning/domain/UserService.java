@@ -17,6 +17,10 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +36,7 @@ import java.util.Map;
  * @author wgb
  */
 @Service
+@CacheConfig(cacheNames = "userService")
 public class UserService {
     @Autowired
     private UserDao userDao;
@@ -50,6 +55,7 @@ public class UserService {
      * @param user
      * @return
      */
+    @CachePut
     public HashMap<String, String> insertUser(User user) {
         HashMap<String, String> hashMap = new HashMap<>();
         String type = "";
@@ -82,6 +88,7 @@ public class UserService {
 
     @Transactional
     @Modifying
+    @CachePut
     public boolean saveUser(User user, Integer role) {
         if( null == role ){
             role = 3;
@@ -108,6 +115,7 @@ public class UserService {
         }
     }
 
+    @Cacheable
     public Map<String, Object> selectUser(Integer page, Integer limit) {
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(page, limit);
@@ -130,6 +138,7 @@ public class UserService {
         return SYSTEM_CONFIG.page(pageInfo);
     }
 
+    @CacheEvict
     public boolean deleteUser(Integer key) {
         try {
             userDao.deleteById(key);
@@ -141,38 +150,17 @@ public class UserService {
     }
 
 
-    /**
-     * 分页获取教师数据
-     *
-     * @param page
-     * @param limit
-     * @return
-     */
-    public HashMap selectTeacherByPage(Integer page, Integer limit) {
-        HashMap hashMap = new HashMap();
-        PageHelper.startPage(page, limit);
-        List<User> teachers = userDao.selectUserByRole("教师");
-        PageInfo<User> pageInfo = new PageInfo<>(teachers);
-        hashMap.put("status", 0);
-        hashMap.put("message", "");
-        hashMap.put("total", pageInfo.getTotal());
-        hashMap.put("data", pageInfo.getList());
-        return hashMap;
-    }
+
 
     // 查询工作室和工作室管理员
+    @Cacheable
     public List selectUserByRoleId() {
         String sql = "select u.office_id as office , u.username , u.head_photo_url as url , o.name as officeName from user_role ur inner join user u  on ur.user_id = u.id inner join office o on u.office_id = o.id where ur.role_id = 2 ";
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
         return list;
     }
 
-
-    public User selectUserById(int id) {
-
-        return null;
-    }
-
+    @CachePut
     public boolean updateUserUrl(String s) {
         try {
             userDao.updateUserUrlById(SYSTEM_CONFIG.getUser().getId(), s);
@@ -183,10 +171,11 @@ public class UserService {
         }
     }
 
+    @Cacheable
     public User selectUserByCard(String card) {
         return userDao.queryUserByCard(card);
     }
-
+    @Cacheable
     public boolean selectUserIsExitsByCard(String card) {
         User user = userDao.queryUserByCard(card);
         if (null == user) {
@@ -200,6 +189,7 @@ public class UserService {
      * @param id
      * @return
      */
+    @Cacheable
     public HashMap selectUserInfoById(Integer id) {
         HashMap hashMap = new HashMap();
         String queryStr = "select u.*,ofals.of_name as offName,ofals.sec_id as secId, ofals.sec_name as secName, ofals.sub_id as subId, ofals.sub_name as subName from user as u inner join (select of.id as of_id,of.name as of_name,ls.id as sec_id,ls.name as sec_name,lsu.id as sub_id, lsu.name as sub_name from office as of,learning_section as ls,learning_subject as lsu where of.section_id=ls.id and of.subject=lsu.id) as ofals on u.office_id=ofals.of_id where u.id="+id;
@@ -224,6 +214,7 @@ public class UserService {
      * @param password
      * @return
      */
+    @CachePut
     public HashMap updateUserPassword(Integer id, String password, String username) {
         HashMap hashMap = new HashMap();
         String md5Pass = new SimpleHash("md5", password, username, 5).toHex();
@@ -235,10 +226,12 @@ public class UserService {
         return hashMap;
     }
 
+    @Cacheable
     public Integer selectUserNum() {
         return userDao.selectUserNum();
     }
 
+    @Cacheable
     public User selectUserByOfficeId(Integer id) {
         User user = userDao.findUserByOfficeId(id);
         return user;
