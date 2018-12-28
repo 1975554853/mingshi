@@ -47,12 +47,14 @@
     <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
 
     <script type="text/html" id="barDemo">
-        {{#  if(d.state == 0){ }}
+        <!-- {{#  if(d.state == 0){ }}
         <a class="layui-btn layui-btn-xs" lay-event="edit">正常</a>
         {{#  }else{              }}
         <a class="layui-btn layui-btn layui-btn-warm layui-btn-xs" lay-event="hide">隐藏</a>
-        {{#  }                   }}
+        {{#  }                   }} -->
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="update">修改</a>
+    
     </script>
 
 
@@ -71,7 +73,7 @@
             }
             $.post('/subject/add', {name: data.field.cate_name}, function (res) {
                 updateMessage(res);
-            }, 'SYSTEMDTO');
+            }, 'json');
             return false;
         });
         //方法级渲染
@@ -83,7 +85,7 @@
                     {checkbox: true, fixed: true}
                     // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
                     , {field: 'id', title: 'ID', width: 250, align: 'center'}
-                    , {field: 'name', title: '学段名称', width: 250, align: 'center'}
+                    , {field: 'name',edit: 'text', title: '学段名称', width: 250, align: 'center'}
                     , {width: 320, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
                 ]
             ]
@@ -104,15 +106,19 @@
             if (obj.event === 'edit') {
                 $.post("/subject/delete", {id:data.id}, function (res) {
                     updateMessage(res)
-                }, "SYSTEMDTO");
+                }, "json");
             }else if (obj.event === 'drop') {
                 $.post("/subject/drop", {id: data.id}, function (res) {
                     updateMessage(res);
-                }, "SYSTEMDTO");
+                }, "json");
             }else if(obj.event === 'hide'){
                 $.post("/subject/show", {id: data.id}, function (res) {
                     updateMessage(res);
-                }, "SYSTEMDTO");
+                }, "json");
+            }else if( obj.event === 'update' ){
+                $.post("/subject/update", {id: data.id,name:data.name}, function (res) {
+                    updateMessage(res);
+                }, "json");   
             }
         });
 

@@ -186,7 +186,7 @@ public class ArticleService {
         Integer total = Integer.valueOf(((Map) count.get(0)).get("sum").toString());
 
 
-        String sql = " select a.title, u.id, a.id as author, u.username,a.type, c.name as className, c.id as classId from article a   inner join user u on a.author = u.id inner join classification c on c.id = a.classification where c.office in (select o.id  from office o where o.name = '系统工作室') ";
+        String sql = " select a.title, u.id, a.id as author, u.username,a.type, c.name as className, c.id as classId from article a   inner join user u on a.author = u.id inner join classification c on c.id = a.classification where c.office in (select o.id  from office o where o.name = '系统工作室') limit "+(page-1)*limit+" , "+limit;
         List list = entityManager.createNativeQuery(sql).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
 
         return SYSTEM_CONFIG.getPage(total, list, 0);

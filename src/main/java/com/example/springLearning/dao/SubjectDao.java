@@ -46,4 +46,9 @@ public interface SubjectDao extends CrudRepository<LearningSubject,Integer> {
     //查询展示的subject
     @Query(value = "from LearningSubject where state = ?1")
     List<LearningSubject> selSubject(Integer state);
+
+    @Query(value=" UPDATE learning_subject set name = ?2 WHERE id = ?1 ",nativeQuery=true)
+    @Modifying
+    @Transactional
+	Integer updateSubjectById(Integer id, String name);
 }
