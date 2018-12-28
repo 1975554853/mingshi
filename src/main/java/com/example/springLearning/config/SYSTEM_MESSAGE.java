@@ -27,6 +27,6 @@ public class SYSTEM_MESSAGE {
     public static final String SUCCESS_GROUP = "group";
     public static final String SUCCESS_USER = "user";
     public static final String SUCCESS_ARTICLE_SUCCESS = "文章上传成功,正在等待审核";
-//    private static final String ERROR_NAME_OFFICE = "办公室名称已存在";
+    public static final String FILE_UPLOAD_ADDRESS = "C://image//";
 //    private static final String ERROR_NAME_OFFICE = "办公室名称已存在";
 }

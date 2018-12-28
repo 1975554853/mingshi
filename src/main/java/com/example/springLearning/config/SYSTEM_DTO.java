@@ -18,7 +18,7 @@ public class SYSTEM_DTO {
 
     private Integer code;
     private String message;
-    private Map data = new HashMap();
+    private Map data = new HashMap<String,Object>();
     private Map status = new HashMap();
     private boolean success = false;
     private Object txt;

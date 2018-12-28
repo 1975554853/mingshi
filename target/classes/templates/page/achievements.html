@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0061)http://mingshi.hbte.com.cn:5060/index.php/Home/Tszs/tszs.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="page/common :: common_header('名师工作平台_成果展示')"></head>
+<body>
+
+<div th:replace="page/common :: navigation_1"></div>
+<div th:replace="page/common :: navigation_2"></div>
+
+<div class="ad"><img th:src="@{ ${application.CDN+'images/banner.jpg'}}"></div>
+
+<!--part_three-->
+<div class="part_three">
+<div class="part_main">
+
+
+    <div th:replace="page/common :: navigation_16"></div>
+
+
+
+<div class="ts_main">
+    <div th:replace="page/common :: navigation_17"></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<!--foot-->
+<div class="foot">
+   <div class="foot_bq">版权所有©河北省中小学教师继续教育中心</div>
+   <div class="foot_list">
+      <p>地址：河北省石家庄市红旗大街469号</p>
+      <p>邮编：050091</p>
+      <p>冀ICP备09022130号-6 &nbsp;<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274865269'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274865269%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1274865269"><a href="http://www.cnzz.com/stat/website.php?web_id=1274865269" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./名师工作室-特色展示_files/pic.gif"></a></span><script src="./名师工作室-特色展示_files/z_stat.php" type="text/javascript"></script><script src="./名师工作室-特色展示_files/core.php" charset="utf-8" type="text/javascript"></script></p>
+	  
+   </div>
+   <p style="text-align:center;"><script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='http://dcs.conac.cn/js/05/000/0000/60887956/CA050000000608879560002.js' type='text/javascript'%3E%3C/script%3E"));</script><span id="_ideConac"><a href="http://bszs.conac.cn/sitename?method=show&amp;id=54957018031E45A2E053012819ACD61B" target="_blank"><img id="imgConac" vspace="0" hspace="0" border="0" src="./名师工作室-特色展示_files/red.png" data-bd-imgshare-binded="1"></a></span><script src="./名师工作室-特色展示_files/CA050000000608879560002.js.下载" type="text/javascript"></script><span id="_ideConac"></span>
+</p>
+</div>
+
+
+<script language="javascript">
+    $("#searchList").on("change",function (){
+        var searchNum = $(this).val();
+        var searchForm = $("#searchForm");
+        if(searchNum == 0){
+            searchForm.attr("action","/index.php/Home/Listsp/listsp.html");
+        }else if(searchNum == 1){
+            searchForm.attr("action","/index.php/Home/Listsp/listsp1.html");
+        }else if(searchNum == 2){
+            searchForm.attr("action","/index.php/Home/Listsp/listsp2.html");
+        }
+    });
+</script>
+</body></html>

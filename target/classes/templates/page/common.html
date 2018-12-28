@@ -1,0 +1,597 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:fragment="common_header(title)">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title th:text="${title}"></title>
+    <link th:href="@{${application.CDN}+'page/style.css'}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{${application.CDN}+'page/swiper.min.css'}">
+    <script type="text/javascript" th:src="@{${application.CDN}+'page/jquery.js'}"></script>
+    <script type="text/javascript" th:src="@{${application.CDN}+'/page/change.js'}"></script>
+    <script type="text/javascript" th:src="@{${application.CDN}+'/page/swiper.min.js'}"></script>
+</head>
+
+<!--head-->
+<div class="top" th:fragment="navigation_1">
+    <div class="tops">
+        <div class="topl">
+            <!--<a th:href="@{${application.CDN}}" style="color:#fff;" >河北教师教育网</a>-->
+        </div>
+        <div class="topr">
+            <ul>
+                <!--<li><a href="http://help.hbte.com.cn:5056/" >帮助中心</a></li>-->
+                <li><a th:href="@{${application.CDN}+'login'}">教师登录</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="head" th:fragment="navigation_2">
+    <form id="searchForm" th:action="${application.CDN}+'info/information/1/10'" method="get">
+        <div class="heads">
+            <div class="logo">
+                <a th:href="@{${application.CDN}}"><img src="/page/logo.jpg"></a>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a th:href="@{${application.CDN}}">首页</a></li>
+                    <li><a th:href="@{${application.CDN}+'info/information/1/10'}">资讯</a></li>
+                    <li><a th:href="@{${application.CDN}+'info/office/1/12'}">工作室</a></li>
+                    <li><a th:href="@{${application.CDN}+'info/achievements/1/12'}">成果展示</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <!--<img src="/Public/Home/img/search.jpg">-->
+                <select name="parm" id="searchList" style="border:none;border-right:1px solid #999;outline:none;height:30px">
+                    <option value="information">资讯</option>
+                    <option value="notice">公告</option>
+                    <option value="policy">政策</option>
+                </select>
+                <input type="text" placeholder="请输入关键词" name="keyword" style="margin-left:5px;">
+                <a href="javascript:;"><input type="submit" value="确定" style="color:#fff;text-align:right;"></a>
+        </div>
+
+
+        </div>
+    </form>
+</div>
+
+<div class="z_ad" th:fragment="navigation_3(title)">
+    <div style="background-image:url(http://netschool.oss-cn-beijing.aliyuncs.com/2018-12-15/5b8e794421331.jpg);height:240px;background-size:100% 100%;">
+        <div class="z_ads">
+            <div class="z_ad_left">
+                <h2 th:text="${title}">李淑民工作室</h2>
+                <h3 style="display:none;" th:text=" '欢迎加入'+${title} ">欢迎加入李淑民工作室<span style="display: none">QQ群：962556822</span>
+                </h3>
+            </div>
+            <div class="z_ad_right">
+                <img src="/page/eyes.png">
+                <div class="z_ad_wz">
+                    <h2>今日访客<i>22</i></h2>
+                    <h2>访客总量<i>3403</i></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="part_two" th:fragment="navigation_4">
+    <div class="part_main">
+        <div class="index_main">
+
+            <div class="part_zx">
+
+                <div class="banner">
+
+                    <div class="swiper-container swiper-container-horizontal swiper-container-wp8-horizontal">
+                        <div class="swiper-wrapper"
+                             style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                            <div class="swiper-slide swiper-slide-active" style="width: 336px;"
+                                 th:each=" banner : ${ session.banners }">
+                                <a th:href="@{ ${application.CDN} + 'details/information/' + ${banner.id} }"
+                                   th:attr="title=${banner.title}" >
+                                    <img th:src="${banner.url}">
+                                    <p class="swiper_text" th:text="${banner.title}"></p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-clickable"><span
+                                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0"
+                                role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet"
+                                                                                      tabindex="0" role="button"
+                                                                                      aria-label="Go to slide 2"></span><span
+                                class="swiper-pagination-bullet" tabindex="0" role="button"
+                                aria-label="Go to slide 3"></span></div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+
+
+                <div class="zx_list">
+
+                    <div class="zx_bt">
+                        <ul>
+                            <li class="active">公告</li>
+                            <li>资讯</li>
+                            <li>政策</li>
+                        </ul>
+
+                    </div>
+                    <div class="zx_nr">
+
+                        <div class="zx_nrs" style="display: block;">
+
+                            <ul>
+
+                                <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Listsp/listsp1.html"
+                                   class="zx_bta" >【更多】</a>
+
+                                <li th:each="notice:${session.notice}">
+                                    <a th:href="@{${application.CDN}+'details/notice/'+ ${notice.id} }"
+                                       th:attr="title=${notice.title}"
+                                       >
+                                        <i th:text="${notice.title}"></i>
+                                        <span th:text="${#dates.format(notice.time,'yyyy-MM-dd')}">2018-09-25</span>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+
+                            <a th:href="@{${application.CDN}+'info/notice/1/10'}" class="zx_bta"
+                               >【更多】</a></div>
+
+
+                        <div class="zx_nrs" style="display: none;">
+                            <ul>
+                                <li th:each=" policy : ${session.policy}">
+                                    <a th:href="@{${application.CDN}+'details/policy/'+ ${policy.id} }"
+                                       th:attr="title=${policy.title}" >
+                                        <i th:text="${policy.title}"></i>
+                                        <span th:text="${#dates.format(policy.time,'yyyy-MM-dd')}">2018-12-10</span></a>
+                                </li>
+
+                            </ul>
+                            <a th:href="@{${application.CDN}+'info/information/1/10'}" class="zx_bta"
+                               >【更多】</a>
+                        </div>
+                        <div class="zx_nrs" style="display: none;">
+                            <ul>
+                                <li th:each=" information : ${session.information}"><a
+                                        th:href="@{${application.CDN}+'details/information/'+ ${information.id} }"
+                                        th:attr="title=${information.title}" >
+                                    <i th:text="${information.title}"></i>
+                                    <span th:text="${information.time != null ? #dates.format(information.time,'yyyy-MM-dd'):''}">2018-08-17</span></a>
+                                </li>
+                            </ul>
+                            <a th:href="@{${application.CDN}+'info/policy/1/10'}" class="zx_bta"
+                               >【更多】</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="part_ms">
+            <div class="part_tit2">
+                <img th:src="@{/images/icon5.jpg}">
+                <h2>工作室活跃度排行</h2>
+                <a th:href="@{${application.CDN}+'info/office/1/12'}" >更多&gt;&gt;</a>
+            </div>
+            <div class="ms_main">
+                <ul>
+                    <!--[{name=朱光省工作室, num=2, id=310}, {name=冯松杰, num=1, id=318}]-->
+                    <a th:each="info , step : ${session.groups}"
+                       th:href="@{${application.CDN}+'index/details/'+${info.id} } " >
+                        <li>
+                            <i id="num1" th:text="${step.index+1}">1</i>
+                            <h2 th:text="${info.name}">高俊霞工作室</h2>
+                            <div class="gz"><span th:text="${info.follows}">28</span>人关注</div>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="part_one" th:fragment="navigation_5">
+
+    <div class="part_main">
+        <div class="index_main">
+            <div class="part_tit">
+                <img th:src="@{/images/icon1.jpg}">
+                <h2>名师工作室</h2>
+                <a th:href="@{${application.CDN}+'info/office/1/12'}">更多&gt;&gt;</a>
+            </div>
+            <div class="sjxz">
+                <div class="sjxz_bot">
+
+
+                    <div class="sjzx_bot_nr">
+                        <ul>
+                            <li th:each=" groupsMore : ${session.groupsMore}">
+                                <a th:href="@{${application.CDN}+'index/details/'+${groupsMore.id} } "
+                                   >
+                                    <img th:src="@{${groupsMore.url}}"
+                                         style="width:100px;height:100px;border-radius:100%">
+                                    <p th:text="${groupsMore.name}"></p></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="part_ms">
+            <div class="part_tit2">
+                <img th:src="@{/images/icon2.jpg}">
+                <h2>工作室动态</h2>
+                <a></a>
+            </div>
+            <div class="gzs">
+                <ul>
+                    <li th:each="teacher  : ${session.teachers}">
+                        <a th:href="@{${application.CDN}+'index/details/'+${teacher.officeId} +'/'+ ${teacher.classInfo} +'/'+${teacher.id} } "
+                           th:attr="title=${teacher.title}" >
+                            <div class="gzs_top">
+                                <div class="gzs_wz">
+                                    <div class="gzs_wzt" th:text="${teacher.title}"></div>
+                                    <div class="gzs_wzb" th:text="${teacher.officeName}"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--part_three-->
+<div class="part_three" th:fragment="navigation_6">
+    <div class="part_main">
+        <div class="part_tit3">
+            <img th:src="@{/images/icon4.jpg}">
+            <h2>成果展示</h2>
+            <ul id="tese">
+            </ul>
+            <a th:href="@{${application.CDN}+'info/achievements/1/12'}">更多&gt;&gt;</a>
+        </div>
+        <div class="ts_main">
+            <div class="ts_mains">
+                <li th:each="achievement : ${session.achievements}">
+                    <a th:href="@{${application.CDN}+'index/details/'+${achievement.officeId} +'/'+ ${achievement.classInfo} +'/'+${achievement.id} } "
+                       th:attr="title=${achievement.title}" class="ts_center" >
+                        <div class="ts_cen_tp">
+                            <img th:src="@{${achievement.url}}" style="width:235px;height:175px;">
+                        </div>
+                        <div class="ts_cen_wz">
+                            <h2 th:text="${achievement.title}"></h2>
+                            <div class="cen_wz">
+                                <h3 th:text="${achievement.officeName}"></h3>
+                                <h4 th:text="${achievement.subjectName}"></h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--foot-->
+<div class="foot" th:fragment="navigation_7">
+    <div class="foot_bq">版权所有©渑池县职业中等专业学校</div>
+    <div class="foot_list">
+        <p>地址：渑池县黄河路与桥东路交叉口</p>
+        <!--<p>邮编：050091</p>-->
+        <p>豫ICP备09022130号-6 &nbsp;
+            <span id="cnzz_stat_icon_1274865269">
+                <img border="0" hspace="0" vspace="0" th:src="@{/images/pic.gif}"></span>
+        </p>
+    </div>
+    <p style="text-align:center;">
+        <span id="_ideConac">
+            <img id="imgConac" vspace="0" hspace="0" border="0" th:src="@{/images/red.png}" data-bd-imgshare-binded="1">
+        </span>
+    </p>
+</div>
+
+<div class="list_nav" th:fragment="navigation_8">
+    <h2>资讯中心</h2>
+    <ul>
+        <li th:attr=" class =  ${key eq 'notice' ? 'active' : null }">
+            <a th:href="@{${application.CDN}+'info/notice/1/10'}">
+                <img th:src="@{${application.CDN}+'images/blue1.jpg'}">公告
+            </a>
+        </li>
+        <li th:attr=" class =  ${key eq 'information' ? 'active' : null }">
+            <a th:href="@{${application.CDN}+'info/information/1/10'}">
+                <img th:src="@{${application.CDN}+'images/blue1.jpg'}">资讯</a></li>
+        <li th:attr=" class =  ${key eq 'policy' ? 'active' : null }">
+            <a th:href="@{${application.CDN}+'info/policy/1/10'}">
+                <img th:src="@{${application.CDN}+'images/blue1.jpg'}">政策</a>
+        </li>
+    </ul>
+</div>
+
+<div th:fragment="navigation_9" class="list_tit">
+
+    <h2 th:text="${txt}"></h2>
+
+    <div class="location" th:text=" '您所在的位置：首页&gt;资讯中心&gt;' + ${txt} "></div>
+</div>
+
+<div class="zx_main" th:fragment="navigation_10">
+
+    <!--size=1, index=1, data=[{title=关于收集《2017年名师工作室成员合格证书》照片的通知, id=341, time=2018-12-15 13:58:35.0}]-->
+
+    <div class="zx_lb">
+
+        <ul>
+            <li th:each="dto:${DTO.data}">
+                <a th:href="@{${application.CDN}+'details/'+${key}+'/'+ ${dto.id} }">
+                    <i>&nbsp;</i>
+                    <p th:text="${dto.title}"></p>
+                    <span th:text=" ${#dates.format(dto.time,'yyyy-MM-dd')} "></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div th:fragment="navigation_11">
+
+    <script type="text/javascript">
+        $(".sjxz_topa li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+        $(".sjxz_topb li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+        $(".sjxz_topc li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    </script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            autoplay: {
+                delay: 6000,
+            },
+        });
+    </script>
+</div>
+
+<div class="list_page" th:fragment="navigation_12">
+    <div>
+
+        <a class="next" th:href="@{${application.CDN}+'info/'+${key}+'/'+${DTO.index-1}+'/'+ ${DTO.limit}}"
+           th:if="${DTO.hasPrevious}">上一页</a>
+
+        <a class="current" th:each=" pageNum : ${#numbers.sequence(DTO.firstIndex , DTO.lastIndex)} "
+           th:text="${pageNum}"
+           th:class="${ DTO.index == pageNum } ? 'current' : 'num' "
+           th:href="@{${application.CDN}+'info/'+${key}+'/'+${pageNum}+'/'+ ${DTO.limit}}"></a>
+
+        <a class="next" th:href="@{${application.CDN}+'info/'+${key}+'/'+${DTO.index+1}+'/'+ ${DTO.limit}}"
+           th:if="${DTO.hasNext}">下一页</a>
+
+        <a class="end" th:href="@{${application.CDN}+'info/'+${key}+'/'+${DTO.pageSum}+'/'+ ${DTO.limit} }"
+           th:text=" '共' + ${DTO.pageSum} + '页' "></a>
+
+    </div>
+</div>
+
+
+<div class="sjxz_top2" th:fragment="navigation_13">
+
+    <!--<div class="sjxz_topa2">-->
+        <!--<h2>区域：</h2>-->
+        <!--<ul>-->
+            <!--<li style="float:left;" class="active"><a href="javascript:filter(&#39;quyu&#39;,&#39;&#39;)" id="quyu_all"-->
+                                                      <!--style="color:#666;">不限</a></li>-->
+            <!--<div style="float:right; width:93%; overflow:hidden">-->
+
+                <!--<li th:each="city:${session.city}">-->
+                    <!--<a th:href="@{${application.CDN} +'info/'+${key}+'/1/12' (city=${city}) }" style="color:#666;"-->
+                       <!--th:text="${city}"></a>-->
+                <!--</li>-->
+
+            <!--</div>-->
+        <!--</ul>-->
+    <!--</div>-->
+    <div class="sjxz_topb2">
+        <h2>学段：</h2>
+        <ul>
+            <li style="float:left;" class="active"><a
+                    href="javascript:filter(&quot;xueduan&quot;,&quot;&quot;);" id="xueduan_all"
+                    style="color:#666;">不限</a></li>
+            <div style="float:right; width:93%; overflow:hidden">
+                <!--sections (id=268, name=小学, state=0)-->
+                <li th:each="sections:${session.sections}">
+                    <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12' (section=${sections.id}) }"
+                       style="color:#666;" th:text="${sections.name}">幼儿园</a></li>
+            </div>
+        </ul>
+    </div>
+    <div class="sjxz_topc2">
+        <h2>学科：</h2>
+        <ul>
+            <li style="float:left;" class="active"><a
+                    href="javascript:filter(&quot;xueke&quot;,&quot;&quot;);" id="xueke_all"
+                    style="color:#666;">不限</a></li>
+            <div style="float:right; width:93%; overflow:hidden">
+                <!--subject-->
+                <li th:each="subject:${session.subject}">
+                    <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12' (subject=${subject.id}) }"
+                       style="color:#666;" th:text="${subject.name}">语文</a></li>
+            </div>
+        </ul>
+    </div>
+    <div class="sjxz_topd2">
+        <form  th:action="${application.CDN}+'info/office/1/12'" method="get">
+        <h2>查找：</h2>
+        <input type="text" id="sousuo_1" placeholder="请输入工作室名称" name="sousuo" value=""
+               title="宁可少打也不要输错哦！！！">
+        <!--<input type="button" id='tijiao' value="搜索" style="width:50px;" title="点击搜索">-->
+        <a href="javascript:;"><input type="submit" value="搜索"  style="width:55px;color:#666;padding:3px 5px;float: left;font-size: 13px;color: #666;outline: none;border: #bfbfbf 1px solid;background: #f9f9f9;"></a>
+        </form>
+    </div>
+</div>
+
+<div class="sjzx_bot_bt2" th:fragment="navigation_14">
+    <h2>排序：</h2>
+    <ul>
+        <li class="abc"><img th:src="@{ ${application.CDN+'images/ltb1.jpg'}}"><span><a
+                href="javascript:filter(&quot;view&quot;,&quot;&quot;);" style="color:#666;">访问量</a></span>
+        </li>
+
+        <li class="abc"><img th:src="@{ ${application.CDN+'images/ltb2.jpg'}}"><span>
+            <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12'(order=follows) }"
+               style="color:#666;">成员数</a></span></li>
+
+        <li class="abc"><img th:src="@{ ${application.CDN+'images/ltb3.jpg'}}"><span>
+            <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12'(order=achievements) }"
+               style="color:#666;">成果数</a></span></li>
+
+        <li class="abc"><img th:src="@{ ${application.CDN+'images/ltb4.jpg'}}"><span>
+            <a th:href="@{${application.CDN} +'info/'+${key}+'/1/12'(order=article) }"
+               style="color:#037cb1;">文章数</a></span>
+        </li>
+    </ul>
+</div>
+
+<div class="list_gzs" th:fragment="navigation_15">
+    <ul>
+        <li th:each="dto:${DTO.data}">
+            <a th:href="@{${application.CDN}+'index/details/'+${dto.id} } "
+               >
+                <div class="list_gzs_tit">
+                    <h2 th:text="${dto.name}"></h2>
+                    <span th:text="${dto.subjectName}"></span>
+                </div>
+                <div class="list_gzs_nr">
+                    <div class="gzs_tx"><img th:src="@{${dto.url}}"></div>
+                    <div class="gzs_lbwz">
+                        <p>访问：2261</p>
+                        <p th:text=" '成员:&nbsp;&nbsp;&nbsp;'+${dto.follows}">成员：8</p>
+                        <p th:text=" '成果:&nbsp;&nbsp;&nbsp;'+ ${dto.achievements} ">：133</p>
+                        <p th:text=" '文章:&nbsp;&nbsp;&nbsp;'+ ${dto.article} ">：201</p>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="part_tit3" th:fragment="navigation_16">
+    <img th:src="@{/images/icon4.jpg}">
+    <h2>成果展示</h2>
+    <ul id="tese">
+    </ul>
+    <a th:href="@{${application.CDN}+'info/achievements/1/12'}">更多&gt;&gt;</a>
+</div>
+
+
+<div class="ts_mains" th:fragment="navigation_17">
+
+
+    <ul>
+
+        <li th:each=" dto : ${DTO.data} ">
+            <a href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistzx/z_show_zx2/id/3270.html"
+               title="名师工作室展示观摩课（2）" class="ts_center" >
+
+                <div class="ts_cen_tp">
+                    <img th:src="@{${dto.url}}" style="width:230px;height:200px;">
+                </div>
+
+                <div class="ts_cen_wz">
+                    <h2 th:text=" ${dto.title} ">名师工作室展示观摩课（2）</h2>
+                    <div class="cen_wz">
+                        <h3 th:text=" ${dto.name} ">李冬名师工作室</h3>
+                        <h4 th:text=" ${dto.subject} ">初中英语</h4>
+                    </div>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+
+    <div th:replace="page/common :: navigation_12"></div>
+
+</div>
+
+
+<div class="show_zx" th:fragment="navigation_18" th:utext="${obj.text}">
+
+</div>
+
+<div class="z_ad" th:fragment="navigation_19">
+    <div th:style=" 'background-image:url(' + ${office.url} +  ');height:240px;background-size:100% 100%;'  ">
+        <div class="z_ads">
+            <div class="z_ad_left">
+                <h2 th:text=" ${office.name} "></h2>
+                <h3 style="display:none;" th:text="${ '欢迎来到' + office.name}">
+                    <span style="display: none">QQ群：962556822</span></h3>
+            </div>
+            <div class="z_ad_right">
+                <img th:src="@{ ${application.CDN+'images/eyes.png'}}">
+                <div class="z_ad_wz">
+                    <h2>今日访客<i th:text="${office.viewsDay}">35</i></h2>
+                    <h2>访客总量<i th:text="${office.views}">4239</i></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="z_nav" th:fragment="navigation_20">
+    <ul>
+
+        <li><a th:href="@{${application.CDN}+'index/details/'+${office.id} }">首页</a></li>
+
+        <li th:each=" info : ${info} " th:if=" ${ info.name ne '首页' } ">
+
+            <a th:href=" @{${application.CDN}+'index/list/'+${info.office} + '/'+${info.id} + '/1/10' } "
+               th:text="${info.name}">公告</a>
+            <div class="cgzs_nav" th:if=" ${info.children != null} ">
+                <div class="nav_cg" th:each=" children : ${info.children} ">
+                    <a th:href="@{${application.CDN}+'index/list/'+${children.office} +'/'+${children.id} + '/1/10' } "
+                       th:text="${children.name}"></a>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="positon" th:text=" '首页&gt;' + ${cat.name} " th:fragment="navigation_21">教师文章</div>
+<div class="list_nav" th:fragment="navigation_22">
+    <h2 th:text=" ${cat.name} ">工作室教师文章</h2>
+    <ul>
+
+        <li class="active" th:each=" info : ${clazz} " th:attr=" class= ${ info.id == last } ? active : null ">
+            <a th:href="@{${application.CDN}+'index/list/'+${info.office} +'/'+${info.id} + '/1/10' } ">
+                <img th:src="@{${application.CDN}+'images/blue1.jpg'}">
+                <span th:text="${info.name}">教师文章</span>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+<div class="list_tit2" th:fragment="navigation_23">
+    <h2 th:text=" ${cat.name} ">教师文章</h2>
+</div>
+
+</html>

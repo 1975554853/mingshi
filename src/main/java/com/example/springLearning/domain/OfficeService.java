@@ -64,8 +64,6 @@ public class OfficeService {
         }
     }
 
-    @Cacheable
-    //查询所有office
     public Map selectOffice(Integer page, Integer limit) {
 
         String countSql = "select count(*) as sum from office o inner join learning_section s on o.section_id = s.id inner join learning_subject l on o.subject = L.id";
@@ -223,7 +221,6 @@ public class OfficeService {
 
     public List<Integer> getAllChildren(Integer achievements, List list) {
         List<Integer> children = classificationDao.queryClassIdByFatherId(achievements);
-        System.out.println(children.toString() + "第一层子节点");
         if (children.size() > 0) {
             children.forEach((x) -> {
                 list.add(x);
@@ -233,15 +230,13 @@ public class OfficeService {
         return list;
     }
 
-    @Cacheable
-
+    // @Cacheable
     //查询工作室个数
     public Integer selectOfficeCount() {
         return officeDao.selectOfficeCount();
     }
 
     @Cacheable
-
     public Office queryOfficeById(Integer id) {
         officeDao.updateOfficeViewsById(id);
         return officeDao.findById(id).get();

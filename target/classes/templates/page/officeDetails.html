@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0071)http://mingshi.hbte.com.cn:5060/index.php/Home/Zindex/zindex/id/11.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="page/common :: common_header('名师工作平台_'+${office.name})"></head>
+
+
+<body>
+
+
+<div th:replace="page/common :: navigation_1"></div>
+<div th:replace="page/common :: navigation_2"></div>
+
+<!--ad-->
+<div th:replace="page/common :: navigation_19"></div>
+<div th:replace="page/common :: navigation_20"></div>
+<!--z_nav-->
+
+
+<!--zindex-->
+<div class="z_index_main">
+    <div class="z_index_left">
+        <div class="z_index_ljs">
+            <div class="z_ljs_tit">
+                <h2>工作室简介</h2>
+
+            </div>
+
+            <div class="z_ljs_top">
+                <div class="ljs_topl"><img th:src="@{${user!=null?user.headPhotoUrl:''}}"></div>
+                <div class="ljs_topr">
+                    <h2 th:text=" ${office.name} ">高俊霞工作室</h2>
+                    <!-- <h3>高俊霞</h3> -->
+                    <a th:href="@{${application.CDN}+'login'}">+关注</a>
+                    <div class="ljs_else"><span th:text="${office.follows}">28</span>人关注</div>
+
+                </div>
+            </div>
+
+            <div class="z_ljs_mid">
+                <ul>
+                    <li><a href="javascript:void(0);">
+                        <h2 th:text=" ${office.follows} ">14</h2>
+                        <p>成员</p></a></li>
+                    <li><a href="javascript:void(0);">
+                        <h3 th:text=" ${office.article} ">135</h3>
+                        <p>文章</p></a></li>
+                    <li><a href="javascript:void(0);">
+                        <h4 th:text=" ${office.achievements} "> 84</h4>
+                        <p>成果</p></a></li>
+                </ul>
+            </div>
+            <a th:href="@{${application.CDN}+'login'}" class="z_ljs_sq">申请加入工作室</a>
+        </div>
+        <div class="z_index_ltj">
+            <div class="z_ljs_tit">
+                <h2 style="width: 100%">名师工作室推荐</h2>
+            </div>
+            <div class="ljs_main">
+                <ul>
+                    <li th:each="info , step : ${session.groups}"><i id="num1" style="font-weight:normal"
+                                                                     th:text="${step.index+1}">1</i><a
+                            th:href="@{${application.CDN}+'index/details/'+${info.id} } "
+                            th:text="${info.name}">高俊霞工作室</a>
+                        <p><span th:text="${info.follows}">28</span>人关注</p></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="z_index_right">
+
+
+        <div class="z_ir_one" style="margin-top: 0">
+            <div class="list_tit2">
+                <h2>资讯</h2>
+            </div>
+            <div class="z_one_nr">
+                <div class="z_one_ban">
+                    <div class="swiper-container swiper-container-horizontal swiper-container-wp8-horizontal">
+                        <div class="swiper-wrapper"
+                             style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+
+                            <div th:each=" info : ${articles} " class="swiper-slide swiper-slide-active"
+                                 style="width: 356px;">
+                                <a th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.classification} +'/'+${info.id} } "
+                                   th:attr="title=${info.title}" >
+                                    <img th:src="@{${info.url}}">
+                                    <p th:text="${info.title}" class="swiper_text">小学体育“精细化”课堂教学研讨 ——研究...</p>
+                                </a>
+                            </div>
+
+
+                        </div>
+                        <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-clickable"><span
+                                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0"
+                                role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet"
+                                                                                      tabindex="0" role="button"
+                                                                                      aria-label="Go to slide 2"></span><span
+                                class="swiper-pagination-bullet" tabindex="0" role="button"
+                                aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0"
+                                                                        role="button" aria-label="Go to slide 4"></span>
+                        </div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                </div>
+                <div class="z_one_list">
+                    <ul>
+                        <li th:each=" info : ${articleMore} ">
+                            <a th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.classification} +'/'+${info.id} } "
+                               th:attr="title=${info.title}" title="在线系列研讨第二阶段------教学实践 之 体育教师教学过程中的语言表达"
+                               >
+                                <i th:text=" ${info.title} ">在线系列研讨第二阶段------教学实践 之
+                                    体育教师教学过程中的语言表达</i><span th:text="${#dates.format(info.date,'yyyy-MM-dd')}">2018-10-01</span></a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="z_ir_one">
+            <div class="list_tit2">
+                <h2>成果展示</h2>
+
+
+            </div>
+            <div class="ir_two_lb">
+                <ul>
+
+                    <li th:each=" info : ${achievements} " style="height:150px;"><a
+                            th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.classification} +'/'+${info.id} } "
+                            th:attr="title=${info.title}" title="心系工作室 冬日暖关怀——河北民族师范学院教师教育学院张立新书记一行调研纪实"
+                            >
+                        <img th:src="@{${info.url}}" src="./高俊霞工作室-首页_files/5bef533b0759e.jpg">
+                        <div class="title" th:text=" ${info.title} ">心系工作室 冬日暖...</div>
+                    </a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="z_ir_one">
+
+            <div class="list_tit2">
+                <h2>教师文章</h2>
+
+            </div>
+            <div class="jsart">
+
+                <div class="jsart_tp"><a
+                        href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/730.html"
+                        >
+                    <img th:src="@{${tp1}}">
+                </a>
+                </div>
+
+                <div class="jsart_wz">
+
+                    <ul>
+
+                        <li th:each=" info : ${t1} ">
+                            <a th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.clazz} +'/'+${info.id} } "
+                               th:attr="title=${info.title}" title="踏石过河" >
+                                <p th:text=" ${info.title} "> 踏石过河</p>
+                                <i th:text=" ${info.name} ">崔秀香</i>
+                                <span th:text="${#dates.format(info.time,'yyyy-MM-dd')}">2018-10-10</span>
+
+                                <div class="eye" th:text="${info.views}"><img
+                                        th:src="@{ ${application.CDN+'images/eye.jpg'}}">44
+                                </div>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="jsart">
+                <div class="jsart_tp"><a
+                        href="http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_show_fc1/id/635.html"
+                        >
+                    <img th:src="@{${tp2}}">
+                </a>
+                </div>
+                <div class="jsart_wz">
+                    <ul>
+                        <li th:each=" info : ${t2} ">
+                            <a th:href="@{${application.CDN}+'index/details/'+${info.office} +'/'+ ${info.clazz} +'/'+${info.id} } "
+                               th:attr="title=${info.title}" title="踏石过河" >
+                                <p th:text=" ${info.title} "> 踏石过河</p>
+                                <i th:text=" ${info.name} ">崔秀香</i>
+                                <span th:text="${#dates.format(info.time,'yyyy-MM-dd')}">2018-10-10</span>
+
+                                <div class="eye" th:text="${info.views}"><img
+                                        th:src="@{ ${application.CDN+'images/eye.jpg'}}">44
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<div th:replace="page/common :: navigation_7"></div>
+
+
+</body>
+</html>

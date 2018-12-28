@@ -50,7 +50,7 @@ public class ShiroConfiguration {
     public SecurityManager securityManager(){
         DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
         defaultSecurityManager.setRealm(myShiroRealm());
-        defaultSecurityManager.setCacheManager(ehCacheManager());
+        // defaultSecurityManager.setCacheManager(ehCacheManager());
         return defaultSecurityManager;
     }
 

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+
+        <button class="layui-btn" onclick="addRole()"><i
+                class="layui-icon"></i>新增角色
+        </button>
+
+    </div>
+
+
+    <table class="layui-hide" id="LAY_table_role" lay-filter="role"></table>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
+    </script>
+
+
+</div>
+
+<script>
+    //添加商品分类
+    function addRole(){
+        layer.prompt({
+            formType: 3,
+            title: '请输入新角色名',
+            area: ['200px', '50px'] //自定义文本域宽高
+        }, function(value, index, elem){
+            layer.close(index);
+            $.post("/role/add", {"name":value}, function(res){
+                if(res.type === "OK"){
+                    layer.msg('添加成功', {icon: 1});
+                }else{
+                    layer.msg(res.message);
+                }
+            },"SYSTEMDTO");
+        });
+    }
+    layui.use(['form', 'layer','table'], function () {
+        let table = layui.table;
+        let layer = layui.layer;
+        let form = layui.form;
+        //方法级渲染
+        table.render({
+            elem: '#LAY_table_role'
+            , url: '/role/selbypa'
+            , cols: [
+                [
+                    {checkbox: true, fixed: true}
+                    // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
+                    , {field: 'id', title: 'ID', width: 250, align: 'center'}
+                    , {field: 'name', title: '角色名称', width: 250, align: 'center'}
+                    , {width: 320, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
+                ]
+            ]
+            , id: 'testReload'
+            , page: true
+            , height: 500
+            , method: 'get'
+            , response: {
+                statusName: 'status',
+                statusCode: 0,
+                countName: 'total'
+            }
+        });
+
+        table.on('tool(role)', function (obj) {
+            let data = obj.data;
+            // 修改课程方向
+            if (obj.event === 'drop') {
+                $.post("/role/delete", {id: data.id}, function (res) {
+                    updateMessage(res);
+                }, "SYSTEMDTO");
+            }
+        });
+
+        let $ = layui.$, active = {
+            reload: function () {
+                loadTable();
+            }
+        };
+
+        function updateMessage(code) {
+            if (code.type === 'OK') {
+                layer.msg(code.message);
+            } else {
+                layer.msg(code.message);
+            }
+            loadTable();
+        }
+
+        // 重载数据
+        function loadTable() {
+            table.reload('testReload', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        }
+
+        $('.demoTable .layui-btn').on('click', function () {
+            let type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+    });
+
+
+</script>
+
+</body>
+
+</html>

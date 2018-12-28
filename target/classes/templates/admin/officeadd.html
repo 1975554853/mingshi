@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:shiro="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
+    <link rel="stylesheet" th:href="@{/dtree/dtree.css}">
+    <link rel="stylesheet" th:href="@{/dtree/font/dtreefont.css}">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" th:src="@{/dtree/dtree.js}"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body layui-anim layui-anim-up">
+    <form class="layui-form">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                       class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>图片(可选)
+            </label>
+            <input type="text" id="url" hidden="hidden" readonly="readonly" name="url">
+            <button type="button" class="layui-btn" id="test1">上传</button>
+            <div class="layui-upload-list" style="padding-left: 110px;">
+                <img class="layui-upload-img" id="demo1" width="200px">
+            </div>
+        </div>
+
+        <!--<div class="layui-form-item">-->
+        <!--<div class="layui-inline">-->
+        <!--<label class="layui-form-label">所属分类</label>-->
+        <!--<div class="layui-input-block">-->
+        <!--<ul id="commonTree3" class="dtree" data-id="0"></ul>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>分类
+            </label>
+            <input type="button" class="layui-btn" id="openTree1_btn" value="选择分类" />
+            <input type="text" class="layui-btn" name="class" id="openTree1_btn1" readonly="readonly" />
+            <input type="text" hidden="hidden" name="classInfo" id="openTree1_btn2"  />
+        </div>
+
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">正文</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea layui-hide" lay-verify="content"
+                          id="LAY_demo_editor"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button class="layui-btn" lay-filter="add" lay-submit="">
+                文章发表
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+
+    var dtree = null;
+
+    layui.use(['element', 'layer', 'dtree'], function () {
+        var layer = layui.layer;
+        dtree = layui.dtree;
+        var $ = layui.$;
+    });
+
+    $("#openTree1_btn").click(function () {
+
+        layer.open({
+            type: 1,
+            title: "选择树",
+            area: ["400px", "80%"],
+            content: '<ul id="openTree1" class="dtree" data-id="0"></ul>',
+            success: function (layero, index) {
+                dtree.render({
+                    //  obj: $(layero).find("#openTree1"),    如果直接用elem加载不出来，则可以使用这个方式加载jquery的DOM
+                    elem: "#openTree1",
+                    url: "/classification/tree",
+                    icon: "2",
+                    skin: "layui",
+                    dataFormat: "list",
+                    response: {
+                        statusName: "code", //返回标识（必填）
+                        statusCode: 0, //返回码（必填）
+                        message: "message", //返回信息（必填）
+                        rootName: "txt", //根节点名称（必填）
+                        parentId: "father", //父节点ID（必填）
+                        title: "name", //节点名称（必填）
+                        spread: "true", //节点展开状态（v2.4.5_finally_beta版本新增。true：展开，false，不展开，非必填）
+                    }
+                });
+
+                // 绑定节点的双击
+                dtree.on("nodedblclick('openTree1')", function (obj) {
+                    console.log(JSON.stringify(obj.param));
+                    $("#openTree1_btn2").val(obj.param.nodeId);
+                    $("#openTree1_btn1").val(obj.param.context);
+                    layer.close(index);
+                });
+            }
+        });
+    });
+
+
+    layui.use('upload', function () {
+        let $ = layui.jquery, upload = layui.upload;
+        //普通图片上传
+        let uploadInst = upload.render({
+            elem: '#test1'
+            , url: '/file/upload'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                if (res.type !== 'OK') {
+                    layer.msg('头像上传失败');
+                } else {
+                    layer.msg('头像上传成功');
+                    $('#url').val(res.url);
+                }
+            }
+        });
+    });
+
+    layui.use(['form', 'layer', 'layedit'], function () {
+        $ = layui.jquery;
+        let form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit;
+        form.render();
+        layedit.set({
+            uploadImage: {
+                url: '/file/image' //接口url
+                , type: 'post' //默认post
+            }
+        });
+
+        let editIndex = layedit.build('LAY_demo_editor', {
+            height: 300
+        });
+        //监听提交
+        form.on('submit(add)', function (data) {
+            let txt = layedit.getContent(editIndex);
+            let field = data.field;
+            console.log(JSON.stringify(field));
+            $.post("/article/add", {
+                classInfo: field.classInfo,
+                title: field.title,
+                txt: txt,
+                url: field.url
+            }, function (res) {
+                if (res.success === true) {
+                    //发异步，把数据提交给php
+                    layer.msg(res.message, {icon: 6}, function () {
+                        let index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                } else {
+                    //发异步，把数据提交给php
+                    layer.msg(res.message, {icon: 5}, function () {
+                        let index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                }
+
+            }, "json");
+            return false;
+        });
+
+
+    });
+</script>
+
+</body>
+
+</html>
