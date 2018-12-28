@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0075)http://mingshi.hbte.com.cn:5060/index.php/Home/Zlistfc/z_list_fc/id/97.html -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:replace="page/common :: common_header('成员风采')"></head>
+
+<body>
+
+    <div th:replace="page/common :: navigation_1"></div>
+
+    <div th:replace="page/common :: navigation_2"></div>
+
+    <div th:replace="page/common :: navigation_19"></div>
+    <div th:replace="page/common :: navigation_20"></div>
+
+
+   
+
+
+    <!--list-->
+    <div class="list_zx">
+        <div class="positon">首页&gt;成员风采</div>
+        <div class="list_nav">
+            <h2>工作室成员风采</h2>
+            <ul>
+                <li class="active">
+                    <a th:href="@{${application.CDN}+'member/'+${office.id} }"><img
+                        th:src="@{ ${application.CDN+'images/blue1.jpg'}}">成员风采</a></li>
+            </ul>
+        </div>
+        <div class="list_center">
+            <div class="list_tit2">
+                <h2>成员风采</h2>
+            </div>
+
+            <div class="fengcai">
+                <ul>
+
+                    <li th:each=" user : ${users} ">
+                        
+                        <a th:href=" @{ ${user.resumeUrl} } " target="_blank">
+
+                            <img th:src="@{ ${user.headPhotoUrl} }">
+                            <div class="fc_you">
+                                <h2 th:text="${user.username}">张丽钧</h2>
+                                <h4 th:text="${user.city}">地区：唐山市</h4>
+                                <h4 th:text="${user.school}">所属学校：河北唐山市开滦第一中学</h4>
+                            </div>
+                        </a>
+                    </li>
+                  
+                </ul>
+            </div>
+            <div class="list_page">
+                <div> </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="page/common :: navigation_7"></div>
+
+</body>
+
+</html>

@@ -240,4 +240,8 @@ public class OfficeService {
         officeDao.updateOfficeViewsById(id);
         return officeDao.findById(id).get();
     }
+
+	public void clearOfficeViewsDay() {
+        officeDao.clearOfficeViewsDay();
+	}
 }

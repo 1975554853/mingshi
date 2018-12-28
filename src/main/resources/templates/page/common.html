@@ -480,10 +480,10 @@
                 <div class="list_gzs_nr">
                     <div class="gzs_tx"><img th:src="@{${dto.url}}"></div>
                     <div class="gzs_lbwz">
-                        <p>访问：2261</p>
-                        <p th:text=" '成员:&nbsp;&nbsp;&nbsp;'+${dto.follows}">成员：8</p>
-                        <p th:text=" '成果:&nbsp;&nbsp;&nbsp;'+ ${dto.achievements} ">：133</p>
-                        <p th:text=" '文章:&nbsp;&nbsp;&nbsp;'+ ${dto.article} ">：201</p>
+                        <p th:text=" '访问:&nbsp;&nbsp;&nbsp;'+ ${dto.views eq null ? 0 : dto.views}">访问：2261</p>
+                        <p th:text=" '成员:&nbsp;&nbsp;&nbsp;'+${dto.follows eq null ? 0 : dto.follows}">成员：8</p>
+                        <p th:text=" '成果:&nbsp;&nbsp;&nbsp;'+ ${dto.achievements eq null ? 0 : dto.achievements} ">：133</p>
+                        <p th:text=" '文章:&nbsp;&nbsp;&nbsp;'+ ${dto.article eq null ? 0 : dto.article} ">：201</p>
                     </div>
                 </div>
             </a>
@@ -559,7 +559,7 @@
 
         <li><a th:href="@{${application.CDN}+'index/details/'+${office.id} }">首页</a></li>
         <li><a th:href="@{${application.CDN}+'index/details/'+${office.id} }">工作室简介</a></li>
-        <li><a th:href="@{${application.CDN}+'index/details/'+${office.id} }">成员风采</a></li>
+        <li><a th:href="@{${application.CDN}+'member/'+${office.id} }">成员风采</a></li>
         <li th:each=" info : ${info} " th:if=" ${ info.name ne '首页' and info.name ne '工作室简介' and info.name ne '成员风采' } ">
 
             <a th:href=" @{${application.CDN}+'index/list/'+${info.office} + '/'+${info.id} + '/1/10' } "

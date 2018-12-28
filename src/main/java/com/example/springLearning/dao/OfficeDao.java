@@ -23,29 +23,37 @@ public interface OfficeDao extends CrudRepository<Office, Integer> {
     @Query(value = " select * from office where name <> '系统工作室' order by date desc limit ?1 , ?2 ", nativeQuery = true)
     public List<Office> queryOfficeOrderByDate(Integer page, Integer limit);
 
-    //添加工作室
+    // 添加工作室
     @Override
     Office save(Office office);
 
     @Query(value = " select count(*) from office o where o.name <> '系统工作室' ", nativeQuery = true)
     public Integer queryCountOffice();
 
-    /*//修改工作室信息
-    @Modifying
-    @Transactional
-    @Query(value = "update Office set " +
-            "url = case when :#{#office.url} is null then name else :#{#office.name} end ," +
-            "sectionId = case when :#{#office.sectionId} is null then subject else :#{#office.subject} end ," +
-            "state = case when :#{#office.state} is null then city else :#{#office.city} end " +
-            ",area = case when :#{#office.area} is null then follows else :#{#office.follows} end " +
-            "where id = :#{#office.id}")
-    Integer updateOffice(@Param("office") Office office);*/
+    /*
+     * //修改工作室信息
+     * 
+     * @Modifying
+     * 
+     * @Transactional
+     * 
+     * @Query(value = "update Office set " +
+     * "url = case when :#{#office.url} is null then name else :#{#office.name} end ,"
+     * +
+     * "sectionId = case when :#{#office.sectionId} is null then subject else :#{#office.subject} end ,"
+     * +
+     * "state = case when :#{#office.state} is null then city else :#{#office.city} end "
+     * +
+     * ",area = case when :#{#office.area} is null then follows else :#{#office.follows} end "
+     * + "where id = :#{#office.id}") Integer updateOffice(@Param("office") Office
+     * office);
+     */
 
-    //查询office
-    @Query(value = " select * from office ORDER BY follows desc limit ?1 , ?2  " , nativeQuery = true)
-    List<Office> selectOffice(Integer page , Integer limit);
+    // 查询office
+    @Query(value = " select * from office ORDER BY follows desc limit ?1 , ?2  ", nativeQuery = true)
+    List<Office> selectOffice(Integer page, Integer limit);
 
-    //删除工作室
+    // 删除工作室
     @Query(value = "delete from Office where id = ?1")
     @Modifying
     @Transactional
@@ -78,10 +86,16 @@ public interface OfficeDao extends CrudRepository<Office, Integer> {
     @Query(value = "update office set article = article + 1 where id = ?1 ", nativeQuery = true)
     Integer updateOfficeArticle(Integer office);
 
-    @Query(value = "select count(*) from office",nativeQuery = true)
+    @Query(value = "select count(*) from office", nativeQuery = true)
     Integer selectOfficeCount();
+
     @Transactional
     @Modifying
-    @Query(value = "update office set views = views +1 , views_day = views_day +1 "  , nativeQuery = true)
+    @Query(value = "update office set views = views +1 , views_day = views_day +1 where id = ?1 ", nativeQuery = true)
     Integer updateOfficeViewsById(Integer id);
+
+    @Query(value=" update office set update office set views_day = 0 ",nativeQuery=true)
+    @Transactional
+    @Modifying
+	public void clearOfficeViewsDay();
 }

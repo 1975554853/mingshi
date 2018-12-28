@@ -49,6 +49,59 @@ public class IndexController {
      * @param model
      * @return
      */
+
+    @GetMapping("/member/{id}") 
+    public String member(@PathVariable Integer id , Model model){
+
+         // 查询工作室详情
+         Office office = officeService.queryOfficeById(id);
+         model.addAttribute("office", office);
+
+        // 加载该工作室的所有成员
+        List<User> users = userService.queryUsersByOfficeId(id);
+        model.addAttribute("users",users);
+
+         // 加载所有一级目录
+         List<Classification> info = classificationService.queryClassInfoByRoot(office.getId(), "菜单分类");
+         model.addAttribute("info", info);
+         // 加载作者
+         User user = userService.selectUserByOfficeId(office.getId());
+         model.addAttribute("user", user);
+         // 8条资讯
+         List<Article> articles = articleService.selectArticlesOrderDate(office.getId(), "资讯", 4);
+         model.addAttribute("articles", articles);
+         List<Article> articleMore = articleService.selectArticlesOrderDate(office.getId(), "资讯", 8);
+         model.addAttribute("articleMore", articleMore);
+         //
+         List<Article> achievements = articleService.selectArticlesOrderDate(office.getId(), "成果展示", 4);
+         model.addAttribute("achievements", achievements);
+ 
+         List teachers = articleService.selectArticlesOrderDateAndTeacherName(office.getId(), "教师文章", 8);
+         List t1 = new ArrayList();
+         List t2 = new ArrayList();
+         if (teachers.size() >= 4) {
+             for (int i = 0; i < 4; i++) {
+                 t1.add(teachers.get(i));
+             }
+             model.addAttribute("t1", t1);
+             for (int i = 4; i < teachers.size(); i++) {
+                 t2.add(teachers.get(i));
+             }
+             model.addAttribute("t2", t2);
+         } else {
+             for (int i = 0; i < teachers.size(); i++) {
+                 t1.add(teachers.get(i));
+             }
+             model.addAttribute("t1", t1);
+             model.addAttribute("t2", null);
+         }
+         if (t1.size() > 0 && t1.get(0) != null)
+             model.addAttribute("tp1", ((Map) t1.get(0)).get("url"));
+         if (t2.size() > 0 && t2.get(0) != null)
+             model.addAttribute("tp2", ((Map) t2.get(0)).get("url"));
+        return "page/member";
+    }
+
     @GetMapping("/index/list/{id}/{value}/{page}/{limit}")
      public String articleList(@PathVariable Integer id, @PathVariable Integer value, @PathVariable Integer page, @PathVariable Integer limit ,Model model){
 

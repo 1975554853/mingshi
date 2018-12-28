@@ -73,4 +73,7 @@ public interface UserDao extends CrudRepository<User,Integer> {
 
     @Query(value="select card FROM user where id = ?1",nativeQuery=true)
     String findCardById(Integer id);
+
+    @Query( value = " select * from user where office_id = ?1 " ,nativeQuery=true)
+	List<User> queryUsersByOfficeId(Integer id);
 }

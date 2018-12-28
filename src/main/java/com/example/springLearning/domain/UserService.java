@@ -238,4 +238,9 @@ public class UserService {
         return count>0 ? true : false ;
         
 	}
+
+	public List<User> queryUsersByOfficeId(Integer id) {
+        List<User> users = userDao.queryUsersByOfficeId(id);
+        return users;
+	}
 }
