@@ -80,7 +80,7 @@ public class SubjectController {
 
     @PostMapping("/drop")
     @ResponseBody
-    public HashMap Subject(Integer id){
+    public HashMap dropSubject(Integer id){
         boolean b = subjectService.dropSubjectid(id);
         HashMap<String,String> map =new HashMap<>();
         if (b){
@@ -95,6 +95,19 @@ public class SubjectController {
     @ResponseBody
     public HashMap selSubject(){
         return subjectService.selSubject();
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public HashMap updateSubject(Integer id,String name){
+        boolean b = subjectService.updateSubjectid(id,name);
+        HashMap<String,String> map =new HashMap<>();
+        if (b){
+            map.put("type","OK");
+        }else {
+            map.put("type","error");
+        }
+        return map;
     }
 
 }

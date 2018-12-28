@@ -71,7 +71,7 @@
                 if (res.type === 'OK') {
                     layer.msg('添加成功!!!');
                 }
-            }, 'SYSTEMDTO');
+            }, 'json');
             return false;
         });
     });
@@ -109,19 +109,19 @@
             if (obj.event === 'edit') {
                 $.post("/section/delete", {id:data.id}, function (res) {
                     updateMessage(res)
-                }, "SYSTEMDTO");
+                }, "json");
             }else if (obj.event === 'drop') {
                 $.post("/section/drop", {id: data.id}, function (res) {
                     updateMessage(res);
-                }, "SYSTEMDTO");
+                }, "json");
             }else if(obj.event === 'hide'){
                 $.post("/section/show", {key: data.id}, function (res) {
                     updateMessage(res);
-                }, "SYSTEMDTO");
+                }, "json");
             }else if(obj.event === 'save'){
                 $.get("/section/update", {id: data.id,name:data.name}, function (res) {
                     updateMessage(res);
-                }, "SYSTEMDTO");
+                }, "json");
             }
         });
 
