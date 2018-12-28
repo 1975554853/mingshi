@@ -39,25 +39,10 @@
 <div class="x-body layui-anim layui-anim-up">
     <form class="layui-form">
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">标题</label>
-            <div class="layui-input-block">
-                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题"
-                       class="layui-input">
-            </div>
-        </div>
 
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                <span class="x-red">*</span>图片(可选)
-            </label>
-            <input type="text" id="url" hidden="hidden" readonly="readonly" name="url">
-            <button type="button" class="layui-btn" id="test1">上传</button>
-            <div class="layui-upload-list" style="padding-left: 110px;">
-                <img class="layui-upload-img" id="demo1" width="200px">
-            </div>
-        </div>
+
+
 
         <!--<div class="layui-form-item">-->
         <!--<div class="layui-inline">-->
@@ -67,15 +52,6 @@
         <!--</div>-->
         <!--</div>-->
         <!--</div>-->
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                <span class="x-red">*</span>分类
-            </label>
-            <input type="button" class="layui-btn" id="openTree1_btn" value="选择分类" />
-            <input type="text" class="layui-btn" name="class" id="openTree1_btn1" readonly="readonly" />
-            <input type="text" hidden="hidden" name="classInfo" id="openTree1_btn2"  />
-        </div>
 
 
         <div class="layui-form-item layui-form-text">
@@ -89,7 +65,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
             <button class="layui-btn" lay-filter="add" lay-submit="">
-                文章发表
+                简介上传
             </button>
         </div>
     </form>
@@ -187,7 +163,7 @@
             let txt = layedit.getContent(editIndex);
             let field = data.field;
             console.log(JSON.stringify(field));
-            $.post("/article/add", {
+            $.post("/office/AddInformation", {
                 classInfo: field.classInfo,
                 title: field.title,
                 txt: txt,

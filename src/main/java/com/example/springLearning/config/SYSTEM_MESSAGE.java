@@ -29,4 +29,5 @@ public class SYSTEM_MESSAGE {
     public static final String SUCCESS_ARTICLE_SUCCESS = "文章上传成功,正在等待审核";
     public static final String FILE_UPLOAD_ADDRESS = "C://image//";
 //    private static final String ERROR_NAME_OFFICE = "办公室名称已存在";
+    public static final String ERROR_CLASS = "简介上传时,简介为必须提交,请重新选择";
 }

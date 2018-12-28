@@ -107,14 +107,13 @@ public class OfficeService {
      *
      * @return
      */
-    @Cacheable
-
-    public HashMap selectAllOffice() {
-        HashMap hashMap = new HashMap();
-        List<Office> offices = officeDao.selectOffice();
-        hashMap.put("data", offices);
-        return hashMap;
-    }
+//    @Cacheable
+//    public HashMap selectAllOffice() {
+//        HashMap hashMap = new HashMap();
+//        List<Office> offices = officeDao.selectOffice();
+//        hashMap.put("data", offices);
+//        return hashMap;
+//    }
 
     @Cacheable
 
