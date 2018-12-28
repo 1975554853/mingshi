@@ -58,7 +58,7 @@ public class ClassificationService {
 
     }
 
-    @Cacheable
+    @Cacheable("selectClassification")
     public Map selectClassification(Integer page, Integer limit) {
 
         List list = new ArrayList();
@@ -91,20 +91,20 @@ public class ClassificationService {
         return classificationDao.updateClass(id, name);
     }
 
-    @Cacheable
+    @Cacheable("selectFatherClass")
     public Object selectFatherClass(Integer officeId) {
         List<Classification> classifications = classificationDao.selectFatherClass(officeId);
         return map.put("data", classifications);
     }
 
-    @Cacheable
+    @Cacheable("queryClassByFatherId")
     public Object queryClassByFatherId(Integer key) {
         List<Classification> classifications = classificationDao.queryClassByFatherId(key);
         return map.put("data", classifications);
 
     }
 
-    @Cacheable
+    @Cacheable("selectClassificationByOfficeId")
     public SYSTEM_DTO selectClassificationByOfficeId(Integer officeId) {
         if (StringUtils.isBlank(officeId + "")) {
             return SYSTEM_DTO.GET_TREE(1, "系统异常,稍后再试", null);
@@ -154,13 +154,12 @@ public class ClassificationService {
 
     }
 
-    @Cacheable
+    @Cacheable("findOfficeByClassInfo")
     public Integer findOfficeByClassInfo(Integer classInfo) {
         return classificationDao.queryOfficeByClassId(classInfo);
     }
 
-    @Cacheable
-
+    @Cacheable("queryClassInfoByFather")
     public void queryClassInfoByFather(List<Classification> father) {
         father.forEach((x) -> {
             Integer id = x.getId();
@@ -169,8 +168,7 @@ public class ClassificationService {
         });
     }
 
-    @Cacheable
-
+    @Cacheable("queryClassInfoByRoot")
     public List<Classification> queryClassInfoByRoot(Integer id, String name) {
 
         // 加载一二级目录
@@ -181,20 +179,17 @@ public class ClassificationService {
 
     }
 
-    @Cacheable
-
+    @Cacheable("queryClassInfoByChildren")
     public Set<Integer> queryClassInfoByChildren(Integer id, String type) {
         return classificationDao.queryClassInfoByChildren(id, type);
     }
 
-    @Cacheable
-
+    @Cacheable("queryClassByFatherName")
     public List<Classification> queryClassByFatherName(Integer id) {
         return classificationDao.queryClassByFatherName(id);
     }
 
-    @Cacheable
-
+    @Cacheable("selectClassificationById")
     public Classification selectClassificationById(Integer value) {
         return classificationDao.findById(value).get();
     }
