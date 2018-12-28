@@ -69,7 +69,7 @@ public class OfficeInformationService {
         if(officeInformation==null){
             return "暂无工作室简介";
         }
-//你好
+
         return officeInformation.getContent()==null ? "暂无工作室简介" : officeInformation.getContent();
     }
 }
