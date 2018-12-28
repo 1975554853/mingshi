@@ -45,6 +45,19 @@ public class UserController {
 
     private Parameter parameter = new Parameter();
 
+    @PostMapping("/reset")
+    @ResponseBody
+    public Map reset( Integer id ){
+        boolean flag = userService.resetPassword(id);
+        Map<String, String> map = new HashMap<String, String>();
+        if (flag) {
+            map.put("type", "OK");
+        } else {
+            map.put("type", "error");
+        }
+        return map;
+    }
+
     @RequestMapping("/login")
     public String login(String username, String password, Model model) {
         Subject subject = SecurityUtils.getSubject();

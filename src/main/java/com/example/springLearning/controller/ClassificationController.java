@@ -66,7 +66,7 @@ public class ClassificationController {
     @RequestMapping("/select")
     @ResponseBody
     public Object select(Integer page , Integer limit ){
-       return classificationService.selectClassification(page,limit);
+       return classificationService.selectClassification( (page-1)*limit , limit);
     }
 
     @Deprecated

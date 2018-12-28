@@ -29,6 +29,7 @@ import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 用户service
@@ -223,4 +224,18 @@ public class UserService {
         User user = userDao.findUserByOfficeId(id);
         return user;
     }
+
+	public boolean resetPassword(Integer id) {
+        // 根据ID查找用户身份证
+        Optional<User> optional = userDao.findById(id);
+        String name = optional.get().getUsername();
+        String card = optional.get().getCard();
+        String pass = card.substring(card.length() - 6);
+        // 对密码进行加密
+        String md5Pass = new SimpleHash("md5", pass, name, 5).toHex();
+        // 修改密码
+        Integer count = userDao.updateUserPasswordById(id, md5Pass);
+        return count>0 ? true : false ;
+        
+	}
 }
