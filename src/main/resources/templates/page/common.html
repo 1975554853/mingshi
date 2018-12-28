@@ -558,11 +558,12 @@
     <ul>
 
         <li><a th:href="@{${application.CDN}+'index/details/'+${office.id} }">首页</a></li>
-
-        <li th:each=" info : ${info} " th:if=" ${ info.name ne '首页' } ">
+        <li><a th:href="@{${application.CDN}+'index/details/'+${office.id} }">工作室简介</a></li>
+        <li><a th:href="@{${application.CDN}+'index/details/'+${office.id} }">成员风采</a></li>
+        <li th:each=" info : ${info} " th:if=" ${ info.name ne '首页' and info.name ne '工作室简介' and info.name ne '成员风采' } ">
 
             <a th:href=" @{${application.CDN}+'index/list/'+${info.office} + '/'+${info.id} + '/1/10' } "
-               th:text="${info.name}">公告</a>
+               th:text="${info.name}"></a>
             <div class="cgzs_nav" th:if=" ${info.children != null} ">
                 <div class="nav_cg" th:each=" children : ${info.children} ">
                     <a th:href="@{${application.CDN}+'index/list/'+${children.office} +'/'+${children.id} + '/1/10' } "
@@ -571,6 +572,7 @@
                     </div>
                 </div>
             </div>
+
         </li>
     </ul>
 </div>

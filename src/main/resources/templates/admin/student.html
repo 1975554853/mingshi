@@ -43,7 +43,7 @@
 
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
-
+        <a class="layui-btn layui-btn-xs" lay-event="reset">重置密码</a>
         {{# if(d.resume === null){ }}
         <a class="layui-btn layui-btn-danger layui-btn-xs">暂无简历</a>
         {{# }else{  }}
@@ -119,6 +119,10 @@
                 $.post("/subject/show", {id: data.id}, function (res) {
                     updateMessage(res);
                 }, "json");
+            }else if(obj.event === 'reset'){
+                $.post("/user/reset", {id: data.id}, function (res) {
+                    updateMessage(res);
+                }, "json");    
             }
         });
 
