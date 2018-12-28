@@ -34,26 +34,19 @@
 <div class="x-body">
     <div class="layui-row">
 
-        <button class="layui-btn" onclick="x_admin_show('发表文章','/officeadd',900,600)"><i
+        <button class="layui-btn" onclick="x_admin_show('上传工作室简介','/officeadd',900,600)"><i
                 class="layui-icon"></i>上传工作室简介
+        </button>
+        <button class="layui-btn" onclick="x_admin_show('工作室简介','/officenformation',900,600)"><i
+                class="layui-icon"></i>工作室简介
         </button>
 
     </div>
-
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="addChildren">分类管理</a>
+    </script>
 
     <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
-
-    <script type="text/html" id="barDemo">
-
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="drop">删除</a>
-
-        {{#  if(d.type == 0){ }}
-        <a class="layui-btn layui-btn-xs">审核通过</a>
-        {{#  }else{              }}
-        <a class="layui-btn layui-btn layui-btn-warm layui-btn-xs">未审核</a>
-        {{#  }      }}
-
-    </script>
 
 
 </div>
@@ -74,55 +67,6 @@
             }, 'SYSTEMDTO');
             return false;
         });
-        //方法级渲染
-        table.render({
-            elem: '#LAY_table_user'
-            , url: '/article/select?type=3'
-            , cols: [
-
-                [
-                    {checkbox: true, fixed: true}
-                    // , {field: 'id', title: 'ID', width: 80, sort: true, fixed: true, align: 'center'}
-                    , {field: 'title', title: '标题', width: 250, align: 'center'}
-                    , {field: 'username', title: '作者', width: 250, align: 'center'}
-                    , {field: 'className', title: '分类', width: 250, align: 'center'}
-                    , {width: 200, title: '操作', align: 'center', toolbar: '#barDemo', fixed: 'right'}
-                ]
-            ]
-            , id: 'testReload'
-            , page: true
-            , height: 500
-            , method: 'get'
-            , response: {
-                statusName: 'status',
-                statusCode: 0,
-                countName: 'total'
-            }
-        });
-
-        table.on('tool(user)', function (obj) {
-            let data = obj.data;
-            // 修改课程方向
-            if (obj.event === 'edit') {
-                $.post("/subject/delete", {id:data.id}, function (res) {
-                    updateMessage(res)
-                }, "SYSTEMDTO");
-            }else if (obj.event === 'drop') {
-                $.post("/user/delete", {key: data.id}, function (res) {
-                    updateMessage(res);
-                }, "SYSTEMDTO");
-            }else if(obj.event === 'hide'){
-                $.post("/subject/show", {id: data.id}, function (res) {
-                    updateMessage(res);
-                }, "SYSTEMDTO");
-            }
-        });
-
-        let $ = layui.$, active = {
-            reload: function () {
-                loadTable();
-            }
-        };
 
         function updateMessage(code) {
             if (code.type === 'OK') {

@@ -2,16 +2,14 @@ package com.example.springLearning.controller;
 
 import com.example.springLearning.config.SYSTEM_DTO;
 import com.example.springLearning.config.SYSTEM_MESSAGE;
+import com.example.springLearning.domain.OfficeInformationService;
 import com.example.springLearning.domain.OfficeService;
 import com.example.springLearning.pojo.DTO;
 import com.example.springLearning.pojo.Office;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +25,8 @@ public class OfficeController {
     public OfficeController(OfficeService officeService) {
         this.officeService = officeService;
     }
+    @Autowired
+    OfficeInformationService officeInformationService;
 
 //    @GetMapping("/page/{page}/{limit}")
 //    public String officePage(@PathVariable Integer page, @PathVariable Integer limit , Model model){
@@ -85,16 +85,16 @@ public class OfficeController {
     }
 
 
-    /**
-     * 获取所有工作室
-     * @author wgb
-     */
-    @RequestMapping("all")
-    @ResponseBody
-    public HashMap getAllOffice(){
-        HashMap result = officeService.selectAllOffice();
-        return result;
-    }
+//    /**
+//     * 获取所有工作室
+//     * @author wgb
+//     */
+//    @RequestMapping("all")
+//    @ResponseBody
+//    public HashMap getAllOffice(){
+//        HashMap result = officeService.selectAllOffice();
+//        return result;
+//    }
 
 
     @RequestMapping("/delete")
@@ -136,4 +136,14 @@ public class OfficeController {
         }
         return hashMap;
     }*/
+   @PostMapping("/AddInformation")
+   @ResponseBody
+   public SYSTEM_DTO add(String txt){
+        return officeInformationService.AddInformation(txt);
+   }
+    @GetMapping("/information")
+    @ResponseBody
+    public Map select(){
+        return officeInformationService.selectInformation();
+    }
 }

@@ -1,7 +1,9 @@
 package com.example.springLearning.controller;
 
+import com.example.springLearning.config.SYSTEM_CONFIG;
 import com.example.springLearning.domain.*;
 import com.example.springLearning.pojo.*;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +38,8 @@ public class IndexController {
     private SubjectService subjectService;
     @Autowired
     private ClassificationService classificationService;
-
+    @Autowired
+    private OfficeInformationService officeInformationService;
     /**
      *
      * @param id 工作室ID
@@ -375,6 +378,15 @@ public class IndexController {
     @GetMapping("/officeadd")
     public String officeAdd() {
         return "admin/officeadd";
+    }
+    @GetMapping("/officenformation")
+    public String officenformation (Model model) {
+        // 加载工作室信息
+        Integer officeId = SYSTEM_CONFIG.getUser().getOfficeId();
+        // 加载工作室简介
+        String text = officeInformationService.findInfoByOfficeId(officeId);
+        model.addAttribute("text",text);
+        return "admin/officenformation";
     }
 
     @GetMapping("/resume")
