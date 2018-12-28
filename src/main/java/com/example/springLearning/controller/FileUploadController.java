@@ -77,26 +77,34 @@ public class FileUploadController {
     }
 
 
+
+    @ResponseBody
+    @RequestMapping("/image")
     public SYSTEM_DTO uploadText(MultipartFile file){
+
         SYSTEM_DTO SYSTEMDTO = new SYSTEM_DTO();
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String data = simpleDateFormat.format(new Date());
-        OSSClient ossClient = new OSSClient(END_POINT, ACCESS_KEY_ID, ACCESS_KEY_SECRET);
-        String fileName = data + "/" +file.getOriginalFilename();
-        BucketReferer bucketReferer = new BucketReferer();
-        ossClient.setBucketReferer(BUCKET_NAME,bucketReferer);
-
+  
+        // 获得文件上传日期
+        String suffix = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        // 上传毫秒
+        long times = System.currentTimeMillis();
+        String fileName = times + file.getOriginalFilename().substring(
+            file.getOriginalFilename().lastIndexOf(".")
+        );
+        File temp = new File(SYSTEM_MESSAGE.FILE_UPLOAD_ADDRESS+suffix+"/"+fileName);
+        if(!temp.getParentFile().exists()){
+            temp.getParentFile().mkdirs();
+        }
+      
         try {
-            ossClient.putObject(BUCKET_NAME, fileName , file.getInputStream() ) ;
+            file.transferTo(temp);
             SYSTEMDTO.setCode(0);
         } catch (IOException e) {
             e.printStackTrace();
             SYSTEMDTO.setCode(1);
         }
 
-        ossClient.shutdown();
-        SYSTEMDTO.getData().put("src","https://netschool.oss-cn-beijing.aliyuncs.com/" + fileName );
+        SYSTEMDTO.getData().put("src",application.getAttribute("CDN")+"files" + File.separator + suffix + File.separator + fileName );
         return SYSTEMDTO;
     }
 

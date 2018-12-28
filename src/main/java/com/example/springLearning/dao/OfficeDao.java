@@ -42,8 +42,8 @@ public interface OfficeDao extends CrudRepository<Office, Integer> {
     Integer updateOffice(@Param("office") Office office);*/
 
     //查询office
-    @Query(value = "from Office order by follows")
-    List<Office> selectOffice();
+    @Query(value = " select * from office ORDER BY follows desc limit ?1 , ?2  " , nativeQuery = true)
+    List<Office> selectOffice(Integer page , Integer limit);
 
     //删除工作室
     @Query(value = "delete from Office where id = ?1")

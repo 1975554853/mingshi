@@ -62,18 +62,21 @@ public class ClassificationService {
     public Map selectClassification(Integer page, Integer limit) {
 
         List list = new ArrayList();
-        PageHelper.startPage(page, limit);
+        Integer count = 1;
+    
         // 查看访问者角色
         if (SecurityUtils.getSubject().hasRole("admin")) {
             // 超级管理员访问 , 查看所有分类 , 实现查询所有工作室
-            list = officeDao.selectOffice();
+            list = officeDao.selectOffice( page,limit );
+            count = officeDao.selectOfficeCount();
+
         } else if (SecurityUtils.getSubject().hasRole("group")) {
             Integer officeId = SYSTEM_CONFIG.getUser().getOfficeId();
             Optional<Office> office = officeDao.findById(officeId);
             list.add(office.get());
+
         }
-        PageInfo pageInfo = new PageInfo(list);
-        return SYSTEM_CONFIG.page(pageInfo);
+        return SYSTEM_CONFIG.getPage(count, list, 0);
     }
 
     @CacheEvict

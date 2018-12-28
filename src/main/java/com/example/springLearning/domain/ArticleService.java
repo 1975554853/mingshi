@@ -120,11 +120,13 @@ public class ArticleService {
         }
     }
 
-    @Cacheable
+    @Cacheable("selectArticle")
     public Map selectArticle(Integer page, Integer limit, Integer type) {
         Map<String, Object> map = new HashMap<>();
         StringBuilder sql = new StringBuilder(" select a.title , u.id   , a.id as author , u.username  ,a.type , c.name as className , c.id as classId from article a inner join user u on a.author = u.id inner join classification c on c.id = a.classification where a.type = ");
+        StringBuilder sqlCount = new StringBuilder(" select count(*) as sum from article a inner join user u on a.author = u.id inner join classification c on c.id = a.classification where a.type = ");
         sql.append(type);
+        sqlCount.append(type);
         // 是不是管理员 , 查看所有文章
         if (!SYSTEM_CONFIG.isAdmin()) {
             User user = SYSTEM_CONFIG.getUser();
@@ -132,15 +134,23 @@ public class ArticleService {
             Integer office = user.getOfficeId();
             if (SYSTEM_CONFIG.isGroup()) {
                 sql.append(" and a.office = " + office);
+                sqlCount.append(" and a.office = " + office);
             }
             if (SecurityUtils.getSubject().hasRole("user")) {
                 sql.append(" and a.author = " + user.getId());
+                sqlCount.append(" and a.author = " + user.getId());
             }
         }
-        PageHelper.startPage(page, limit);
+
+        sql.append(" limit "+(page-1)*limit+" , "+limit);
+
+        List count = entityManager.createNativeQuery(sqlCount.toString()).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        Integer total = Integer.valueOf(((Map) count.get(0)).get("sum").toString());
+
         List list = entityManager.createNativeQuery(sql.toString()).unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
-        PageInfo pageInfo = new PageInfo(list);
-        return SYSTEM_CONFIG.page(pageInfo);
+
+        return SYSTEM_CONFIG.getPage(total, list, 0);
+
     }
     @Cacheable
     public Map selectNoExamine(Integer page, Integer limit) {
